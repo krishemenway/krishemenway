@@ -1,0 +1,5 @@
+.row-fluid
+	.filters.span3
+		=render "movie_filters", :filters => {}
+	.movies.span9
+		=render "movie_list", :movies => @movies

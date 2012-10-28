@@ -1,0 +1,16 @@
+.movie-page.row-fluid
+	.span3= image_tag(@movie.poster.url(:medium))
+	.info.span9
+		%h1.title
+			= @movie.title
+			= link_to "(#{@movie.released.year})", "#"
+		%dl.director-list
+		%dl.writer-list
+		%dl.genre-list
+		%dl.released
+			%dt Release Date
+			%dd= @movie.released.strftime("%B %d, %Y")
+		%dl.length
+			%dt Length
+			%dd= "#{@movie.length / 60} hours, #{@movie.length % 60} minutes"
+		%p.description= @movie.description.html_safe

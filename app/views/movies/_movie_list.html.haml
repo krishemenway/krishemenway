@@ -1,0 +1,6 @@
+%ul.movie-list.unstyled.row-fluid
+	- movies.each do |movie|
+		%li.span3{"data-movie-id" => movie.id}
+			=link_to movie do
+				.title= movie.title
+				=image_tag(movie.poster.url(:thumb))

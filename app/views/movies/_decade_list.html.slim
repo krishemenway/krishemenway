@@ -1,0 +1,5 @@
+ul.decades
+	- @decades.each do |decade|
+		li.decade
+			button.toggle-decade data-decade="#{decade}"
+				= "#{decade}s"

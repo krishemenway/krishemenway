@@ -1,0 +1,15 @@
+=content_for :styles do
+	=stylesheet_link_tag "movies"
+=content_for :scripts do
+	=javascript_include_tag("movies")
+	javascript:
+		$(function(){
+			window.movies = new BrowseMoviesViewModel(#{@movies.to_json.html_safe});
+			ko.applyBindings(window.movies);
+		});
+
+=render "movie_filters", :genres => @genres
+=render "movie_list", :movies => @movies
+
+div class="selected-movie" data-bind="with: currentMovie"
+	=render "show"

@@ -1,0 +1,25 @@
+doctype html
+html
+	head
+		title
+			= yield :title
+		/[if lt IE 9]
+			= javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+		= content_for?(:styles) ? yield(:styles) : stylesheet_link_tag("application")
+		= csrf_meta_tags
+		meta name="viewport" content="width=device-width initial-scale=1.0"
+
+	body
+		.site
+			ul.site-navigation
+				li.frontpage
+					=link_to "/frontpage", root_path
+				li.projects
+					=link_to "/projects", projects_path
+				li.movies
+					=link_to "/movies", movies_path
+				li.tvshows
+					=link_to "/tvshows", tvshows_path
+			= content_for?(:content) ? yield(:content) : yield
+
+		= content_for?(:scripts) ? yield(:scripts) : javascript_include_tag("application")

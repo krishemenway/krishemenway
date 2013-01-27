@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  title: MyString
+  title: Test Movie
   released: 2012-10-28
-  length: 
+  length: 120
   description: MyText
   imdb_id: 
 

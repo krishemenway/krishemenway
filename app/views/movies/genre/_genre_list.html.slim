@@ -1,0 +1,5 @@
+ul.genres
+	- @genres.each do |genre|
+		li.genre
+			button.toggle-genre data-genre-id="#{genre.id}"
+				=genre.name

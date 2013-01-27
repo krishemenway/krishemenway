@@ -1,0 +1,5 @@
+ul.movies data-bind="foreach: movies, visible: shouldShowMovie"
+	li.movie data-bind="click: $root.gotoMovie"
+		span data-bind="text: title"
+		.movie-poster
+			img data-bind="attr:{src: poster_path}"

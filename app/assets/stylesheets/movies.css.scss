@@ -1,6 +1,4 @@
-// Place all the styles related to the Movies controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "application";
 
 .movie-page {
 	img.poster {
@@ -8,21 +6,84 @@
 	}
 }
 
-ul.movie-list {
+$moviesPerRow: 4;
 
-	li {
+.movies {
+	list-style-type: none;
+	@include clearfix();
+
+	.movie {
 		text-align: center;
-		font-size: 14px;
-		text-shadow: 1px 1px 1px #ccc;
-		height: 200px;
 
-		&:nth-child(4n+1) {
-			margin-left: 0;
+		max-height: 200px;
+
+		width: $siteWidth / $moviesPerRow;
+		float: left;
+
+		margin-top: 40px;
+
+		a {
+			color: #E8E8E8;
+			font-size: 16px;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
 		}
 
-		img {
-			box-shadow: 1px 1px 5px #333;
+		.movie-poster {
+			height: 149px;
 			opacity: 0.6;
+			margin-top: 10px;
+		}
+
+		&:hover {
 		}
 	}
+}
+
+.filter {
+	margin: 10px 50px;
+	@include text-overflow();
+	position: relative;
+
+	.genres, .decades {
+		list-style-type: none;
+		margin: 0;
+		clear: left;
+		width: 15000px;
+		position: relative;
+
+		@include transition(all 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+		@include transition-timing-function(cubic-bezier(0.120, 0.460, 0.215, 0.750));
+
+		.genre, .decade {
+			width: 200px;
+			float: left;
+			text-align: center;
+
+			button {
+				@include box-shadow(0);
+				cursor: pointer;
+				background: transparent;
+				color: #E8E8E8;
+				border: 0;
+			}
+		}
+	}
+
+	.back,.forward {
+		@include box-shadow(0);
+		cursor: pointer;
+		position: absolute;
+		background: rgba(30,30,30,.5);
+		color: #E8E8E8;
+		border: 0;
+		height:  100%;
+		z-index: 2;
+	}
+
+	.back { left: 0; }
+	.forward { right: 0; }
 }

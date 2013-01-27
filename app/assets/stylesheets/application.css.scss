@@ -9,8 +9,61 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  */
 
-@import "bootstrap";
-@import "bootstrap-responsive";
+@import "bootstrap/_variables";
+@import "bootstrap/_mixins";
+@import "meyers-reset";
+
+@mixin transition-timing-function($timing-function...) {
+	-webkit-transition-timing-function: $timing-function;
+	-moz-transition-timing-function: $timing-function;
+	-ms-transition-timing-function: $timing-function;
+	-o-transition-timing-function: $timing-function;
+	transition-timing-function: $timing-function;
+}
+
+$siteWidth: 1024px;
+$sideNavigationHeight: 40px;
+
+html, body {
+	background-color: #010101;
+}
+
+a,li,h1,h2,h3,h4,h5,h6,input,button {
+	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.site {
+	max-width: $siteWidth;
+	@include center-block();
+	background-color: rgba(200, 200, 200, .15);
+	padding-top: $sideNavigationHeight;
+}
+
+.site-navigation {
+	@include clearfix();
+
+	height: $sideNavigationHeight;
+	padding: 0 $sideNavigationHeight;
+
+	background-color: rgba(200, 200, 200, .15);
+
+	li {
+		float: left;
+		color: #E8E8E8;
+
+		a {
+			color: #E8E8E8;
+			text-decoration: none;
+			letter-spacing: 2px;
+			padding: $sideNavigationHeight / 4 $sideNavigationHeight / 2;
+			line-height: $sideNavigationHeight;
+			font-size: 18px;
+		}
+
+		&.active, &:hover {
+			background: src('') repeat;
+		}
+	}
+}

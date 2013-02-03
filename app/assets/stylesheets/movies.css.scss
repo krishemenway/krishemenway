@@ -8,6 +8,37 @@
 
 $moviesPerRow: 4;
 
+.selected-movie {
+	$selected-movie-width: 300px;
+
+	background-color: rgba(0,0,0, .8);
+
+	width: $selected-movie-width - 80px;
+	right: $selected-movie-width * -1;
+	padding: 40px;
+	z-index: 1000;
+
+	position: absolute;
+	top: 0;
+
+	@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+
+	&.open {
+		right: 0px;
+
+		@include transition(width 100ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+	}
+
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		width: 25px;
+		height: 25px;
+	}
+}
+
 .movies {
 	list-style-type: none;
 	@include clearfix();
@@ -16,14 +47,13 @@ $moviesPerRow: 4;
 		text-align: center;
 
 		max-height: 200px;
-
+		padding: 20px 0;
 		width: $siteWidth / $moviesPerRow;
 		float: left;
 
-		margin-top: 40px;
+		cursor: pointer;
 
 		a {
-			color: #E8E8E8;
 			font-size: 16px;
 			text-decoration: none;
 
@@ -39,6 +69,7 @@ $moviesPerRow: 4;
 		}
 
 		&:hover {
+			background-color: rgba(0,0,0, .1);
 		}
 	}
 }

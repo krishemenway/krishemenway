@@ -9,14 +9,15 @@ class BrowseMoviesViewModel
 		@movies = ko.observableArray(new MovieViewModel m for m in movies)
 		@currentMovie = ko.observable()
 
-		@shouldShowMovie = (something) ->
-			something = self.currentMovie
-			return false
+		@shouldShowMovie = ko.observable(false)
 
 		@gotoMovie = (movie) ->
-			console.log(self.currentMovie)
+			window.location.hash = movie.title
+			self.shouldShowMovie(true)
 			self.currentMovie(movie)
 
+		@clearMovie = () ->
+			self.shouldShowMovie(false)
 
 class MovieViewModel
 	constructor: (movie) ->

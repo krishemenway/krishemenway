@@ -20,6 +20,7 @@ html
 					=link_to "/movies", movies_path
 				li.tvshows
 					=link_to "/tvshows", tvshows_path
-			= content_for?(:content) ? yield(:content) : yield
+			.content
+				= content_for?(:content) ? yield(:content) : yield
 
 		= content_for?(:scripts) ? yield(:scripts) : javascript_include_tag("application")

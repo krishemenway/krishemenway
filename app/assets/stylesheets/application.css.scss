@@ -30,8 +30,9 @@ html, body {
 	background-color: #010101;
 }
 
-a,li,h1,h2,h3,h4,h5,h6,input,button {
+a,li,h1,h2,h3,h4,h5,h6,input,button,p,ul,span,div {
 	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+	color: #E8E8E8;
 }
 
 .site {
@@ -39,6 +40,12 @@ a,li,h1,h2,h3,h4,h5,h6,input,button {
 	@include center-block();
 	background-color: rgba(200, 200, 200, .15);
 	padding-top: $sideNavigationHeight;
+	position: relative;
+}
+
+.content {
+	position: relative;
+	overflow: hidden;
 }
 
 .site-navigation {

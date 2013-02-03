@@ -11,5 +11,6 @@
 =render "movie_filters", :genres => @genres
 =render "movie_list", :movies => @movies
 
-div class="selected-movie" data-bind="with: currentMovie"
+div class="selected-movie" data-bind="with: currentMovie, css: { open: shouldShowMovie }"
+	button data-bind="click: $root.clearMovie" class="close"
 	=render "show"

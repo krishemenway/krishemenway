@@ -26,7 +26,16 @@ class MovieViewModel
 		@description = movie.description
 		@id = movie.id
 		@length = movie.length
+		console.log movie.movie_book_locations
+		@movie_book_locations = new MovieBookLocationViewModel mbl for mbl in movie.movie_book_locations
 
+class MovieBookLocationViewModel
+	constructor: (movie_book_location) ->
+		#console.log movie_book_location
+		@book_id = movie_book_location.book_id
+		@page_id = movie_book_location.page_id
+
+window.MovieBookLocationViewModel = MovieBookLocationViewModel
 window.BrowseMoviesViewModel = BrowseMoviesViewModel
 window.MovieViewModel = MovieViewModel
 

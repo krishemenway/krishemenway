@@ -4,6 +4,7 @@ class Movie < ActiveRecord::Base
 	before_save :correct_movie_titles
 
 	has_many :genres
+	has_many :movie_book_locations
 
 	validates :poster, :attachment_size => {:in => 0..2.megabytes},
 			  :attachment_content_type => {:content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'image/JPG']}
@@ -19,7 +20,8 @@ class Movie < ActiveRecord::Base
 			description: self.description,
 			length: self.length,
 			released: self.released,
-			poster_path: self.poster.url(:thumb)
+			poster_path: self.poster.url(:thumb),
+			movie_book_locations: self.movie_book_locations.to_json.html_safe
 		}
 	end
 

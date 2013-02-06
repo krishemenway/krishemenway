@@ -1,0 +1,3 @@
+ul.genres data-bind="foreach: genres"
+	li.genre data-bind="click: toggleCheck"
+		span data-bind="text: name, css: {checked: isChecked()}"

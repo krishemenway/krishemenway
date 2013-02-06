@@ -9,32 +9,32 @@
 $moviesPerRow: 4;
 
 .selected-movie {
-	$selected-movie-width: 300px;
+	$selected-movie-width: 490px;
+	$selected-movie-padding: 40px;
 
 	background-color: rgba(0,0,0, .8);
 
-	width: $selected-movie-width - 80px;
-	right: $selected-movie-width * -1;
-	padding: 40px;
-	z-index: 1000;
-
-	position: absolute;
+	padding: $selected-movie-padding;
+	width: $selected-movie-width - $selected-movie-padding * 2;
 	top: 0;
+	bottom: 0px;
+	right: $selected-movie-width * -1;
+
+	position: fixed;
+	z-index: 1000;
 
 	@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 
 	&.open {
 		right: 0px;
-
-		@include transition(width 100ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 	}
 
 	.close {
 		position: absolute;
-		top: 0;
-		right: 0;
+		top: 10px;
+		right: 10px;
 
-		width: 25px;
+		width: 40px;
 		height: 25px;
 	}
 }
@@ -91,15 +91,20 @@ $moviesPerRow: 4;
 
 		.genre, .decade {
 			width: 200px;
+			padding: 10px 0;
 			float: left;
 			text-align: center;
+			cursor: pointer;
 
-			button {
-				@include box-shadow(0);
-				cursor: pointer;
-				background: transparent;
-				color: #E8E8E8;
-				border: 0;
+			.year {
+				.checked {
+					background-image: url('');
+					padding-left: 25px;
+				}
+			}
+
+			&:hover {
+				background-color: rgba(0,0,0,.2);
 			}
 		}
 	}

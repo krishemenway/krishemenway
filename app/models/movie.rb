@@ -15,13 +15,16 @@ class Movie < ActiveRecord::Base
 	end
 
 	def as_json(hii)
+		n = 20
+
 		{
-			title: self.title,
-			description: self.description,
-			length: self.length,
-			released: self.released,
-			poster_path: self.poster.url(:thumb),
-			movie_book_locations: self.movie_book_locations.to_json.html_safe
+			:title => self.title,
+			:description => self.description,
+			:short_description => (self.description || "").split(/\s+/, n+1)[0...n].join(' '),
+			:length => self.length,
+			:released => self.released,
+			:poster_path => self.poster.url(:thumb),
+			:movie_book_locations => self.movie_book_locations.to_json
 		}
 	end
 

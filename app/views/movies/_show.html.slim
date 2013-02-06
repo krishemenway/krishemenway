@@ -4,7 +4,7 @@ img data-bind="attr:{src: poster_path}"
 		.title data-bind="text: title"
 	p.description data-bind="text: description"
 
-	ul.locations data-bind="foreach movie_book_locations"
+	ul.locations data-bind="foreach: movie_book_locations"
 		li.location
 			span data-bind="text: book_id"
 			span data-bind="text: page_id"

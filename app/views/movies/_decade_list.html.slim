@@ -1,5 +1,3 @@
-ul.decades
-	- @decades.each do |decade|
-		li.decade
-			button.toggle-decade data-decade="#{decade}"
-				= "#{decade}s"
+ul.decades data-bind="foreach: decades"
+	li.decade data-bind="click: toggleCheck"
+		span.year data-bind="text: year, css: {checked: isChecked()}"

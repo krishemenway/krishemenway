@@ -5,8 +5,8 @@ class MovieBookLocation < ActiveRecord::Base
 
 	def as_json(hii)
 		{
-			book_id: self.book_id,
-			page_id: self.page_id
+			:book_id => self.book_id,
+			:page_id => self.page_id
 		}
 	end
 end

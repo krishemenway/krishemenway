@@ -8,7 +8,7 @@ namespace :db do
 
 	task :seed => :environment do
 
-		files = ['genres', 'movies', 'movie_book_locations']
+		files = ['genres', 'movie_book_locations']
 
 		files.each do |file|
 			csv_file  = File.join( File.dirname(__FILE__), '..', '..', 'db', 'fixtures', "#{file}.csv" )

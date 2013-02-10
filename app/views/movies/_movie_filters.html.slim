@@ -7,3 +7,7 @@
 		button.back &lt;
 		= render "movies/decade_list"
 		button.forward &gt;
+	.filter data-bind="with: letterFilter"
+		ul.letters data-bind="foreach: letters"
+			li.letter
+				button type="button" data-bind="text: letter, click: toggleCheck, css: {toggled: isChecked()}"

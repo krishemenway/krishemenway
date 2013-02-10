@@ -7,6 +7,7 @@ class BrowseMoviesViewModel
 		@shouldShowFilters = ko.observable(true)
 		@genreFilter = new GenreFiltersViewModel genres
 		@decadeFilter = new DecadeFilterViewModel decades
+		@letterFilter = new LetterFilterViewModel
 
 		@movies_by_genre = ko.observable(new GenreViewModel genre for genre in movies_by_genre)
 		@currentMovie = ko.observable()
@@ -48,6 +49,19 @@ class MovieBookLocationViewModel
 	constructor: (movie_book_location) ->
 		@book_id = movie_book_location.book_id
 		@page_id = movie_book_location.page_id
+
+class LetterFilterViewModel
+	constructor: () ->
+		a = "a".charCodeAt(0)
+		z = "z".charCodeAt(0)
+		@letters = (new LetterViewModel String.fromCharCode(letter) for letter in [a..z])
+
+class LetterViewModel
+	constructor: (letter) ->
+		self = this
+		@letter = letter
+		@isChecked = ko.observable(false)
+		@toggleCheck = -> self.isChecked(!self.isChecked())
 
 class DecadeFilterViewModel
 	constructor: (decades) ->

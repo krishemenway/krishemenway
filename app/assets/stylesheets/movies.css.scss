@@ -130,6 +130,24 @@ $moviesPerRow: 4;
 	@include text-overflow();
 	position: relative;
 
+	.letters {
+		.letter {
+			button {
+				float: left;
+				text-align: center;
+				width: ($siteWidth - 60px) / 26;
+				height: 24px;
+				font-size: 16px;
+
+				&:hover, &.toggled {
+					background-color: rgba(0,0,0,.5);
+					border: 1px solid #191919;
+					border-width: 0 1px;
+				}
+			}
+		}
+	}
+
 	.genres, .decades {
 		list-style-type: none;
 		margin: 0;
@@ -148,6 +166,9 @@ $moviesPerRow: 4;
 			cursor: pointer;
 
 			.year {
+				&:after {
+					content: "s";
+				}
 				.checked {
 					background-image: url('');
 					padding-left: 25px;
@@ -155,7 +176,7 @@ $moviesPerRow: 4;
 			}
 
 			&:hover {
-				background-color: rgba(0,0,0,.2);
+				background-color: rgba(0,0,0,.5);
 			}
 		}
 	}

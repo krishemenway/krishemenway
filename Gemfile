@@ -8,6 +8,7 @@ gem 'thin'
 
 gem 'slim'
 gem 'paperclip'
+gem 'icalendar'
 
 gem 'sqlite3', :group => [:development, :test]
 

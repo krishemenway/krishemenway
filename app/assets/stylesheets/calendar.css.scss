@@ -34,18 +34,23 @@
 
 		@include clearfix();
 
+		&:hover {
+			background-color: rgba(0,0,0,.2);
+			border-color: #191919;
+		}
+
 		.date {
 			float: left;
 			width: 10%;
 			cursor: default;
 
 			.month {
-				font-size: 24px;
+				font-size: 20px;
+				color: #696969;
 			}
 
 			.day-of-month {
-				font-size: 20px;
-				color: #9C9C9C;
+				font-size: 26px;
 			}
 		}
 

@@ -2,6 +2,22 @@ class CalendarController < ApplicationController
 	def index
 		@series = Series.all
 		@events = get_events(DateTime::now.year, DateTime::now.month)
+
+		respond_to do |format|
+			format.html
+			format.ics { render :text => make_ical(Episode.all) }
+		end
+	end
+
+	def make_ical(episodes)
+		@calendar = Icalendar::Calendar.new
+
+		episodes.select do |ep|
+			@calendar.add ep.as_ical
+		end
+
+		@calendar.publish
+		@calendar.to_ical
 	end
 
 	def events

@@ -4,7 +4,7 @@ class Genre < ActiveRecord::Base
 	has_many :movie_genres
 	has_many :movies, :through => :movie_genres
 
-	def as_json(hii)
+	def as_json(options)
 		{
 			:id => self.id,
 			:name => self.name

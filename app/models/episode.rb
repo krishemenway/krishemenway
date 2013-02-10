@@ -5,6 +5,8 @@ class Episode < ActiveRecord::Base
 
 	def as_json(options)
 		{
+			:series_name => self.series.name,
+			:series_id => self.series_id,
 			:title => self.title,
 			:airdate => self.airdate.to_s,
 			:episode_in_season => self.episode_in_season,

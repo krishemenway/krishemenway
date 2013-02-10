@@ -3,11 +3,19 @@ require 'csv'
 
 class RageTVShowDataRetriever
 
-	def load_for_series series
+	def retrieve_csv series
 		series_data_result = open "http://epguides.com/common/exportToCSV.asp?rage=#{series.rage_id}" do |io| data = io.read end
-		series_data = /<pre>([^<]+)<\/pre>/.match(series_data_result)[1].strip
+		return /<pre>([^<]+)<\/pre>/.match(series_data_result)[1].strip
+	end
 
-		CSV.parse(series_data, :headers => :first_row) do |row|
+	def load_all_series_from_rage
+		Series.all.each do |series|
+			load_series_from_rage series
+		end
+	end
+
+	def load_series_from_rage series
+		CSV.parse(retrieve_csv(series), :headers => :first_row) do |row|
 			mappedEpisodeData = {
 				:series_id => series.id,
 				:episode_number => row[0].to_s.to_i,

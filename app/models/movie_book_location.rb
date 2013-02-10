@@ -3,7 +3,7 @@ class MovieBookLocation < ActiveRecord::Base
 
 	belongs_to :movie
 
-	def as_json(hii)
+	def as_json(optionss)
 		{
 			:book_id => self.book_id,
 			:page_id => self.page_id

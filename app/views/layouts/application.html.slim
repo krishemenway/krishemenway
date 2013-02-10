@@ -15,11 +15,13 @@ html
 				li.frontpage
 					=link_to "/frontpage", root_path
 				li.projects
-					=link_to "/projects", projects_path
+					=link_to projects_path, projects_path
 				li.movies
-					=link_to "/movies", movies_path
+					=link_to movies_path, movies_path
 				li.tvshows
-					=link_to "/tvshows", tvshows_path
+					=link_to tvshows_path, tvshows_path
+				li.calendar
+					=link_to calendar_path, calendar_path
 			.content
 				= content_for?(:content) ? yield(:content) : yield
 

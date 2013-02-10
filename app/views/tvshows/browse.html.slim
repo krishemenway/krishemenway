@@ -1,0 +1,10 @@
+= content_for :scripts do
+	= javascript_include_tag("tvshows")
+	javascript:
+		$(function(){
+			window.tvshows = new BrowseTVShowsViewModel(#{@series.to_json.html_safe});
+			ko.applyBindings(window.tvshows);
+		});
+
+ul.series data-bind="foreach: series"
+	li data-bind="text: name"

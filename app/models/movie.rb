@@ -3,7 +3,9 @@ class Movie < ActiveRecord::Base
 	has_attached_file :poster, :styles => {:medium => "300x450>", :thumb => "100x150>"}
 	before_save :correct_movie_titles
 
-	has_many :genres
+	has_many :movie_genres
+	has_many :genres, :through => :movie_genres
+
 	has_many :movie_book_locations
 
 	validates :poster, :attachment_size => {:in => 0..2.megabytes},
@@ -14,17 +16,23 @@ class Movie < ActiveRecord::Base
 		self.poster = File.open(path)
 	end
 
-	def as_json(hii)
-		n = 20
+	def short_description
+		short_description_length = 20
 
+		(self.description || "").split(/\s+/, short_description_length+1)[0...short_description_length].join(' ')
+	end
+
+	def as_json(options)
 		{
 			:title => self.title,
 			:description => self.description,
-			:short_description => (self.description || "").split(/\s+/, n+1)[0...n].join(' '),
+			:short_description => self.short_description,
 			:length => self.length,
 			:released => self.released,
-			:poster_path => self.poster.url(:thumb),
-			:movie_book_locations => self.movie_book_locations.to_json
+			:small_poster_path => self.poster.url(:thumb),
+			:large_poster_path => self.poster.url(:medium),
+			:movie_book_locations => self.movie_book_locations.to_json,
+		    :genres => self.genres.to_json
 		}
 	end
 

@@ -1,12 +1,8 @@
 Movies::Application.routes.draw do
 
-	resources :movies do
-		collection do
-			match 'browse'
-		end
-	end
-
-	match "/tvshows" => "application#frontpage",  :as => "tvshows"
+	match "/calendar" => "calendar#index"
+	match "/movies" => "movies#browse"
+	match "/tvshows" => "tvshows#browse"
 	match "/projects" => "application#frontpage",  :as => "projects"
 	root :to => "application#frontpage"
 end

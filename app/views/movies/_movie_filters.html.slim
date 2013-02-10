@@ -1,8 +1,9 @@
-.filter data-bind="with: genre_filter"
-	button.back &lt;
-	= render "movies/genre_list"
-	button.forward &gt;
-.filter data-bind="with: decade_filter"
-	button.back &lt;
-	= render "movies/decade_list"
-	button.forward &gt;
+.filters data-bind="css: {open: shouldShowFilters}"
+	.filter data-bind="with: genreFilter"
+		button.back &lt;
+		= render "movies/genre_list"
+		button.forward &gt;
+	.filter data-bind="with: decadeFilter"
+		button.back &lt;
+		= render "movies/decade_list"
+		button.forward &gt;

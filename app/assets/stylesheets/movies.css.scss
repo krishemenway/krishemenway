@@ -19,6 +19,7 @@ $moviesPerRow: 4;
 	top: 0;
 	bottom: 0px;
 	right: $selected-movie-width * -1;
+	border-left: 1px solid #252525;
 
 	position: fixed;
 	z-index: 1000;
@@ -36,6 +37,50 @@ $moviesPerRow: 4;
 
 		width: 40px;
 		height: 25px;
+
+		background: transparent;
+		border: 0px;
+
+		cursor: pointer;
+
+		&:after {
+			content: "X";
+			color: "#F8F8F8";
+			font-size: 24px;
+			font-family: "Verdana";
+		}
+	}
+
+	.title {
+		text-align: center;
+		font-size: 24px;
+		margin-bottom: 20px;
+	}
+
+	.poster {
+		min-width: 80%;
+		display: block;
+		margin: 0 auto;
+	}
+
+	.locations {
+		margin: 20px 0;
+	}
+
+	.book,.page {
+		width: 44%;
+		margin: 0 3%;
+		float:left;
+	}
+
+	.book { text-align: right;}
+}
+
+.movie-genres {
+	.movie-genre {
+		.name {
+			font-size: 24px;
+		}
 	}
 }
 
@@ -74,8 +119,14 @@ $moviesPerRow: 4;
 	}
 }
 
+.filters {
+	background-color: rgba(0,0,0,.5);
+	border-bottom: 10px solid #383838;
+}
+
 .filter {
-	margin: 10px 50px;
+	margin: 0 30px;
+	padding: 10px 0;
 	@include text-overflow();
 	position: relative;
 
@@ -118,6 +169,8 @@ $moviesPerRow: 4;
 		border: 0;
 		height:  100%;
 		z-index: 2;
+		top: 0;
+		bottom: 0;
 	}
 
 	.back { left: 0; }

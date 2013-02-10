@@ -1,34 +1,43 @@
-#= require jquery
-#= require jquery_ujs
-#= require knockout
+#= require application
 
 class BrowseMoviesViewModel
-	constructor: (movies, genres, decades) ->
+	constructor: (movies_by_genre, genres, decades) ->
 		self = this
 
-		@genre_filter = new GenreFilterViewModel genres
-		@decade_filter = new DecadeFilterViewModel decades
+		@shouldShowFilters = ko.observable(true)
+		@genreFilter = new GenreFiltersViewModel genres
+		@decadeFilter = new DecadeFilterViewModel decades
 
-		@movies = ko.observableArray(new MovieViewModel m for m in movies)
+		@movies_by_genre = ko.observable(new GenreViewModel genre for genre in movies_by_genre)
 		@currentMovie = ko.observable()
-
-		@shouldShowMovie = ko.observable(false)
+		@secondMovie = ko.observable()
 
 		@gotoMovie = (movie) ->
 			window.location.hash = movie.title
-			self.shouldShowMovie(true)
-			self.currentMovie(movie) if self.currentMovie() != movie
+			return if self.currentMovie() == movie or self.secondMovie() == movie
+
+			if self.currentMovie()
+				self.currentMovie(undefined)
+				self.secondMovie(movie)
+			else
+				self.currentMovie(movie)
+				self.secondMovie(undefined)
+
+		@clearMovieOnEsc = (event) ->
+			key = event.which if event.which else event.keyCode
+			self.clearMovie if key == 13
 
 		@clearMovie = () ->
-			self.shouldShowMovie(false)
-
-		@top_movies = ko.computed ->
-			self.movies.slice(0,20)
+			if self.currentMovie()
+				self.currentMovie(undefined)
+			else
+				self.secondMovie(undefined)
 
 class MovieViewModel
 	constructor: (movie) ->
 		@title = movie.title
-		@poster_path = movie.poster_path
+		@small_poster_path = movie.small_poster_path
+		@large_poster_path = movie.large_poster_path
 		@description = movie.description
 		@short_description = movie.short_description
 		@id = movie.id
@@ -44,16 +53,22 @@ class DecadeFilterViewModel
 	constructor: (decades) ->
 		@decades = ko.observableArray(new DecadeViewModel d for d in decades)
 
-class GenreFilterViewModel
+class GenreFiltersViewModel
 	constructor: (genres) ->
-		@genres = ko.observableArray(new GenreViewModel g for g in genres)
+		@genres = ko.observableArray(new GenreFilterViewModel g for g in genres)
 
-class GenreViewModel
+class GenreFilterViewModel
 	constructor: (genre) ->
 		self = this
 		@name = genre.name
 		@isChecked = ko.observable(false)
 		@toggleCheck = -> self.isChecked(!self.isChecked())
+
+class GenreViewModel
+	constructor: (genre) ->
+		@name = genre.name
+		@id = genre.id
+		@movies = ko.observableArray(new MovieViewModel m for m in genre.movies)
 
 class DecadeViewModel
 	constructor: (decade) ->

@@ -1,0 +1,19 @@
+= content_for :styles do
+	= stylesheet_link_tag "movies"
+= content_for :scripts do
+	= javascript_include_tag("movies")
+	javascript:
+		$(function(){
+			window.movies = new BrowseMoviesViewModel(#{@movies_by_genre.to_json.html_safe}, #{@genres.to_json.html_safe}, #{@decades.to_json.html_safe});
+			ko.applyBindings(window.movies);
+		});
+
+= render "movie_filters"
+= render "movie_list"
+
+div class="selected-movie" data-bind="with: currentMovie, css: { open: currentMovie() != undefined }"
+	button data-bind="click: $root.clearMovie" class="close"
+	= render "show"
+div class="selected-movie" data-bind="with: secondMovie, css: { open: secondMovie() != undefined }"
+	button data-bind="click: $root.clearMovie" class="close"
+	= render "show"

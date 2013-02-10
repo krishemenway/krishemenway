@@ -1,10 +1,14 @@
-img data-bind="attr:{src: poster_path}"
-.info.span9
-	h1
-		.title data-bind="text: title"
-	p.description data-bind="text: description"
+h1.title data-bind="text: title"
 
-	ul.locations data-bind="foreach: movie_book_locations"
-		li.location
+img.poster data-bind="attr:{src: large_poster_path}"
+
+ul.locations data-bind="foreach: movie_book_locations"
+	li.location
+		.book
+			span Book:
 			span data-bind="text: book_id"
+		.page
+			span Page:
 			span data-bind="text: page_id"
+
+p.description data-bind="text: description"

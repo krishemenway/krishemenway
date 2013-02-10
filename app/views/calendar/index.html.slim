@@ -1,0 +1,14 @@
+= content_for :scripts do
+	= javascript_include_tag("calendar")
+	javascript:
+		$(function(){
+			window.calendar = new CalendarViewModel();
+			ko.applyBindings(window.calendar);
+		});
+
+.previousMonth data-bind="text: lastMonthName()"
+.currentMonth data-bind="text: currentMonthName()"
+.nextMonth data-bind="text: nextMonthName()"
+
+ul.days data-bind="foreach: days"
+	li.day

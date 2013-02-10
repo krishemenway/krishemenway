@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203220904) do
+ActiveRecord::Schema.define(:version => 20130208055814) do
+
+  create_table "episodes", :force => true do |t|
+    t.string   "title"
+    t.integer  "season"
+    t.integer  "episode_number"
+    t.integer  "episode_in_season"
+    t.string   "production_number"
+    t.date     "airdate"
+    t.integer  "series_id"
+    t.string   "rage_url"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -28,6 +41,13 @@ ActiveRecord::Schema.define(:version => 20130203220904) do
     t.integer  "movie_id"
     t.integer  "book_id"
     t.integer  "page_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "movie_genres", :force => true do |t|
+    t.integer  "movie_id"
+    t.integer  "genre_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -50,6 +70,13 @@ ActiveRecord::Schema.define(:version => 20130203220904) do
     t.string   "first_name"
     t.string   "last_name"
     t.date     "dob"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "series", :force => true do |t|
+    t.string   "name"
+    t.integer  "rage_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

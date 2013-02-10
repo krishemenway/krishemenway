@@ -1,3 +1,5 @@
+= content_for :styles do
+	= stylesheet_link_tag("calendar")
 = content_for :scripts do
 	= javascript_include_tag("calendar")
 	javascript:
@@ -6,9 +8,12 @@
 			ko.applyBindings(window.calendar);
 		});
 
-.previousMonth data-bind="text: lastMonthName()"
-.currentMonth data-bind="text: currentMonthName()"
-.nextMonth data-bind="text: nextMonthName()"
+ul.months
+	li
+		button.previousMonth type="button" data-bind="text: lastMonthName(), click: gotoLastMonth"
+	li.currentMonth data-bind="text: currentMonthName()"
+	li
+		button.nextMonth type="button" data-bind="text: nextMonthName(), click: gotoNextMonth"
 
 ul.days data-bind="foreach: days"
 	li.day

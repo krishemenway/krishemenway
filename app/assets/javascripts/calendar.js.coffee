@@ -25,4 +25,10 @@ class CalendarViewModel
 
 		@days = ko.observableArray
 
+		@gotoNextMonth = ->
+			self.currentMonth(self.nextMonth())
+
+		@gotoLastMonth = ->
+			self.currentMonth(self.lastMonth())
+
 window.CalendarViewModel = CalendarViewModel

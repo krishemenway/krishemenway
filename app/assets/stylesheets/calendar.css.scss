@@ -1,0 +1,19 @@
+@import "application";
+
+.months {
+	li:first-child { text-align: right; }
+	li:last-child { text-align: left; }
+
+	li {
+		float: left;
+		width: 33.333333333333333332%;
+		text-align: center;
+		font-size: 24px;
+		line-height: 24px;
+
+		button {
+			line-height: 24px;
+			font-size: 20px;
+		}
+	}
+}

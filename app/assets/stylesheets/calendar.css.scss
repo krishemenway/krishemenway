@@ -37,6 +37,7 @@
 		.date {
 			float: left;
 			width: 10%;
+			cursor: default;
 
 			.month {
 				font-size: 24px;
@@ -60,6 +61,9 @@
 			bottom: 3px;
 			right: 3px;
 			text-transform: uppercase;
+			font-weight: bold;
+			letter-spacing: 2px;
+			cursor: default;
 		}
 	}
 

@@ -99,6 +99,12 @@ button {
 		float: left;
 		color: #E8E8E8;
 
+		&.frontpage {
+			@include respond-to(phone) {
+				display: none;
+			}
+		}
+
 		a {
 			color: #E8E8E8;
 			text-decoration: none;

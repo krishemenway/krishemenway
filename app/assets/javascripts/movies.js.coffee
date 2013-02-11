@@ -1,17 +1,26 @@
 #= require application
 
 class BrowseMoviesViewModel
-	constructor: (movies_by_genre, genres, decades) ->
+	constructor: (movies, genres, decades) ->
 		self = this
+
+		@createMovies = (movies) ->
+			return (new MovieViewModel movie for movie in movies)
 
 		@shouldShowFilters = ko.observable(true)
 		@genreFilter = new GenreFiltersViewModel genres
 		@decadeFilter = new DecadeFilterViewModel decades
-		@letterFilter = new LetterFilterViewModel
+		@letterFilter = new LetterFilterViewModel self
 
-		@movies_by_genre = ko.observable(new GenreViewModel genre for genre in movies_by_genre)
+		@movies = ko.observableArray(self.createMovies(movies))
+
 		@currentMovie = ko.observable()
 		@secondMovie = ko.observable()
+
+		@reloadMovies = () ->
+			movie_filters = {letter: self.letterFilter.getSelectedLetter()}
+			$.get "/movies.json", movie_filters, (movies) ->
+				self.movies(self.createMovies(movies))
 
 		@gotoMovie = (movie) ->
 			window.location.hash = movie.title
@@ -51,17 +60,33 @@ class MovieBookLocationViewModel
 		@page_id = movie_book_location.page_id
 
 class LetterFilterViewModel
-	constructor: () ->
+	constructor: (browseMoviesViewModel) ->
+		self = this
 		a = "a".charCodeAt(0)
 		z = "z".charCodeAt(0)
-		@letters = (new LetterViewModel String.fromCharCode(letter) for letter in [a..z])
+		@browseMoviesViewModel = browseMoviesViewModel
+		@letters = (new LetterViewModel String.fromCharCode(letter), self for letter in [a..z])
+
+		@reloadMovies = ->
+			self.browseMoviesViewModel.reloadMovies()
+
+		@getSelectedLetter = ->
+			letters = self.letters.filter((letterViewModel) -> letterViewModel.isChecked())
+			return letters[0].letter
+
+		@clearAll = ->
+			letter.isChecked(false) for letter in self.letters
 
 class LetterViewModel
-	constructor: (letter) ->
+	constructor: (letter, filterViewModel) ->
 		self = this
+		@filterViewModel = filterViewModel
 		@letter = letter
 		@isChecked = ko.observable(false)
-		@toggleCheck = -> self.isChecked(!self.isChecked())
+		@toggleCheck = ->
+			self.filterViewModel.clearAll()
+			self.isChecked(!self.isChecked())
+			self.filterViewModel.reloadMovies()
 
 class DecadeFilterViewModel
 	constructor: (decades) ->

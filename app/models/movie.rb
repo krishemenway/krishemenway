@@ -11,6 +11,10 @@ class Movie < ActiveRecord::Base
 	validates :poster, :attachment_size => {:in => 0..2.megabytes},
 			  :attachment_content_type => {:content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'image/JPG']}
 
+	def self.that_starts_with(start_with_string)
+		where("title like ?", (start_with_string || "") + "%")
+	end
+
 	def set_poster_by_filename=(filename)
 		path = File.join(Rails.root, "app", "assets", "images", "posters", filename)
 		self.poster = File.open(path)
@@ -18,7 +22,6 @@ class Movie < ActiveRecord::Base
 
 	def short_description
 		short_description_length = 20
-
 		(self.description || "").split(/\s+/, short_description_length+1)[0...short_description_length].join(' ')
 	end
 

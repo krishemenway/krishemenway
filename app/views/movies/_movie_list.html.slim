@@ -1,8 +1,5 @@
-ul.movie-genres data-bind="foreach: movies_by_genre"
-	li.movie-genre
-		h2.name data-bind="text: name"
-		ul.movies data-bind="foreach: movies"
-			li.movie data-bind="click: $root.gotoMovie"
-				span data-bind="text: title"
-				.movie-poster
-					img data-bind="attr:{src: small_poster_path}"
+ul.movies data-bind="foreach: movies"
+	li.movie data-bind="click: $root.gotoMovie"
+		span data-bind="text: title"
+		.movie-poster
+			img data-bind="attr:{src: small_poster_path}"

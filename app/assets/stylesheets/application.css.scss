@@ -89,8 +89,8 @@ button {
 	height: $sideNavigationHeight;
 	padding: 0 $sideNavigationHeight;
 
-	@media screen and (max-width: 480px) {
-		padding: 0 10px;
+	@include respond-to(phone) {
+		padding: 0 5px;
 	}
 
 	background-color: rgba(200, 200, 200, .15);

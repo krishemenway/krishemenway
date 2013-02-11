@@ -1,0 +1,13 @@
+@import "application";
+
+.serieses {
+	@include clearfix();
+
+	.series {
+		float: left;
+
+		button {
+			padding: 50px 40px 30px 40px;
+		}
+	}
+}

@@ -44,9 +44,17 @@
 			width: 10%;
 			cursor: default;
 
+			@include respond-to(phone) {
+				width: 15%;
+			}
+
 			.month {
 				font-size: 20px;
 				color: #696969;
+
+				@include respond-to(phone) {
+					display: none;
+				}
 			}
 
 			.day-of-month {
@@ -57,6 +65,10 @@
 		.events {
 			float: left;
 			width: 90%;
+
+			@include respond-to(phone) {
+				width: 85%;
+			}
 		}
 
 		.day-of-week {
@@ -69,6 +81,10 @@
 			font-weight: bold;
 			letter-spacing: 2px;
 			cursor: default;
+
+			@include respond-to(phone) {
+				color: rgba(0,0,0,.1);
+			}
 		}
 	}
 

@@ -1,3 +1,6 @@
+= content_for :styles do
+	= stylesheet_link_tag("tvshows")
+
 = content_for :scripts do
 	= javascript_include_tag("tvshows")
 	javascript:
@@ -6,5 +9,18 @@
 			ko.applyBindings(window.tvshows);
 		});
 
-ul.series data-bind="foreach: series"
-	li data-bind="text: name"
+ul.serieses data-bind="foreach: series"
+	li.series
+		button data-bind="text: name, click: $root.gotoSeries"
+
+.current-series data-bind="with: currentSeries"
+	ul.seasons data-bind="foreach: seasons"
+		li.season
+			h3 data-bind="text: 'Season ' + season_number"
+			ul.episodes data-bind="foreach: episodes"
+				li.episodes data-bind="click: $root.gotoEpisode"
+					.title data-bind="text: title"
+					.episode-number data-bind="text: episodeNumber()"
+
+.current-episode data-bind="with: currentEpisode"
+	.title data-bind="text: title"

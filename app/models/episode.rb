@@ -3,6 +3,10 @@ class Episode < ActiveRecord::Base
 	include Icalendar
 	attr_accessible :airdate, :episode_in_season, :episode_number, :production_number, :season, :series_id, :title, :rage_url
 
+	validates :episode_number, :presence => true
+	validates :season, :presence => true
+	validates :episode_in_season, :presence => true
+
  	belongs_to :series
 
 	def as_ical

@@ -70,10 +70,11 @@ button {
 	position: relative;
 
 	@include respond-to(tablet) {
-		width: 768px;
+		width: $tabletWidth;
 	}
 	@include respond-to(phone) {
-		width: 420px;
+		width: 100%;
+		padding-top: 20px;
 	}
 }
 

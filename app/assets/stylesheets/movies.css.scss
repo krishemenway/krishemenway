@@ -51,6 +51,7 @@ $moviesPerRow: 4;
 		border: 0px;
 
 		cursor: pointer;
+		z-index: 5;
 
 		&:after {
 			content: "X";

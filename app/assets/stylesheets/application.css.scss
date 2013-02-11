@@ -23,7 +23,26 @@
 	transition-timing-function: $timing-function;
 }
 
-$siteWidth: 1024px;
+$phoneWidth: 480px;
+$tabletWidth: 768px;
+$desktopWidth: 1024px;
+
+@mixin respond-to($media) {
+	@if $media == desktop {
+		@media only screen and (min-width: $desktopWidth) { @content; }
+	}
+	@else if $media == tablet {
+		@media only screen and (max-width: $desktopWidth - 1) and (min-width: $phoneWidth + 1) { @content; }
+	}
+	@else if $media == phone {
+		@media only screen and (max-width: $phoneWidth) { @content; }
+	}
+	@else if $media == mobile {
+		@media only screen and (max-width: $tabletWidth - 1) { @content; }
+	}
+}
+
+$siteWidth: $desktopWidth;
 $sideNavigationHeight: 40px;
 
 html, body {
@@ -49,6 +68,13 @@ button {
 	background-color: rgba(200, 200, 200, .15);
 	padding-top: $sideNavigationHeight;
 	position: relative;
+
+	@include respond-to(tablet) {
+		width: 768px;
+	}
+	@include respond-to(phone) {
+		width: 420px;
+	}
 }
 
 .content {
@@ -61,6 +87,10 @@ button {
 
 	height: $sideNavigationHeight;
 	padding: 0 $sideNavigationHeight;
+
+	@media screen and (max-width: 480px) {
+		padding: 0 10px;
+	}
 
 	background-color: rgba(200, 200, 200, .15);
 
@@ -75,10 +105,20 @@ button {
 			padding: $sideNavigationHeight / 4 $sideNavigationHeight / 2;
 			line-height: $sideNavigationHeight;
 			font-size: 18px;
+
+			@include respond-to(tablet) {
+				font-size: 16px;
+				letter-spacing: normal;
+			}
+
+			@include respond-to(phone) {
+				font-size: 14px;
+				letter-spacing: normal;
+				padding: 8px;
+			}
 		}
 
 		&.active, &:hover {
-			background: src('') repeat;
 		}
 	}
 }

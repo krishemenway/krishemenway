@@ -1,7 +1,4 @@
-= content_for :styles do
-	= stylesheet_link_tag "movies"
 = content_for :scripts do
-	= javascript_include_tag("movies")
 	javascript:
 		$(function(){
 			window.movies = new BrowseMoviesViewModel(#{@movies.to_json.html_safe}, #{@genres.to_json.html_safe}, #{@decades.to_json.html_safe});

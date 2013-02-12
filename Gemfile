@@ -27,12 +27,12 @@ end
 
 # Gems used only for assets and not required
 # in production environments by default.
-#group :assets do
+group :assets do
 	gem 'bootstrap-sass'
 	gem 'sass-rails'
 	gem 'coffee-rails'
 
 	gem 'uglifier', '>= 1.0.3'
-#end
+end
 
 gem 'jquery-rails'

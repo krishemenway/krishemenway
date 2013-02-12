@@ -1,4 +1,3 @@
-#= require application
 
 class BrowseMoviesViewModel
 	constructor: (movies, genres, decades) ->

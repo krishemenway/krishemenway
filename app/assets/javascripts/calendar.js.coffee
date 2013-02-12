@@ -1,5 +1,3 @@
-#= require application
-#= require jquery-ui
 
 class CalendarViewModel
 	constructor: (initial_events) ->

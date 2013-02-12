@@ -1,4 +1,3 @@
-@import "application";
 
 .movie-page {
 	img.poster {
@@ -17,7 +16,7 @@ $moviesPerRow: 4;
 	padding: $selected-movie-padding;
 	width: $selected-movie-width - $selected-movie-padding * 2;
 	top: 0;
-	bottom: 0px;
+	bottom: 0;
 	right: $selected-movie-width * -1;
 	border-left: 1px solid #252525;
 

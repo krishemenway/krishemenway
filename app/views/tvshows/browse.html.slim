@@ -1,8 +1,4 @@
-= content_for :styles do
-	= stylesheet_link_tag("tvshows")
-
 = content_for :scripts do
-	= javascript_include_tag("tvshows")
 	javascript:
 		$(function(){
 			window.tvshows = new BrowseTVShowsViewModel(#{@series.to_json.html_safe});

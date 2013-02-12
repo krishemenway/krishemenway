@@ -1,4 +1,3 @@
-#= require application
 
 class BrowseTVShowsViewModel
 	constructor: (serieses) ->
@@ -37,7 +36,5 @@ class EpisodeViewModel
 
 		@episodeNumber = ko.computed ->
 			return self.season + "x" + self.episode_in_season
-
-
 
 window.BrowseTVShowsViewModel = BrowseTVShowsViewModel

@@ -11,4 +11,8 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery
+#= require jquery-ui
 #= require knockout
+#= require movies
+#= require tvshows
+#= require calendar

@@ -18,8 +18,10 @@ class Movie < ActiveRecord::Base
 	end
 
 	def set_poster_by_filename=(filename)
-		path = "http://coyotesrestaurant.com/krishemenway/movies/images/movies/#{filename}"
-		self.poster = open(path)
+		path = URI.escape("http://coyotesrestaurant.com/krishemenway/movies/images/movies/#{filename}")
+		file = open(path)
+		def file.original_filename; base_uri.path.split('/').last end
+		self.poster = file
 	end
 
 	def short_description

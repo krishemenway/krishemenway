@@ -5,7 +5,7 @@
 			ko.applyBindings(window.tvshows);
 		});
 
-ul.serieses data-bind="foreach: series"
+ul.serieses data-bind="foreach: series, stripe: series, evenClass: 'left', oddClass: 'right'"
 	li.series
 		button data-bind="text: name, click: $root.gotoSeries"
 

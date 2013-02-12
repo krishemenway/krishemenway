@@ -1,12 +1,19 @@
 
 .serieses {
-	@include clearfix();
 
 	.series {
-		float: left;
+		&.left button {
+			text-align: left;
+		}
+		&.right button {
+			text-align: right;
+		}
 
 		button {
-			padding: 50px 40px 30px 40px;
+			font-size: 36px;
+			display: block;
+			width: 100%;
+			padding: 50px;
 		}
 	}
 }

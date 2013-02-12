@@ -16,8 +16,7 @@ class SeriesViewModel
 	constructor: (series) ->
 		@name = series.name
 		@id = series.id
-		something = (new SeasonViewModel season, episodes for season, episodes of series.seasons)
-		@seasons = ko.observableArray something
+		@seasons = ko.observableArray (new SeasonViewModel season, episodes for season, episodes of series.seasons)
 
 class SeasonViewModel
 	constructor: (season, episodes) ->

@@ -16,3 +16,4 @@
 #= require movies
 #= require tvshows
 #= require calendar
+#= require_directory ./binding_handlers

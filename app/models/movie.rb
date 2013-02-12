@@ -19,7 +19,7 @@ class Movie < ActiveRecord::Base
 
 	def set_poster_by_filename=(filename)
 		path = "http://coyotesrestaurant.com/krishemenway/movies/images/movies/#{filename}"
-		self.poster = File.open(path)
+		self.poster = open(path)
 	end
 
 	def short_description

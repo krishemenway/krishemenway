@@ -1,3 +1,5 @@
+require "open-uri"
+
 class Movie < ActiveRecord::Base
 	attr_accessible :description, :imdb_id, :length, :released, :title, :id, :set_poster_by_filename
 	has_attached_file :poster, :styles => {:medium => "300x450>", :thumb => "100x150>"}
@@ -16,7 +18,7 @@ class Movie < ActiveRecord::Base
 	end
 
 	def set_poster_by_filename=(filename)
-		path = File.join(Rails.root, "app", "assets", "images", "posters", filename)
+		path = "http://coyotesrestaurant.com/krishemenway/movies/images/movies/#{filename}"
 		self.poster = File.open(path)
 	end
 

@@ -11,17 +11,12 @@ gem 'aws-sdk'
 
 gem 'sqlite3', :group => [:development, :test]
 
-group :production do
-	gem 'pg'
-end
-
 group :test do
 	gem 'rspec'
 end
 
-group :development do
-	# To use debugger
-	# gem 'debugger'
+group :production do
+	gem 'pg'
 end
 
 gem 'bootstrap-sass'

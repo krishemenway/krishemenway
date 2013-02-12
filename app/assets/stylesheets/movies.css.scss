@@ -145,7 +145,7 @@ $moviesPerRow: 4;
 }
 
 .filter {
-	$filterMargin: 30px;
+	$filterMargin: 10px;
 	margin: 0 $filterMargin;
 	padding: 10px 0;
 	@include text-overflow();
@@ -156,7 +156,7 @@ $moviesPerRow: 4;
 			button {
 				float: left;
 				text-align: center;
-				width: ($siteWidth - 60px) / 26;
+				width: ($siteWidth - $filterMargin * 2) / 26;
 				min-height: 24px;
 				font-size: 16px;
 
@@ -221,6 +221,7 @@ $moviesPerRow: 4;
 		z-index: 2;
 		top: 0;
 		bottom: 0;
+		width: 35px;
 	}
 
 	.back { left: 0; }

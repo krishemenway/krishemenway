@@ -7,8 +7,10 @@ gem 'thin'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'slim'
-gem 'paperclip'
 gem 'icalendar'
+
+gem 'paperclip'
+gem 'aws-sdk'
 
 gem 'sqlite3', :group => [:development, :test]
 

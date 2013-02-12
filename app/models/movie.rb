@@ -14,7 +14,7 @@ class Movie < ActiveRecord::Base
 			  :attachment_content_type => {:content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'image/JPG']}
 
 	def self.that_starts_with(start_with_string)
-		where("title like ?", (start_with_string || "") + "%")
+		where("lower(title) like lower(?)", (start_with_string || "") + "%")
 	end
 
 	def set_poster_by_filename=(filename)

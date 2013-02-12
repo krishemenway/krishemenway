@@ -7,8 +7,8 @@ class BrowseMoviesViewModel
 			return (new MovieViewModel movie for movie in movies)
 
 		@shouldShowFilters = ko.observable(true)
-		@genreFilter = new GenreFiltersViewModel genres
-		@decadeFilter = new DecadeFilterViewModel decades
+		@genreFilter = new GenreFiltersViewModel genres, self
+		@decadeFilter = new DecadeFilterViewModel decades, self
 		@letterFilter = new LetterFilterViewModel self
 
 		@movies = ko.observableArray(self.createMovies(movies))
@@ -17,7 +17,10 @@ class BrowseMoviesViewModel
 		@secondMovie = ko.observable()
 
 		@reloadMovies = () ->
-			movie_filters = {letter: self.letterFilter.getSelectedLetter()}
+			movie_filters =
+				letter: self.letterFilter.getSelectedLetter(),
+				genres: self.genreFilter.getSelected()
+
 			$.get "/movies.json", movie_filters, (movies) ->
 				self.movies(self.createMovies(movies))
 
@@ -59,61 +62,65 @@ class MovieBookLocationViewModel
 		@page_id = movie_book_location.page_id
 
 class LetterFilterViewModel
-	constructor: (browseMoviesViewModel) ->
+	constructor: (filterViewModel) ->
 		self = this
 		a = "a".charCodeAt(0)
 		z = "z".charCodeAt(0)
-		@browseMoviesViewModel = browseMoviesViewModel
-		@letters = (new LetterViewModel String.fromCharCode(letter), self for letter in [a..z])
-
-		@reloadMovies = ->
-			self.browseMoviesViewModel.reloadMovies()
+		@letters = (new LetterViewModel String.fromCharCode(letter), self, filterViewModel for letter in [a..z])
 
 		@getSelectedLetter = ->
 			letters = self.letters.filter((letterViewModel) -> letterViewModel.isChecked())
-			return letters[0].letter
+			return if letters.length == 0 then "" else letters[0].letter
 
 		@clearAll = ->
 			letter.isChecked(false) for letter in self.letters
 
+class DecadeFilterViewModel
+	constructor: (decades, filterViewModel) ->
+		self = this
+		@decades = ko.observableArray(new DecadeViewModel d, filterViewModel for d in decades)
+
+class GenreFiltersViewModel
+	constructor: (genres, filterViewModel) ->
+		self = this
+		@genres = ko.observableArray(new GenreFilterViewModel g, filterViewModel for g in genres)
+		@getSelected = ->
+			return (self.genres().filter((genreViewModel) -> genreViewModel.isChecked()) || []).map (genre) ->
+				return genre.id
+
 class LetterViewModel
-	constructor: (letter, filterViewModel) ->
+	constructor: (letter, lettersFilterViewModel, filterViewModel) ->
 		self = this
 		@filterViewModel = filterViewModel
+		@lettersFilterViewModel = lettersFilterViewModel
 		@letter = letter
 		@isChecked = ko.observable(false)
 		@toggleCheck = ->
-			self.filterViewModel.clearAll()
+			isChecked = self.isChecked()
+			self.lettersFilterViewModel.clearAll()
+			self.isChecked(!isChecked)
+			self.filterViewModel.reloadMovies()
+
+class GenreFilterViewModel
+	constructor: (genre, filterViewModel) ->
+		self = this
+		@filterViewModel = filterViewModel
+		@name = genre.name
+		@id = genre.id
+		@isChecked = ko.observable(false)
+		@toggleCheck = ->
 			self.isChecked(!self.isChecked())
 			self.filterViewModel.reloadMovies()
 
-class DecadeFilterViewModel
-	constructor: (decades) ->
-		@decades = ko.observableArray(new DecadeViewModel d for d in decades)
-
-class GenreFiltersViewModel
-	constructor: (genres) ->
-		@genres = ko.observableArray(new GenreFilterViewModel g for g in genres)
-
-class GenreFilterViewModel
-	constructor: (genre) ->
-		self = this
-		@name = genre.name
-		@isChecked = ko.observable(false)
-		@toggleCheck = -> self.isChecked(!self.isChecked())
-
-class GenreViewModel
-	constructor: (genre) ->
-		@name = genre.name
-		@id = genre.id
-		@movies = ko.observableArray(new MovieViewModel m for m in genre.movies)
-
 class DecadeViewModel
-	constructor: (decade) ->
+	constructor: (decade, filterViewModel) ->
 		self = this
 		@year = decade
+		@filterViewModel = filterViewModel
 		@isChecked = ko.observable(false)
-		@toggleCheck = -> self.isChecked(!self.isChecked())
+		@toggleCheck = ->
+			self.isChecked(!self.isChecked())
+			self.filterViewModel.reloadMovies()
 
 window.BrowseMoviesViewModel = BrowseMoviesViewModel
 

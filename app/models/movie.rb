@@ -17,6 +17,12 @@ class Movie < ActiveRecord::Base
 		where("lower(title) like lower(?)", (start_with_string || "") + "%")
 	end
 
+	def self.that_has_genres(genres)
+		out = joins(:movie_genres)
+		out = out.where(:movie_genres => {:genre_id => genres} ) unless genres.nil?
+		return out
+	end
+
 	def set_poster_by_filename=(filename)
 		path = URI.escape("http://coyotesrestaurant.com/krishemenway/movies/images/movies/#{filename}")
 		file = open(path)

@@ -3,6 +3,7 @@ class MoviesController < ApplicationController
 		@movies = Movie
 			.includes(:movie_book_locations, :movie_genres, :genres)
 			.that_starts_with(params[:letter])
+			.that_has_genres(params[:genres])
 			.limit(100)
 
 		@decades = Movie.all.group_by{|movie| movie.released.decade}.keys.sort

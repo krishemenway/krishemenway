@@ -15,6 +15,11 @@
 			width: 100%;
 			padding: 50px;
 
+			@include respond-to(phone) {
+				padding: 20px;
+				font-size: 22px;
+			}
+
 			&:hover {
 				background-color: rgba(0,0,0,.1);
 			}

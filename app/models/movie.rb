@@ -10,6 +10,9 @@ class Movie < ActiveRecord::Base
 
 	has_many :movie_book_locations
 
+	has_many :movie_performances
+	has_many :movies, :through => :movie_performances
+
 	validates :poster, :attachment_size => {:in => 0..2.megabytes},
 			  :attachment_content_type => {:content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'image/JPG']}
 

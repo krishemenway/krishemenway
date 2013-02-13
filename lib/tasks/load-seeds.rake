@@ -6,9 +6,8 @@ namespace :db do
 		This task will load all seed data from csv
 	EOS
 
-	task :seed => :environment do
-
-		files = ['genres', 'movies', 'movie_book_locations', 'movie_genres']
+	task :seed => :environment do |t|
+		files = (ENV["t"] || "").split "," || ['genres']
 
 		files.each do |file|
 			csv_file  = File.join( File.dirname(__FILE__), '..', '..', 'db', 'fixtures', "#{file}.csv" )

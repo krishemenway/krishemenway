@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213080620) do
+ActiveRecord::Schema.define(:version => 20130213085412) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(:version => 20130213080620) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "episodes", ["airdate"], :name => "index_episodes_on_airdate"
+  add_index "episodes", ["episode_in_season"], :name => "index_episodes_on_episode_in_season"
+  add_index "episodes", ["episode_number"], :name => "index_episodes_on_episode_number"
+  add_index "episodes", ["season"], :name => "index_episodes_on_season"
+  add_index "episodes", ["series_id"], :name => "index_episodes_on_series_id"
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -51,6 +57,9 @@ ActiveRecord::Schema.define(:version => 20130213080620) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "movie_genres", ["genre_id"], :name => "index_movie_genres_on_genre_id"
+  add_index "movie_genres", ["movie_id"], :name => "index_movie_genres_on_movie_id"
 
   create_table "movie_performances", :force => true do |t|
     t.integer  "movie_id"

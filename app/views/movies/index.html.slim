@@ -1,3 +1,4 @@
+= content_for :site_bind do "css: { movieopen: secondMovie() != undefined || currentMovie() != undefined }" end
 = content_for :title do "movies" end
 = content_for :scripts do
 	javascript:
@@ -8,10 +9,10 @@
 
 = render "movie_filters"
 = render "movie_list"
-
-div class="selected-movie" data-bind="with: currentMovie, css: { open: currentMovie() != undefined }"
-	button data-bind="click: $root.clearMovie" class="close"
-	= render "show"
-div class="selected-movie" data-bind="with: secondMovie, css: { open: secondMovie() != undefined }"
-	button data-bind="click: $root.clearMovie" class="close"
-	= render "show"
+= content_for :after_site do
+	div class="selected-movie" data-bind="with: currentMovie, css: { open: currentMovie() != undefined }"
+		button data-bind="click: $root.clearMovie" class="close"
+		= render "show"
+	div class="selected-movie" data-bind="with: secondMovie, css: { open: secondMovie() != undefined }"
+		button data-bind="click: $root.clearMovie" class="close"
+		= render "show"

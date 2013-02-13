@@ -26,9 +26,10 @@ class BrowseMoviesViewModel
 
 		@gotoMovie = (movie) ->
 			window.location.hash = movie.title
-			return if self.currentMovie() == movie or self.secondMovie() == movie
-
-			if self.currentMovie()
+			if self.currentMovie() == movie or self.secondMovie() == movie
+				self.currentMovie(undefined)
+				self.secondMovie(undefined)
+			else if self.currentMovie()
 				self.currentMovie(undefined)
 				self.secondMovie(movie)
 			else

@@ -1,6 +1,12 @@
 
 $moviesPerRow: 4;
 
+.movieopen {
+	@include respond-to(phone) {
+		display: none;
+	}
+}
+
 .selected-movie {
 	$selected-movie-width: 490px;
 	$selected-movie-padding: 40px;
@@ -19,16 +25,13 @@ $moviesPerRow: 4;
 
 	@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 
-	@include respond-to(phone) {
-		overflow-y: scroll;
-	}
-
 	&.open {
 		right: 0px;
 
 		@include respond-to(phone) {
-			left: 0;
 			width: auto;
+			position: static;
+			padding: 40px 10px 10px 10px;
 		}
 	}
 
@@ -145,8 +148,6 @@ $moviesPerRow: 4;
 }
 
 .filter {
-	$filterMargin: 10px;
-	margin: 0 $filterMargin;
 	padding: 10px 0;
 	@include text-overflow();
 	position: relative;
@@ -156,7 +157,7 @@ $moviesPerRow: 4;
 			button {
 				float: left;
 				text-align: center;
-				width: ($siteWidth - $filterMargin * 2) / 26;
+				width: ($siteWidth) / 26;
 				min-height: 24px;
 				font-size: 16px;
 
@@ -165,7 +166,7 @@ $moviesPerRow: 4;
 				}
 
 				@include respond-to(tablet) {
-					width: ($siteWidth - $filterMargin * 2) / 13;
+					width: ($siteWidth) / 13;
 				}
 
 				&:hover, &.toggled {
@@ -186,26 +187,49 @@ $moviesPerRow: 4;
 
 		@include transition(all 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 		@include transition-timing-function(cubic-bezier(0.120, 0.460, 0.215, 0.750));
+	}
 
-		.genre, .decade {
-			width: 200px;
-			padding: 10px 0;
-			float: left;
-			text-align: center;
-			cursor: pointer;
+	.genre, .decade {
+		width: 200px;
+		padding: 10px 0;
+		float: left;
+		text-align: center;
+		cursor: pointer;
+		border: 1px solid rgba(0,0,0,0);
 
-			.year {
-				&:after {
-					content: "s";
-				}
-				.checked {
-					background-image: url('');
-					padding-left: 25px;
-				}
+		.year {
+			&:after {
+				content: "s";
 			}
+			.checked {
+				background-image: url('');
+				padding-left: 25px;
+			}
+		}
 
-			&:hover {
-				background-color: rgba(0,0,0,.5);
+		.year:before,.name:before {
+			content: "+";
+			position: relative;
+			top: -1px;
+			left: -2px;
+			visibility: hidden;
+			opacity: 0;
+		}
+
+		.checked {
+			&.year:before,&.name:before {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+
+		&:hover {
+			background-color: rgba(0,0,0,.3);
+			border: 1px solid #191919;
+
+			.year:before, .name:before {
+				visibility: visible;
+				opacity: 1;
 			}
 		}
 	}
@@ -221,7 +245,7 @@ $moviesPerRow: 4;
 		z-index: 2;
 		top: 0;
 		bottom: 0;
-		width: 35px;
+		width: 50px;
 	}
 
 	.back { left: 0; }

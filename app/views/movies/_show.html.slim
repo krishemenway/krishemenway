@@ -15,21 +15,21 @@ p.description data-bind="text: description"
 
 .movie-directors data-bind="visible: directors().length > 0"
 	h2 Directors
-	ul.directors data-bind="foreach: directors"
-		li.director
+	ul.directors.people data-bind="foreach: directors"
+		li.director.person
 			span.first-name data-bind="text: person.first_name"
 			span.last-name data-bind="text: person.last_name"
 
 .movie-writers data-bind="visible: writers().length > 0"
 	h2 Writers
-	ul.writers data-bind="foreach: writers"
-		li.writers
+	ul.writers.people data-bind="foreach: writers"
+		li.writer.person
 			span.first-name data-bind="text: person.first_name"
 			span.last-name data-bind="text: person.last_name"
 
 .movie-actors data-bind="visible: actors().length > 0"
 	h2 Actors
-	ul.actors data-bind="foreach: actors"
-		li.actor
+	ul.actors.people data-bind="foreach: actors"
+		li.actor.person
 			span.first-name data-bind="text: person.first_name"
 			span.last-name data-bind="text: person.last_name"

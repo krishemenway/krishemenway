@@ -7,7 +7,10 @@ namespace :db do
 	EOS
 
 	task :seed => :environment do |t|
-		files = (ENV["t"] || "").split "," || ['genres']
+		files = (ENV["t"] || "").split ","
+		files = ['genres'] if files.empty?
+
+		ignore_field = ENV["ignore"] || ""
 
 		files.each do |file|
 			csv_file  = File.join( File.dirname(__FILE__), '..', '..', 'db', 'fixtures', "#{file}.csv" )
@@ -15,6 +18,7 @@ namespace :db do
 
 			CSV.foreach(csv_file, :headers => :first_row) do |row|
 				hashed_row = row.to_hash
+				hashed_row.delete ignore_field
 
 				if hashed_row.keys.include?("id")
 					model_result = activerecord_model.find_all_by_id(hashed_row["id"])

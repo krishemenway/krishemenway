@@ -86,10 +86,10 @@ $moviesPerRow: 4;
 		line-height: 36px;
 	}
 
-	.actors,.directors,.writers {
+	.people {
 		@include clearfix();
 
-		.actor,.directors,.writers {
+		.person {
 			width: 50%;
 			float: left;
 			margin: 5px 0;

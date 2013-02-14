@@ -1,4 +1,10 @@
 
+.seasonopen {
+	@include respond-to(phone) {
+		display: none;
+	}
+}
+
 .selected-season {
 	$selected-season-width: 490px;
 	$selected-season-padding: 40px;

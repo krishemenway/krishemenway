@@ -1,4 +1,58 @@
 
+.selected-season {
+	$selected-season-width: 490px;
+	$selected-season-padding: 40px;
+
+	background-color: rgba(0,0,0, .8);
+
+	padding: $selected-season-padding;
+	width: $selected-season-width - $selected-season-padding * 2;
+	top: 0;
+	bottom: 0;
+	right: $selected-season-width * -1;
+	border-left: 1px solid #252525;
+
+	position: fixed;
+	z-index: 1000;
+
+	@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+
+	&.open {
+		right: 0px;
+
+		@include respond-to(phone) {
+			width: auto;
+			position: static;
+			padding: 40px 10px 10px 10px;
+		}
+	}
+
+	.episodes {
+		line-height: 35px;
+
+		.season-number {
+			margin-right: 4px;
+			&:before {
+				content: 's';
+				color: rgba(255,255,255,.5);
+				margin-right: 1px;
+			}
+		}
+
+		.episode-number-in-season {
+			&:before {
+				content: 'e';
+				color: rgba(255,255,255,.5);
+				margin-right: 1px;
+			}
+		}
+
+		.episode-title {
+			margin-left: 30px;
+		}
+	}
+}
+
 .serieses {
 
 	.series {
@@ -8,6 +62,27 @@
 		&.right button {
 			text-align: right;
 		}
+
+		&.open {
+			.seasons {
+				display: block;
+			}
+		}
+
+		.seasons {
+			cursor: pointer;
+			@include clearfix();
+			@include transition(height 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+
+			display: none;
+
+			h3 {
+				font-size: 18px;
+				float: left;
+				padding: 20px 40px;
+			}
+		}
+
 
 		button {
 			font-size: 36px;

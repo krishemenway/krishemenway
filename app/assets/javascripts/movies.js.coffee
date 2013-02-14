@@ -26,6 +26,7 @@ class BrowseMoviesViewModel
 
 		@gotoMovie = (movie) ->
 			window.location.hash = movie.title
+			movie.load_performances()
 			if self.currentMovie() == movie or self.secondMovie() == movie
 				self.currentMovie(undefined)
 				self.secondMovie(undefined)
@@ -48,6 +49,7 @@ class BrowseMoviesViewModel
 
 class MovieViewModel
 	constructor: (movie) ->
+		self = this
 		@title = movie.title
 		@small_poster_path = movie.small_poster_path
 		@large_poster_path = movie.large_poster_path
@@ -56,6 +58,15 @@ class MovieViewModel
 		@id = movie.id
 		@length = movie.length
 		@movie_book_locations = ko.observableArray(new MovieBookLocationViewModel mbl for mbl in JSON.parse(movie.movie_book_locations))
+		@actors = ko.observableArray []
+		@directors = ko.observableArray []
+		@writers = ko.observableArray []
+		console.log self.id
+		@load_performances = ->
+			$.get "/movies/#{self.id}/movie_performances.json", (data) ->
+				self.actors(data.actors)
+				self.writers(data.writers)
+				self.directors(data.directors)
 
 class MovieBookLocationViewModel
 	constructor: (movie_book_location) ->

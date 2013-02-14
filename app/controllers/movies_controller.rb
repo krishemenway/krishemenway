@@ -7,12 +7,26 @@ class MoviesController < ApplicationController
 			.limit(75)
 			.order("title asc")
 
-		@decades = Movie.all.group_by{|movie| movie.released.decade}.keys.sort
+		@decades = Movie.all.group_by{|movie| movie.released.decade}.keys.sort.reverse
 		@genres = Genre.all.sort_by(&:name)
 
 		respond_to do |format|
 			format.html
 			format.json { render :json => @movies }
+		end
+	end
+
+	def performances
+		movie = Movie.includes(:movie_performances).find(params[:movie_id])
+
+		@response = {
+			:actors => movie.actors,
+		    :directors => movie.directors,
+		    :writers => movie.writers
+		}
+
+		respond_to do |format|
+			format.json { render :json => @response }
 		end
 	end
 end

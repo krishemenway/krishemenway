@@ -7,17 +7,17 @@
 		});
 
 ul.serieses data-bind="foreach: series, stripe: series, evenClass: 'left', oddClass: 'right'"
-	li.series
-		button data-bind="text: name, click: $root.gotoSeries"
+	li.series data-bind="css: {open: isOpen()}"
+		button data-bind="text: name, click: toggleOpen"
+		ul.seasons data-bind="foreach: seasons"
+			li.season data-bind="click: $root.gotoSeason"
+				h3 data-bind="text: 'Season ' + season_number"
 
-.current-series data-bind="with: currentSeries"
-	ul.seasons data-bind="foreach: seasons"
-		li.season
-			h3 data-bind="text: 'Season ' + season_number"
-			ul.episodes data-bind="foreach: episodes"
-				li.episodes data-bind="click: $root.gotoEpisode"
-					.title data-bind="text: title"
-					.episode-number data-bind="text: episodeNumber()"
-
-.current-episode data-bind="with: currentEpisode"
-	.title data-bind="text: title"
+= content_for :after_site do
+	.selected-season data-bind="with: selectedSeason(), css: {open: selectedSeason() != undefined}"
+		ul.episodes data-bind="foreach: episodes"
+			li.episodes data-bind="click: $parent.gotoEpisode"
+				span.season-number data-bind="text: season"
+				span.episode-number-in-season data-bind="text: episode_in_season"
+				span.episode-title data-bind="text: title"
+				span.episode-airdate data-bind="text: airdate"

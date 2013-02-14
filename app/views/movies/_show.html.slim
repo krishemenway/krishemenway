@@ -12,3 +12,24 @@ ul.locations data-bind="foreach: movie_book_locations"
 			span data-bind="text: page_id"
 
 p.description data-bind="text: description"
+
+.movie-directors data-bind="visible: directors().length > 0"
+	h2 Directors
+	ul.directors data-bind="foreach: directors"
+		li.director
+			span.first-name data-bind="text: person.first_name"
+			span.last-name data-bind="text: person.last_name"
+
+.movie-writers data-bind="visible: writers().length > 0"
+	h2 Writers
+	ul.writers data-bind="foreach: writers"
+		li.writers
+			span.first-name data-bind="text: person.first_name"
+			span.last-name data-bind="text: person.last_name"
+
+.movie-actors data-bind="visible: actors().length > 0"
+	h2 Actors
+	ul.actors data-bind="foreach: actors"
+		li.actor
+			span.first-name data-bind="text: person.first_name"
+			span.last-name data-bind="text: person.last_name"

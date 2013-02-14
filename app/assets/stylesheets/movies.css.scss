@@ -51,7 +51,7 @@ $moviesPerRow: 4;
 
 		&:after {
 			content: "X";
-			color: "#F8F8F8";
+			color: #F8F8F8;
 			font-size: 24px;
 			font-family: "Verdana";
 		}
@@ -80,6 +80,26 @@ $moviesPerRow: 4;
 	}
 
 	.book { text-align: right;}
+
+	h2 {
+		font-size: 24px;
+		line-height: 36px;
+	}
+
+	.actors,.directors,.writers {
+		@include clearfix();
+
+		.actor,.directors,.writers {
+			width: 50%;
+			float: left;
+			margin: 5px 0;
+		}
+
+		.first-name {
+			margin-right: 6px;
+			color: #B3B3B3;
+		}
+	}
 }
 
 .movies {
@@ -162,8 +182,8 @@ $moviesPerRow: 4;
 				}
 
 				&:hover, &.toggled {
-					background-color: rgba(0,0,0,.5);
-					border: 1px solid #191919;
+					background-color: rgba(255,255,255,.3);
+					border: 1px solid #393939;
 					border-width: 0 1px;
 				}
 			}
@@ -208,8 +228,8 @@ $moviesPerRow: 4;
 		}
 
 		&.checked {
-			background-color: rgba(0,0,0,.6);
-			border: 1px solid #191919;
+			background-color: rgba(255,255,255,.3);
+			border: 1px solid #393939;
 
 			.year:before,.name:before {
 				visibility: visible;
@@ -218,8 +238,8 @@ $moviesPerRow: 4;
 		}
 
 		&:hover {
-			background-color: rgba(0,0,0,.6);
-			border: 1px solid #191919;
+			background-color: rgba(255,255,255,.3);
+			border: 1px solid #393939;
 
 			.year:before, .name:before {
 				visibility: visible;

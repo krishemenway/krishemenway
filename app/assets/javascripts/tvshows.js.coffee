@@ -3,25 +3,29 @@ class BrowseTVShowsViewModel
 	constructor: (serieses) ->
 		self = this
 		@series = ko.observableArray(new SeriesViewModel series for series in serieses)
-		@currentSeries = ko.observable()
-		@currentEpisode = ko.observable()
 
-		@gotoSeries = (series) ->
-			self.currentSeries(series)
-
-		@gotoEpisode = (episode) ->
-			self.currentEpisode(episode)
+		@selectedSeason = ko.observable()
+		@gotoSeason = (season) ->
+			self.selectedSeason(season)
+		@clearSeason = ->
+			self.selectedSeason(undefined)
 
 class SeriesViewModel
 	constructor: (series) ->
+		self = this
 		@name = series.name
 		@id = series.id
 		@seasons = ko.observableArray (new SeasonViewModel season, episodes for season, episodes of series.seasons)
+		@isOpen = ko.observable(false)
+		@toggleOpen = ->
+			if self.isOpen() then self.isOpen(false) else self.isOpen(true)
+
 
 class SeasonViewModel
 	constructor: (season, episodes) ->
 		@season_number = season
 		@episodes = ko.observableArray(new EpisodeViewModel episode for episode in episodes)
+
 
 class EpisodeViewModel
 	constructor: (episode) ->
@@ -34,6 +38,6 @@ class EpisodeViewModel
 		@airdate = episode.airdate
 
 		@episodeNumber = ko.computed ->
-			return self.season + "x" + self.episode_in_season
+			return 's' + self.season + "e" + self.episode_in_season
 
 window.BrowseTVShowsViewModel = BrowseTVShowsViewModel

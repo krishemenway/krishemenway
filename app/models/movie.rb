@@ -11,7 +11,6 @@ class Movie < ActiveRecord::Base
 	has_many :movie_book_locations
 
 	has_many :movie_performances
-	has_many :movies, :through => :movie_performances
 
 	validates :poster, :attachment_size => {:in => 0..2.megabytes},
 			  :attachment_content_type => {:content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'image/JPG']}
@@ -24,6 +23,18 @@ class Movie < ActiveRecord::Base
 		out = joins(:movie_genres)
 		out = out.where(:movie_genres => {:genre_id => genres} ) unless genres.nil?
 		return out
+	end
+
+	def actors
+		self.movie_performances.where :movie_role_id => 1
+	end
+
+	def directors
+		self.movie_performances.where :movie_role_id => 2
+	end
+
+	def writers
+		self.movie_performances.where :movie_role_id => 3
 	end
 
 	def set_poster_by_filename=(filename)
@@ -40,6 +51,7 @@ class Movie < ActiveRecord::Base
 
 	def as_json(options)
 		{
+			:id => self.id,
 			:title => self.title,
 			:description => self.description,
 			:short_description => self.short_description,

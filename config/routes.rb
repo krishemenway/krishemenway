@@ -1,7 +1,7 @@
 Movies::Application.routes.draw do
 
 	resources :movies, :only => [:index] do
-
+		get 'movie_performances' => "movies#performances"
 	end
 
 	match "/calendar/events" => "calendar#events"

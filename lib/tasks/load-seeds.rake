@@ -16,34 +16,38 @@ namespace :db do
 			csv_file  = File.join( File.dirname(__FILE__), '..', '..', 'db', 'fixtures', "#{file}.csv" )
 			activerecord_model = file.singularize.titlecase.gsub(" ","").constantize
 
-			CSV.foreach(csv_file, :headers => :first_row) do |row|
-				hashed_row = row.to_hash
-				hashed_row.delete ignore_field
+			ActiveRecord::Base.transaction do
 
-				if hashed_row.keys.include?("id")
-					model_result = activerecord_model.find_all_by_id(hashed_row["id"])
-				else
-					key_0 = hashed_row.keys[0].to_sym
-					key_1 = hashed_row.keys[1].to_sym
+				CSV.foreach(csv_file, :headers => :first_row) do |row|
+					hashed_row = row.to_hash
+					hashed_row.delete ignore_field
 
-					model_result = activerecord_model.where(key_0 => hashed_row[hashed_row.keys[0]], key_1 => hashed_row[hashed_row.keys[1]]).first
-				end
+					if hashed_row.keys.include?("id")
+						model_result = activerecord_model.find_all_by_id(hashed_row["id"])
+					else
+						key_0 = hashed_row.keys[0].to_sym
+						key_1 = hashed_row.keys[1].to_sym
 
-				if (model_result.is_a?(Array) and model_result.count == 0) or model_result.nil?
-					created_obj = activerecord_model.new(hashed_row)
-					created_obj.id = hashed_row["id"]
-					created_obj.save!
-
-					puts "Created new #{activerecord_model.to_s} with id #{row["id"]}"
-				else
-					if model_result.is_a?(Array)
-						model_result = model_result.first
+						model_result = activerecord_model.where(key_0 => hashed_row[hashed_row.keys[0]], key_1 => hashed_row[hashed_row.keys[1]]).first
 					end
 
-					model_result.update_attributes(hashed_row)
-					model_result.save!
+					if (model_result.is_a?(Array) and model_result.count == 0) or model_result.nil?
+						created_obj = activerecord_model.new(hashed_row)
+						created_obj.id = hashed_row["id"]
+						created_obj.save!
 
-					puts "Updated #{activerecord_model.to_s} with id #{model_result.id}"
+						puts "Created new #{activerecord_model.to_s} with id #{row["id"]}"
+					else
+						if model_result.is_a?(Array)
+							model_result = model_result.first
+						end
+
+						model_result.update_attributes(hashed_row)
+						model_result.save!
+
+						puts "Updated #{activerecord_model.to_s} with id #{model_result.id}"
+					end
+
 				end
 
 			end

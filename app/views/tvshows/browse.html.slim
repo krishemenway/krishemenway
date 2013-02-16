@@ -1,4 +1,4 @@
-= content_for :site_bind do "css: { seasonopen: selectedSeason() != undefined }" end
+= content_for :site_bind do "css: { 'side-panel-open': selectedSeries() != undefined }" end
 = content_for :title do "tv shows" end
 = content_for :scripts do
 	javascript:
@@ -7,18 +7,22 @@
 			ko.applyBindings(window.tvshows);
 		});
 
-ul.serieses data-bind="foreach: series, stripe: series, evenClass: 'left', oddClass: 'right'"
-	li.series data-bind="css: {open: isOpen()}"
-		button data-bind="text: name, click: toggleOpen"
-		ul.seasons data-bind="foreach: seasons"
-			li.season data-bind="click: $root.gotoSeason"
-				h3 data-bind="text: 'Season ' + season_number"
+ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'left', oddClass: 'right'"
+	li.series data-bind="css: {selected: $root.selectedSeries() == $data}"
+		button data-bind="text: name, click: $root.selectSeries"
 
 = content_for :after_site do
-	.selected-season data-bind="with: selectedSeason(), css: {open: selectedSeason() != undefined}"
-		ul.episodes data-bind="foreach: episodes"
-			li.episodes data-bind="click: $parent.gotoEpisode"
-				span.season-number data-bind="text: season"
-				span.episode-number-in-season data-bind="text: episode_in_season"
-				span.episode-title data-bind="text: title"
-				span.episode-airdate data-bind="text: airdate"
+	.selected-series data-bind="with: selectedSeries(), css: {open: selectedSeries() != undefined}"
+		button.close data-bind="click: $root.clearSeries"
+		h2.series-name data-bind="text: name"
+		ul.seasons data-bind="foreach: seasons"
+			li.season
+				button data-bind="text: season_number, click: $parent.selectSeason"
+		.selected-season data-bind="with: selectedSeason()"
+			.season-title data-bind="text: 'Season ' + season_number"
+			ul.episodes data-bind="foreach: episodes"
+				li.episode data-bind="click: $parent.gotoEpisode"
+					span.season-number data-bind="text: season"
+					span.episode-number-in-season data-bind="text: episode_in_season"
+					span.episode-title data-bind="text: title"
+					span.episode-airdate data-bind="text: airdate"

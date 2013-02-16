@@ -33,3 +33,5 @@ p.description data-bind="text: description"
 		li.actor.person
 			span.first-name data-bind="text: person.first_name"
 			span.last-name data-bind="text: person.last_name"
+			ul.characters data-bind="foreach: characters"
+				li.character data-bind="text: name"

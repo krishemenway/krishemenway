@@ -14,33 +14,9 @@
 @import "bootstrap/_variables";
 @import "bootstrap/_mixins";
 @import "meyers-reset";
-
-@mixin transition-timing-function($timing-function...) {
-	-webkit-transition-timing-function: $timing-function;
-	-moz-transition-timing-function: $timing-function;
-	-ms-transition-timing-function: $timing-function;
-	-o-transition-timing-function: $timing-function;
-	transition-timing-function: $timing-function;
-}
-
-$phoneWidth: 480px;
-$tabletWidth: 768px;
-$desktopWidth: 1024px;
-
-@mixin respond-to($media) {
-	@if $media == desktop {
-		@media only screen and (min-width: $desktopWidth) { @content; }
-	}
-	@else if $media == tablet {
-		@media only screen and (max-width: $desktopWidth - 1) and (min-width: $phoneWidth + 1) { @content; }
-	}
-	@else if $media == phone {
-		@media only screen and (max-width: $phoneWidth) { @content; }
-	}
-	@else if $media == mobile {
-		@media only screen and (max-width: $tabletWidth - 1) { @content; }
-	}
-}
+@import "transitions";
+@import "media_queries";
+@import "side_panel";
 
 $siteWidth: $desktopWidth;
 $sideNavigationHeight: 40px;

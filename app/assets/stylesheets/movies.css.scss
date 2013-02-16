@@ -1,61 +1,8 @@
 
 $moviesPerRow: 4;
 
-.movieopen {
-	@include respond-to(phone) {
-		display: none;
-	}
-}
-
 .selected-movie {
-	$selected-movie-width: 490px;
-	$selected-movie-padding: 40px;
-
-	background-color: rgba(0,0,0, .8);
-
-	padding: $selected-movie-padding;
-	width: $selected-movie-width - $selected-movie-padding * 2;
-	top: 0;
-	bottom: 0;
-	right: $selected-movie-width * -1;
-	border-left: 1px solid #252525;
-
-	position: fixed;
-	z-index: 1000;
-
-	@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
-
-	&.open {
-		right: 0px;
-
-		@include respond-to(phone) {
-			width: auto;
-			position: static;
-			padding: 40px 10px 10px 10px;
-		}
-	}
-
-	.close {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-
-		width: 70px;
-		height: 70px;
-
-		background: transparent;
-		border: 0px;
-
-		cursor: pointer;
-		z-index: 5;
-
-		&:after {
-			content: "X";
-			color: #F8F8F8;
-			font-size: 24px;
-			font-family: "Verdana";
-		}
-	}
+	@include side_panel();
 
 	.title {
 		text-align: center;

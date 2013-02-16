@@ -17,7 +17,9 @@ class MoviesController < ApplicationController
 	end
 
 	def performances
-		movie = Movie.includes(:movie_performances).find(params[:movie_id])
+		movie = Movie
+			.includes(:movie_performances => [:person, :movie_characters])
+			.find(params[:movie_id])
 
 		@response = {
 			:actors => movie.actors,

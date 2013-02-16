@@ -5,10 +5,12 @@ class MoviePerformance < ActiveRecord::Base
 	belongs_to :movie_role
 	belongs_to :person
 
+	has_many :movie_characters
+
 	def as_json(options)
 		{
-			:movie_role_id => self.movie_role.name,
-			:person => self.person
+			:person => self.person,
+		    :characters => self.movie_characters
 		}
 	end
 end

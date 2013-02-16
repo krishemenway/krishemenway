@@ -25,7 +25,7 @@ class RageTVShowDataRetriever
 				:episode_in_season => row[2].to_s.to_i,
 				:production_number => row[3].to_s,
 				:airdate => airdate,
-				:title => row[5].to_s.encode("utf-8", :invalid => :replace, :undef => :replace),
+				:title => row[5].to_s.encode("utf-8", :invalid => :replace, :undef => :replace, :replace => ''),
 				:is_special => row[6].to_s.to_bool,
 				:rage_url => row[7].to_s
 			}

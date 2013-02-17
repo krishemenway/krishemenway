@@ -20,7 +20,7 @@ class Movie < ActiveRecord::Base
 	end
 
 	def self.that_has_genres(genres)
-		out = joins(:movie_genres)
+		out = includes(:movie_genres)
 		out = out.where(:movie_genres => {:genre_id => genres} ) unless genres.nil?
 		return out
 	end

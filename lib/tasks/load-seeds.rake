@@ -7,10 +7,11 @@ namespace :db do
 	EOS
 
 	task :seed => :environment do |t|
-		files = (ENV["t"] || "").split ","
-		files = ['genres'] if files.empty?
-
 		ignore_field = ENV["ignore"] || ""
+		start_at = ENV["start"].to_s.to_i || 0
+
+		files = (ENV["files"] || "").split ","
+		files = ['genres', 'movies', 'movie_book_locations', 'movie_genres', 'people'] if files.empty?
 
 		files.each do |file|
 			csv_file  = File.join( File.dirname(__FILE__), '..', '..', 'db', 'fixtures', "#{file}.csv" )
@@ -19,6 +20,7 @@ namespace :db do
 			ActiveRecord::Base.transaction do
 
 				CSV.foreach(csv_file, :headers => :first_row) do |row|
+					next if ($INPUT_LINE_NUMBER < start_at)
 					hashed_row = row.to_hash
 					hashed_row.delete ignore_field
 
@@ -43,7 +45,10 @@ namespace :db do
 						end
 
 						model_result.update_attributes(hashed_row)
-						model_result.save!
+
+						if model_result.changed?
+							model_result.save!
+						end
 
 						puts "Updated #{activerecord_model.to_s} with id #{model_result.id}"
 					end

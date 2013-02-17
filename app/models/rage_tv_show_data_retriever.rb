@@ -35,7 +35,10 @@ class RageTVShowDataRetriever
 
 				if episode.present?
 					episode.update_attributes mappedEpisodeData
-					episode.save
+
+					if episode.changed?
+						episode.save
+					end
 				else
 					Episode.create! mappedEpisodeData
 				end

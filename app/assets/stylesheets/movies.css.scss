@@ -10,8 +10,40 @@ $moviesPerRow: 4;
 		margin-bottom: 20px;
 	}
 
+	&.double-wide .extra-info {
+		display: block;
+	}
+
+	.extra-info {
+		@include respond-to(phone) {
+			display: block;
+			float: none;
+		}
+	}
+
+	.staff-info{
+		width: 40%;
+		float: left;
+	}
+
+	.movie-actors {
+		width: 60%;
+		float: left;
+	}
+
+	.characters {
+		float: right;
+
+		.character {
+			color: #B3B3B3;
+			display: inline;
+			font-size: 12px;
+			line-height: 14px;
+		}
+	}
+
 	.poster {
-		min-width: 80%;
+		min-width: 300px;
 		display: block;
 		margin: 0 auto;
 	}
@@ -24,6 +56,7 @@ $moviesPerRow: 4;
 		width: 44%;
 		margin: 0 3%;
 		float:left;
+		font-size: 26px;
 	}
 
 	.book { text-align: right;}
@@ -33,12 +66,16 @@ $moviesPerRow: 4;
 		line-height: 36px;
 	}
 
+	.description {
+		margin-top: 20px;
+	}
+
 	.people {
 		@include clearfix();
+		font-size: 14px;
 
 		.person {
-			width: 50%;
-			float: left;
+			display: block;
 			margin: 5px 0;
 		}
 

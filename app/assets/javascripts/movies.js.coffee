@@ -16,6 +16,10 @@ class BrowseMoviesViewModel
 		@currentMovie = ko.observable()
 		@secondMovie = ko.observable()
 
+		@isDoubleWide = ko.observable(false)
+		@toggleDoubleWide = ->
+			self.isDoubleWide(!self.isDoubleWide())
+
 		@reloadMovies = () ->
 			movie_filters =
 				letter: self.letterFilter.getSelectedLetter(),
@@ -27,6 +31,7 @@ class BrowseMoviesViewModel
 		@gotoMovie = (movie) ->
 			window.location.hash = movie.title
 			movie.load_performances()
+			self.isDoubleWide(false)
 			if self.currentMovie() == movie or self.secondMovie() == movie
 				self.currentMovie(undefined)
 				self.secondMovie(undefined)
@@ -61,6 +66,7 @@ class MovieViewModel
 		@actors = ko.observableArray []
 		@directors = ko.observableArray []
 		@writers = ko.observableArray []
+		@genres = ko.observableArray JSON.parse(movie.genres)
 		@load_performances = ->
 			$.get "/movies/#{self.id}/movie_performances.json", (data) ->
 				self.actors(data.actors)

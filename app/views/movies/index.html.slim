@@ -10,9 +10,11 @@
 = render "movie_filters"
 = render "movie_list"
 = content_for :after_site do
-	div class="selected-movie" data-bind="with: currentMovie, css: { open: currentMovie() != undefined }"
+	div class="selected-movie" data-bind="with: currentMovie, css: { open: currentMovie() != undefined, 'double-wide': isDoubleWide() }"
 		button.close data-bind="click: $root.clearMovie"
+		button.more data-bind="click: $root.toggleDoubleWide, text: $root.isDoubleWide() ? 'Less' : 'More'"
 		= render "show"
-	div class="selected-movie" data-bind="with: secondMovie, css: { open: secondMovie() != undefined }"
+	div class="selected-movie" data-bind="with: secondMovie, css: { open: secondMovie() != undefined, 'double-wide': isDoubleWide() }"
 		button.close data-bind="click: $root.clearMovie"
+		button.more data-bind="click: $root.toggleDoubleWide, text: $root.isDoubleWide() ? 'Less' : 'More'"
 		= render "show"

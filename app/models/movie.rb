@@ -3,7 +3,7 @@ require "open-uri"
 class Movie < ActiveRecord::Base
 	attr_accessible :description, :imdb_id, :length, :released, :title, :id, :set_poster_by_filename
 	has_attached_file :poster, :styles => {:medium => "300x450>", :thumb => "100x150>"}
-	before_save :correct_movie_titles
+	before_save :correct_movie_titles, :ensure_first_letter_is_set
 
 	has_many :movie_genres
 	has_many :genres, :through => :movie_genres
@@ -15,8 +15,23 @@ class Movie < ActiveRecord::Base
 	validates :poster, :attachment_size => {:in => 0..2.megabytes},
 			  :attachment_content_type => {:content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'image/JPG']}
 
-	def self.that_starts_with(start_with_string)
-		where("lower(title) like lower(?)", (start_with_string || "") + "%")
+	def self.that_starts_with(first_letter)
+		if first_letter.present?
+			where(:title_first_letter => first_letter)
+		else
+			where("1 = 1")
+		end
+	end
+
+	def self.in_decade(decade)
+		if decade.present?
+			decade = decade.to_i
+			start_date = Date.new(decade, 1, 1)
+			end_date = Date.new(decade + 10, 1, 1)
+			return where(:released => start_date..end_date)
+		else
+			return where("1 = 1")
+		end
 	end
 
 	def self.that_has_genres(genres)
@@ -68,5 +83,15 @@ class Movie < ActiveRecord::Base
 		if self.title.downcase.starts_with? "the "
 			self.title = "#{self.title.slice(4,self.title.length)}, The"
 		end
+	end
+
+	def ensure_first_letter_is_set
+		if self.title_first_letter != self.title.downcase[0]
+			set_title_first_letter
+		end
+	end
+
+	def set_title_first_letter
+		self.title_first_letter = self.title.downcase[0]
 	end
 end

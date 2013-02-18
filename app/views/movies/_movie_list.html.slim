@@ -3,3 +3,4 @@ ul.movies data-bind="foreach: movies"
 		.movie-title data-bind="text: title"
 		.movie-poster
 			img data-bind="attr:{src: small_poster_path}"
+.no-movies-message data-bind="visible: movies().length == 0" Could not find any movies

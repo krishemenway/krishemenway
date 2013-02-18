@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216061549) do
+ActiveRecord::Schema.define(:version => 20130218202717) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -95,13 +95,17 @@ ActiveRecord::Schema.define(:version => 20130216061549) do
     t.integer  "length"
     t.text     "description"
     t.integer  "imdb_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
+    t.string   "title_first_letter",  :limit => 1
   end
+
+  add_index "movies", ["released"], :name => "index_movies_on_released"
+  add_index "movies", ["title"], :name => "index_movies_on_title"
 
   create_table "people", :force => true do |t|
     t.string   "first_name"

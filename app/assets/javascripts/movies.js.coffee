@@ -23,7 +23,8 @@ class BrowseMoviesViewModel
 		@reloadMovies = () ->
 			movie_filters =
 				letter: self.letterFilter.getSelectedLetter(),
-				genres: self.genreFilter.getSelected()
+				genres: self.genreFilter.getSelected(),
+				decades: self.decadeFilter.getSelected()
 
 			$.get "/movies.json", movie_filters, (movies) ->
 				self.movies(self.createMovies(movies))
@@ -95,7 +96,14 @@ class LetterFilterViewModel
 class DecadeFilterViewModel
 	constructor: (decades, filterViewModel) ->
 		self = this
-		@decades = ko.observableArray(new DecadeViewModel d, filterViewModel for d in decades)
+		@decades = ko.observableArray(new DecadeViewModel decade, self, filterViewModel for decade in decades)
+
+		@getSelected = ->
+			decades = self.decades().filter((letterViewModel) -> letterViewModel.isChecked())
+			return if decades.length == 0 then "" else decades[0].year
+
+		@clearAll = ->
+			decade.isChecked(false) for decade in self.decades()
 
 class GenreFiltersViewModel
 	constructor: (genres, filterViewModel) ->
@@ -136,13 +144,16 @@ class GenreFilterViewModel
 			self.filterViewModel.reloadMovies()
 
 class DecadeViewModel
-	constructor: (decade, filterViewModel) ->
+	constructor: (decade, decadesFilterViewModel, filterViewModel) ->
 		self = this
 		@year = decade
 		@filterViewModel = filterViewModel
+		@decadesFilterViewModel = decadesFilterViewModel
 		@isChecked = ko.observable(false)
 		@toggleCheck = ->
-			self.isChecked(!self.isChecked())
+			isChecked = self.isChecked()
+			self.decadesFilterViewModel.clearAll()
+			self.isChecked(!isChecked)
 			self.filterViewModel.reloadMovies()
 
 window.BrowseMoviesViewModel = BrowseMoviesViewModel

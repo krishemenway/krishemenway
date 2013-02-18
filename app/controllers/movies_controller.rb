@@ -1,17 +1,26 @@
 class MoviesController < ApplicationController
 	def index
-		@movies = Movie
-			.includes(:movie_book_locations, :movie_genres, :genres)
-			.that_starts_with(params[:letter])
-			.that_has_genres(params[:genres])
-			.order("title asc")
-
-		@decades = Movie.all.group_by{|movie| movie.released.decade}.keys.sort.reverse
-		@genres = Genre.all.sort_by(&:name)
-
 		respond_to do |format|
-			format.html
-			format.json { render :json => @movies }
+			format.html {
+				@movies = Movie
+					.includes(:movie_book_locations, :movie_genres, :genres)
+					.order("title asc")
+					.limit(50)
+
+				@decades = Movie.all.group_by{|movie| movie.released.decade}.keys.sort.reverse
+				@genres = Genre.all.sort_by(&:name)
+				render
+			}
+			format.json {
+				@movies = Movie
+					.includes(:movie_book_locations, :movie_genres, :genres)
+					.that_starts_with(params[:letter])
+					.that_has_genres(params[:genres])
+					.in_decade(params[:decades])
+					.order("title asc")
+
+				render :json => @movies
+			}
 		end
 	end
 

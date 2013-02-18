@@ -1,20 +1,4 @@
 
-@mixin transform-origin($content) {
-	-webkit-transform-origin: $content;
-	-moz-transform-origin: $content;
-	-ms-transform-origin: $content;
-	-o-transform-origin: $content;
-	transform-origin: $content;
-}
-
-@mixin transform($content) {
-	-webkit-transform: $content;
-	-moz-transform: $content;
-	-ms-transform: $content;
-	-o-transform: $content;
-	transform: $content;
-}
-
 .site.side-panel-open {
 	@include respond-to(phone) {
 		display: none;

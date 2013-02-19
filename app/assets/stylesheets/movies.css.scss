@@ -14,6 +14,10 @@ $moviesPerRow: 4;
 		display: block;
 	}
 
+	h2 {
+		border-bottom: 1px solid #191919;
+	}
+
 	.extra-info {
 		@include respond-to(phone) {
 			display: block;
@@ -24,11 +28,36 @@ $moviesPerRow: 4;
 	.staff-info{
 		width: 40%;
 		float: left;
+
+		@include respond-to(phone) {
+			width: 100%;
+		}
+	}
+
+	.movie-directors,.movie-writers {
+		@include respond-to(phone) {
+			width: 50%;
+			float: left;
+		}
 	}
 
 	.movie-actors {
 		width: 60%;
 		float: left;
+
+		@include respond-to(phone) {
+			width: 100%;
+		}
+	}
+
+	.movie-genres {
+		.genre {
+			@include respond-to(phone) {
+				width: 50%;
+				float: left;
+				padding: 5px 0;
+			}
+		}
 	}
 
 	.characters {

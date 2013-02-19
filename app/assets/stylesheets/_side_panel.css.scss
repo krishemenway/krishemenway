@@ -24,14 +24,11 @@
 		display: none;
 	}
 
-	@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
-	@include transition(width 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+	@include transition(all 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 
 	&.open {
 		right: $side-panel-width * -1;
 		z-index: 1001;
-
-		@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 
 		@include respond-to(phone) {
 			width: auto;
@@ -84,8 +81,6 @@
 		top: 10px;
 		right: $side-panel-width + 30px;
 
-		@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
-
 		@include respond-to(phone) {
 			right: 20px;
 		}
@@ -100,7 +95,5 @@
 
 	&.open.double-wide .close {
 		right: 10px;
-
-		@include transition(right 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 	}
 }

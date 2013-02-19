@@ -15,7 +15,9 @@ $moviesPerRow: 4;
 	}
 
 	h2 {
-		border-bottom: 1px solid #191919;
+		@include respond-to(phone) {
+			border-bottom: 1px solid #191919;
+		}
 	}
 
 	.extra-info {

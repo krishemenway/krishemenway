@@ -70,6 +70,14 @@ $moviesPerRow: 4;
 			display: inline;
 			font-size: 12px;
 			line-height: 14px;
+
+			&:first-child:before {
+				content: '';
+			}
+
+			&:before {
+				content: ', ';
+			}
 		}
 	}
 

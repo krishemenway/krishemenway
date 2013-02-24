@@ -1,7 +1,7 @@
 
 class Episode < ActiveRecord::Base
 	include Icalendar
-	attr_accessible :airdate, :episode_in_season, :episode_number, :production_number, :season, :series_id, :title, :rage_url
+	attr_accessible :airdate, :episode_in_season, :episode_number, :production_number, :season, :series_id, :title, :rage_url, :video_path
 
 	validates :episode_number, :presence => true
 	validates :season, :presence => true
@@ -28,7 +28,8 @@ class Episode < ActiveRecord::Base
 			:airdate => self.airdate.to_s,
 			:episode_in_season => self.episode_in_season,
 			:episode_number => self.episode_number,
-			:season => self.season
+			:season => self.season,
+		    :video_path => self.video_path
 		}
 	end
 end

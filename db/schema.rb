@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218202717) do
+ActiveRecord::Schema.define(:version => 20130224001248) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130218202717) do
     t.string   "rage_url"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.text     "video_path"
   end
 
   add_index "episodes", ["airdate"], :name => "index_episodes_on_airdate"
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20130218202717) do
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
     t.string   "title_first_letter",  :limit => 1
+    t.text     "video_path"
   end
 
   add_index "movies", ["released"], :name => "index_movies_on_released"
@@ -121,5 +123,24 @@ ActiveRecord::Schema.define(:version => 20130218202717) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.boolean  "can_edit"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

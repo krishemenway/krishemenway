@@ -37,4 +37,6 @@ Movies::Application.configure do
 
   # Turns off caching for sass
   config.sass.cache = false
+
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

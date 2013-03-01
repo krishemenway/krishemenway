@@ -1,7 +1,7 @@
 class CalendarController < ApplicationController
 	def index
 		@series = Series.all
-		@events = get_events(DateTime::now.year, DateTime::now.month)
+		@events = get_events(DateTime::now.in_pacific.year, DateTime::now.in_pacific.month)
 
 		respond_to do |format|
 			format.html

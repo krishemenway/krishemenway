@@ -16,7 +16,7 @@ class RageTVShowDataRetriever
 
 	def load_series_from_rage series
 		CSV.parse(retrieve_csv(series), :headers => :first_row) do |row|
-			airdate = Date.parse(row[4].to_s) rescue nil
+			airdate = row[4].count "/" == 2 ? Date.parse(row[4].to_s) : nil rescue nil
 
 			mappedEpisodeData = {
 				:series_id => series.id,

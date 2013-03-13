@@ -82,7 +82,7 @@ $moviesPerRow: 4;
 	}
 
 	.poster {
-		min-width: 300px;
+		max-height: 300px;
 		display: block;
 		margin: 0 auto;
 	}
@@ -183,9 +183,13 @@ $moviesPerRow: 4;
 }
 
 .filter {
-	padding: 10px 0;
+	padding: 5px 0;
 	@include text-overflow();
 	position: relative;
+
+	@include respond-to(mobile) {
+		padding: 0;
+	}
 
 	.letters {
 		.letter {

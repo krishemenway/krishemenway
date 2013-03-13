@@ -13,7 +13,9 @@
 #= require jquery
 #= require jquery-ui
 #= require knockout
+#= require day_view_model
 #= require movies
 #= require tvshows
 #= require calendar
+#= require frontpage
 #= require_directory ./binding_handlers

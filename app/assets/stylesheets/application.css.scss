@@ -40,20 +40,16 @@ button {
 }
 
 .site {
-	width: $siteWidth;
+	max-width: $siteWidth;
+	width: 100%;
 	@include center-block();
-	background-color: rgba(200, 200, 200, .15);
+	background-color: #282828;
 	padding-top: $sideNavigationHeight;
 	position: relative;
 
 	@include transition(width 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 
-	@include respond-to(tablet) {
-		max-width: $tabletWidth;
-		width: 100%;
-	}
-	@include respond-to(phone) {
-		width: 100%;
+	@include respond-to(mobile) {
 		padding-top: 20px;
 	}
 }
@@ -69,8 +65,16 @@ button {
 	height: $sideNavigationHeight;
 	padding: 0 $sideNavigationHeight;
 
+	box-shadow: 0 3px 30px #181818;
+	position: relative;
+	z-index: 1;
+
 	@include respond-to(phone) {
 		padding: 0 5px;
+	}
+
+	@include respond-to(mobile) {
+		padding: 0;
 	}
 
 	background-color: rgba(200, 200, 200, .15);
@@ -93,19 +97,21 @@ button {
 			line-height: $sideNavigationHeight;
 			font-size: 18px;
 
-			@include respond-to(tablet) {
-				font-size: 16px;
+			@include transition(all 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+
+			@include respond-to(mobile) {
+				font-size: 14px;
 				letter-spacing: normal;
+				padding: $sideNavigationHeight / 4 $sideNavigationHeight / 4;
 			}
 
 			@include respond-to(phone) {
-				font-size: 14px;
-				letter-spacing: normal;
 				padding: 8px;
 			}
 		}
 
 		&.active, &:hover {
+			background-color: #282828;
 		}
 	}
 }
@@ -113,3 +119,4 @@ button {
 @import "calendar";
 @import "movies";
 @import "tvshows";
+@import "frontpage";

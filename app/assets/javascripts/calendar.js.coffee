@@ -51,15 +51,4 @@ class CalendarViewModel
 		@loadEventsForMonth(@lastMonth())
 		@loadEventsForMonth(@nextMonth())
 
-
-class DayViewModel
-	constructor: (date, events) ->
-		self = this
-		@date = date
-
-		@events = events
-
-		@getDate = (format) ->
-			$.datepicker.formatDate(format, self.date)
-
 window.CalendarViewModel = CalendarViewModel

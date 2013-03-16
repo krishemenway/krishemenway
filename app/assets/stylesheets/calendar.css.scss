@@ -1,50 +1,52 @@
+.calendar {
 
-.months {
-	margin-top: 4px;
-	@include clearfix();
-
-	li:first-child { text-align: right; }
-	li:last-child { text-align: left; }
-
-	li {
-		$currentMonthFontSize: 34px;
-
-		float: left;
-		width: 33.333333333333333332%;
-		text-align: center;
-		font-size: $currentMonthFontSize;
-		line-height: $currentMonthFontSize;
-
-		button {
-			line-height: $currentMonthFontSize;
-			font-size: $currentMonthFontSize * .8;
-		}
-	}
-}
-
-.days {
-	@include clearfix();
-
-	.day {
-		padding: 10px 30px;
-		position: relative;
-		border: 1px solid #383838;
-		border-width: 1px 0 0 0;
-
+	.months {
+		margin-top: 4px;
 		@include clearfix();
 
-		&:hover {
-			background-color: rgba(0,0,0,.2);
-			border-color: #191919;
-		}
+		li:first-child { text-align: right; }
+		li:last-child { text-align: left; }
 
-		.date {
+		li {
+			$currentMonthFontSize: 34px;
+
 			float: left;
-			width: 10%;
-			cursor: default;
+			width: 33.333333333333333332%;
+			text-align: center;
+			font-size: $currentMonthFontSize;
+			line-height: $currentMonthFontSize;
 
-			@include respond-to(phone) {
-				width: 15%;
+			button {
+				line-height: $currentMonthFontSize;
+				font-size: $currentMonthFontSize * .8;
+			}
+		}
+	}
+
+	.days {
+		@include clearfix();
+
+		.day {
+			padding: 10px 30px;
+			position: relative;
+			border: 1px solid #383838;
+			border-width: 1px 0 0 0;
+
+			@include clearfix();
+
+			&:hover {
+				background-color: rgba(0,0,0,.2);
+				border-color: #191919;
+			}
+
+			.date {
+				float: left;
+				width: 10%;
+				cursor: default;
+
+				@include respond-to(phone) {
+					width: 15%;
+				}
 			}
 
 			.month {
@@ -99,5 +101,4 @@
 			}
 		}
 	}
-
 }

@@ -7,6 +7,8 @@ gem 'newrelic_rpm'
 gem 'slim'
 gem 'icalendar'
 
+gem 'numbers_and_words'
+
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'devise'

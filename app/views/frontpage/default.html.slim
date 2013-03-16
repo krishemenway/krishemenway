@@ -6,7 +6,7 @@
 			ko.applyBindings(window.frontpage);
 		});
 
-.epic-image
+.epic-image{class="#{(rand(3) + 1).to_words}"}
 	input.search type="text" placeholder="Search ..."
 
 .upcoming
@@ -14,8 +14,8 @@
 	ul.days data-bind="foreach: days"
 		li.day
 			.date
-				span.day-of-month data-bind="text: getDate('dd')"
-				span.month data-bind="text: getDate('M')"
+				.day-of-month data-bind="text: getDate('dd')"
+				.month data-bind="text: getDate('M')"
 			ul.events data-bind="foreach: events"
 				li.event
 					span.series-name data-bind="text: series_name"

@@ -11,7 +11,7 @@ html
 		meta name="viewport" content="width=device-width initial-scale=1.0"
 
 	body
-		.site data-bind="#{yield :site_bind}"
+		.site{class="#{yield :page_name}" data-bind="#{yield :site_bind}"}
 			ul.site-navigation
 				li.frontpage
 					=link_to "/frontpage", root_path

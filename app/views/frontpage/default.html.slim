@@ -12,7 +12,7 @@
 
 .upcoming
 	h3 Upcoming ...
-	ul.days data-bind="foreach: days"
+	ul.days data-bind="foreach: days.sort()"
 		li.day
 			.date
 				.day-of-month data-bind="text: getDate('dd')"

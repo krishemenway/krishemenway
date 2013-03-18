@@ -1,136 +1,162 @@
+.frontpage {
 
-.epic-image {
-	width: 100%;
-	height: 300px;
-	background-color: rgba(0,0,0,.2);
-	position: relative;
-
-	background-image: image-url("tf2.jpg");
-
-	&.one {
-		@include opacity(10);
-		background-image: image-url("pi.png");
-	}
-	&.two {
-		@include opacity(10);
-		background-image: image-url("codemonkeys.jpg");
-	}
-	&.three {
-		background-image: image-url("tf2.jpg");
-	}
-}
-
-.search {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-
-	padding: 10px;
-	background-color: rgba(200,200,200,.15);
-}
-
-.recent-changes {
-	$minChangesHeight: 100px;
-	top: $minChangesHeight * -1;
-	min-height: $minChangesHeight;
-
-	float: right;
-	width: 60%;
-	position: relative;
-
-	background-color: rgba(0,0,0,.5);
-}
-
-.upcoming {
-	$minUpcomingHeight: 200px;
-	$padding: 20px;
-	position: relative;
-	min-height: $minUpcomingHeight - $padding * 2;
-	margin-top: $minUpcomingHeight * -1;
-	margin-left: 30px;
-	width: 32%;
-	background-color: rgba(0,0,0,.5);
-	padding: $padding 0;
-	float: left;
-
-	h3 {
-		padding: 0 20px;
-	}
-}
-
-.days {
-	@include clearfix();
-
-	.day {
-		padding: 10px 5px;
+	.epic-image {
+		width: 100%;
+		height: 300px;
+		background-color: rgba(0,0,0,.2);
 		position: relative;
 
-		@include clearfix();
+		background-image: image-url("tf2.jpg");
 
-		&:hover {
-			background-color: rgba(0,0,0,.2);
-			border-color: #191919;
+		&.one {
+			@include opacity(10);
+			background-image: image-url("pi.png");
+		}
+		&.two {
+			@include opacity(10);
+			background-image: image-url("codemonkeys.jpg");
+		}
+		&.three {
+			background-image: image-url("tf2.jpg");
+		}
+	}
+
+	.search {
+		position: absolute;
+
+		top: 20px;
+		right: 20px;
+
+		padding: 10px;
+		background-color: rgba(0,0,0,.5);
+	}
+
+	$boxPadding: 20px;
+
+	.upcoming, .recent-changes {
+		position: relative;
+		padding: $boxPadding 0;
+
+		background-color: rgba(0,0,0,.5);
+
+		h3 {
+			padding: 0 20px;
+		}
+	}
+
+	.upcoming {
+		$minUpcomingHeight: 200px;
+		margin-top: $minUpcomingHeight * -1;
+		min-height: $minUpcomingHeight - $boxPadding * 2;
+		margin-left: 30px;
+		width: 32%;
+		float: left;
+
+	}
+
+	.recent-changes {
+		$minChangesHeight: 100px;
+		top: ($minChangesHeight + $boxPadding * 2) * -1;
+		min-height: $minChangesHeight - $boxPadding * 2;
+		margin-right: 30px;
+
+		float: right;
+		width: 60%;
+	}
+
+	.changes {
+		.change {
+			padding: 10px;
 		}
 
 		.date {
 			float: left;
-			cursor: default;
-			text-align: center;
-			width: 15%;
+
+			.day-of-month {
+				font-size: 24px;
+			}
+
+			.month {
+				font-size: 18px;
+				color: #a8a8a8;
+			}
 		}
+	}
 
-		.month {
-			font-size: 20px;
-			color: #696969;
+	.days {
+		@include clearfix();
 
-			@include respond-to(phone) {
-				display: none;
+		.day {
+			padding: 10px 5px;
+			position: relative;
+
+			@include clearfix();
+
+			&:hover {
+				background-color: rgba(0,0,0,.2);
+				border-color: #191919;
+			}
+
+			.date {
+				float: left;
+				cursor: default;
+				text-align: center;
+				width: 15%;
+			}
+
+			.month {
+				font-size: 20px;
+				color: #696969;
+
+				@include respond-to(phone) {
+					display: none;
+				}
+			}
+
+			.day-of-month {
+				font-size: 26px;
 			}
 		}
 
-		.day-of-month {
-			font-size: 26px;
+		.events {
+			margin-left: 15%;
+
+			.event {
+				margin-bottom: 10px;
+			}
+
+			@include respond-to(phone) {
+
+			}
 		}
-	}
 
-	.events {
-		margin-left: 15%;
+		.series-name {
+			color: #696969;
 
-		.event {
-			margin-bottom: 10px;
+			&:after {
+				content: '-';
+				margin: 0 4px;
+			}
 		}
 
-		@include respond-to(phone) {
+		.title {
 
 		}
-	}
 
-	.series-name {
-		color: #696969;
+		.day-of-week {
+			color: rgba(0,0,0,.5);
+			font-size: 24px;
+			position: absolute;
+			bottom: 3px;
+			right: 3px;
+			text-transform: uppercase;
+			font-weight: bold;
+			letter-spacing: 2px;
+			cursor: default;
 
-		&:after {
-			content: '-';
-			margin: 0 4px;
-		}
-	}
-
-	.title {
-
-	}
-
-	.day-of-week {
-		color: rgba(0,0,0,.5);
-		font-size: 24px;
-		position: absolute;
-		bottom: 3px;
-		right: 3px;
-		text-transform: uppercase;
-		font-weight: bold;
-		letter-spacing: 2px;
-		cursor: default;
-
-		@include respond-to(phone) {
-			color: rgba(0,0,0,.1);
+			@include respond-to(phone) {
+				color: rgba(0,0,0,.1);
+			}
 		}
 	}
 }

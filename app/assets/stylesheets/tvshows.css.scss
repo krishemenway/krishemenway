@@ -2,6 +2,12 @@
 .selected-series {
 	@include side_panel();
 
+	overflow-y: auto;
+
+	@include respond-to(phone) {
+		overflow-y: hidden;
+	}
+
 	.series-name {
 		font-size: 36px;
 		line-height: 40px;
@@ -11,20 +17,46 @@
 		background-color: #292929;
 		border: 5px solid #191919;
 		border-width: 5px 0;
-		padding-left: 10px;
+
+		&:before {
+			content: '';
+		}
 
 		.season {
-			display: inline;
 			line-height: 35px;
+			display: block;
+
+			cursor: pointer;
+
+			&:before {
+				content: 'Season ';
+				padding-left: 20px;
+			}
+
+			&:hover, &:active, &.selected {
+				background-color: #191919;
+			}
+		}
+
+
+		&.season-selected {
+			&:before {
+				content: 'Season ';
+			}
+
+			.season {
+				display: inline;
+
+				&:before {
+					content: '';
+					padding-left: 0px;
+				}
+			}
 		}
 
 		button {
 			padding: 5px 10px;
 			font-size: 16px;
-		}
-
-		&:before {
-			content: 'Season ';
 		}
 	}
 
@@ -35,10 +67,16 @@
 			position: relative;
 			height: 4em;
 
+			cursor: pointer;
+
 			background-color: #393939;
 
 			border-top: 2px solid #292929;
 			border-bottom: 2px solid #494949;
+
+			&:hover,&:active,&.selected {
+				background-color: #191919;
+			}
 		}
 
 		.season-number {
@@ -65,8 +103,8 @@
 
 		.episode-airdate {
 			position: absolute;
-			bottom: 0;
-			right: 0;
+			bottom: 3px;
+			right: 10px;
 		}
 	}
 }
@@ -93,10 +131,6 @@
 			@include transition(height 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 
 			display: none;
-
-			&:before {
-				content: 'Season ';
-			}
 
 			h3 {
 				font-size: 18px;

@@ -1,8 +1,9 @@
 = content_for :title do "frontpage" end
+= content_for :page_name do "frontpage" end
 = content_for :scripts do
 	javascript:
 		$(function(){
-			window.frontpage = new FrontPageViewModel(#{@episodes_by_date.to_json.html_safe});
+			window.frontpage = new FrontPageViewModel(#{@episodes_by_date.to_json.html_safe}, #{@latest_episodes_by_date.to_json.html_safe});
 			ko.applyBindings(window.frontpage);
 		});
 
@@ -22,8 +23,15 @@
 					span.title data-bind="text: title"
 
 .recent-changes
-	h3 Recent Changes ...
-	ul.changes
+	h3 Recent Updates ...
+	ul.changes data-bind="foreach: latest_episodes"
 		li.change
-			span Feb 28th
-
+			.date
+				span.day-of-month data-bind="text: airdate('dd')"
+				span.month data-bind="text: airdate('M')"
+			.series-primere data-bind="visible: seasonPremiere"
+				span Season
+				span data-bind="text: season"
+				span premiere
+			.series-name data-bind="text: seriesName"
+			.title data-bind="text: title"

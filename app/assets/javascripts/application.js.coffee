@@ -14,6 +14,9 @@
 #= require jquery-ui
 #= require knockout
 #= require day_view_model
+#= require tvshows/series_view_model
+#= require tvshows/season_view_model
+#= require tvshows/episode_view_model
 #= require movies
 #= require tvshows
 #= require calendar

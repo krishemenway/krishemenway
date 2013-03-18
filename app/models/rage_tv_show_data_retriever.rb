@@ -8,13 +8,17 @@ class RageTVShowDataRetriever
 		return /<pre>([^<]+)<\/pre>/.match(series_data_result)[1].strip
 	end
 
-	def load_all_series_from_rage
+	def load_all_series_from_rage options = {}
 		Series.all.each do |series|
-			load_series_from_rage series
+			load_series_from_rage series, options
 		end
 	end
 
-	def load_series_from_rage series
+	def load_series_from_rage series, options = {}
+		options = {
+			:initial_load => false
+		}.merge(options)
+
 		CSV.parse(retrieve_csv(series), :headers => :first_row) do |row|
 			airdate = row[4].count("/") == 2 ? Date.parse(row[4].to_s) : nil rescue nil
 
@@ -40,7 +44,14 @@ class RageTVShowDataRetriever
 						episode.save
 					end
 				else
-					Episode.create! mappedEpisodeData
+					episode = Episode.new! mappedEpisodeData
+
+					if options[:initial_load]
+						episode.last_updated = nil
+						episode.created_at = nil
+					end
+
+					episode.save
 				end
 			end
 		end

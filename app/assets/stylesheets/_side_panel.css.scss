@@ -27,7 +27,7 @@
 	@include transition(all 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 
 	&.open {
-		right: $side-panel-width * -1;
+		right: $side-panel-width * -1 + $side-panel-padding;
 		z-index: 1001;
 
 		@include respond-to(phone) {
@@ -38,8 +38,29 @@
 		}
 	}
 
+	.side-2 {
+		@include opacity(0);
+		@include transition(all 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
+	}
+
+	&.open.double-wide .side-2 {
+		@include opacity(100);
+	}
+
 	&.open.double-wide {
 		right: 0;
+	}
+
+	&.open .side-1 {
+		margin-right: $side-panel-padding;
+
+		@include respond-to(phone) {
+			margin-right: 0;
+		}
+	}
+
+	&.open.double-wide .side-1 {
+		margin-right: 0;
 	}
 
 	.side-1,.side-2 {

@@ -47,8 +47,8 @@ class RageTVShowDataRetriever
 					episode = Episode.new! mappedEpisodeData
 
 					if options[:initial_load]
-						episode.last_updated = nil
-						episode.created_at = nil
+						episode.last_updated = episode.airdate
+						episode.created_at = episode.airdate
 					end
 
 					episode.save

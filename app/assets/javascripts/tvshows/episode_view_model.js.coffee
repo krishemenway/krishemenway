@@ -15,6 +15,4 @@ class EpisodeViewModel
 		@airdate = (format) ->
 			$.datepicker.formatDate(format, self._airdate)
 
-		@isSelected = ko.observable(false)
-
 window.EpisodeViewModel = EpisodeViewModel

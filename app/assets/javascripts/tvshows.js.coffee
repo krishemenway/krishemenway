@@ -10,13 +10,10 @@ class BrowseTVShowsViewModel
 			self.selectedSeries(series)
 
 		@clearSeries = ->
+			self.selectedSeries().clearSeries()
 			self.selectedSeries(undefined)
 
 		@isDoubleWide = ko.computed ->
 			self.selectedSeries() != undefined and self.selectedSeries().hasSelectedEpisode()
-
-		@selectedEpisode = ko.computed ->
-			console.log self.selectedSeries().selectedEpisode() if self.selectedSeries() != undefined
-			if self.selectedSeries() != undefined then self.selectedSeries().selectedEpisode() else undefined
 
 window.BrowseTVShowsViewModel = BrowseTVShowsViewModel

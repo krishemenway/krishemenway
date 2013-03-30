@@ -19,6 +19,8 @@ class RageTVShowDataRetriever
 			:initial_load => false
 		}.merge(options)
 
+		episodes = series.episodes
+
 		CSV.parse(retrieve_csv(series), :headers => :first_row) do |row|
 			airdate = row[4].count("/") == 2 ? Date.parse(row[4].to_s) : nil rescue nil
 
@@ -35,7 +37,7 @@ class RageTVShowDataRetriever
 			}
 
 			unless mappedEpisodeData.delete :is_special
-				episode = Episode.where(:series_id => mappedEpisodeData[:series_id], :episode_number => mappedEpisodeData[:episode_number]).first
+				episode = episodes.where(:episode_number => mappedEpisodeData[:episode_number]).first
 
 				if episode.present?
 					episode.update_attributes mappedEpisodeData
@@ -44,14 +46,14 @@ class RageTVShowDataRetriever
 						episode.save
 					end
 				else
-					episode = Episode.new! mappedEpisodeData
+					episode = Episode.new mappedEpisodeData
 
 					if options[:initial_load]
 						episode.last_updated = episode.airdate
 						episode.created_at = episode.airdate
 					end
 
-					episode.save
+					episode.save!
 				end
 			end
 		end

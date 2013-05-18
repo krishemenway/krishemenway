@@ -8,8 +8,8 @@
 		});
 
 ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'left', oddClass: 'right'"
-	li.series data-bind="css: {selected: $root.selectedSeries() == $data, 'has-slide-image': hasSlideImage()}, style: {backgroundImage: 'url('+$data.slideImage()+')'}"
-		button data-bind="text: name, click: $root.selectSeries"
+	li.series data-bind="css: {selected: $root.selectedSeries() == $data}, style: {backgroundImage: 'url('+$data.slideImage()+')'}"
+		button data-bind="text: hasSlideImage() ? undefined : name, click: $root.selectSeries"
 
 = content_for :after_site do
 	.selected-series data-bind="with: selectedSeries(), css: {open: selectedSeries() != undefined, 'double-wide': isDoubleWide()}"

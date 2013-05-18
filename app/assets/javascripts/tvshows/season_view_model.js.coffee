@@ -1,7 +1,9 @@
 
 class SeasonViewModel
 	constructor: (season, episodes) ->
-		@seasonNumber = season
-		@episodes = ko.observableArray(new EpisodeViewModel episode for episode in episodes)
+		self = this
+
+		self.seasonNumber = season
+		self.episodes = ko.observableArray(new EpisodeViewModel episode for episode in episodes)
 
 window.SeasonViewModel = SeasonViewModel

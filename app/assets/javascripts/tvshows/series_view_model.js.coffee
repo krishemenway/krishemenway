@@ -17,12 +17,22 @@ class SeriesViewModel
 		self.hasSlideImage = ko.computed ->
 			self.slideImage() != null
 
+		self.seasons = ko.observableArray()
+
+		self.loadEpisodes = (series) ->
+			seasonViewModels = (new SeasonViewModel season, episodes for season, episodes of series.seasons)
+			self.seasons(seasonViewModels)
+
+		self.fetchEpisodes = () ->
+			$.get('/tvshows/series/' + self.id, self.loadEpisodes)
+
+		self.loadEpisodesIfNeccesary = () ->
+			self.fetchEpisodes() if self.episodes().length == 0
+
 		self.selectedEpisode = ko.observable()
 
 		self.selectEpisode = (episode) ->
 			self.selectedEpisode(episode)
-
-		self.seasons = ko.observableArray (new SeasonViewModel season, episodes for season, episodes of series.seasons)
 
 		self.selectedSeason = ko.observable()
 

@@ -2,15 +2,20 @@ Movies::Application.routes.draw do
 
 	devise_for :users
 
-	resources :movies, :only => [:index] do
-		get 'movie_performances' => "movies#performances"
-	end
+	get '/projects' => 'projects#index'
 
-	get '/leaderboard' => "leaderboard#index"
-	match "/tvshows/:series_name/season/:season/episode/:episode" => "tvshows#episode"
-	match "/tvshows/" => "tvshows#index"
-	match "/calendar/events" => "calendar#events"
-	match "/calendar" => "calendar#index"
-	match "/projects" => "application#frontpage",  :as => "projects"
-	root :to => "application#frontpage"
+	get '/movies' => 'movies#index'
+	get '/movie_performances' => 'movies#performances'
+
+	get '/leaderboard' => 'leaderboard#index'
+
+	get '/tvshows/series/:series_id' => 'tvshows#series'
+	get '/tvshows/' => 'tvshows#index'
+
+	get '/calendar/events' => 'calendar#events'
+	get '/calendar' => 'calendar#index'
+
+	get '/projects' => 'application#frontpage',  :as => 'projects'
+
+	root :to => 'application#frontpage'
 end

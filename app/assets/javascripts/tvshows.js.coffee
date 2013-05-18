@@ -15,6 +15,7 @@ class BrowseTVShowsViewModel
 
 		self.selectSeries = (series) ->
 			self.selectedSeries(series)
+			self.selectedSeries().loadEpisodesIfNeccesary()
 
 		self.clearSeries = ->
 			self.selectedSeries().clearSeries()

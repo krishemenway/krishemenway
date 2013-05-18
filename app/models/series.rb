@@ -1,5 +1,5 @@
 class Series < ActiveRecord::Base
-	attr_accessible :name, :rage_id, :set_slide_image_right, :set_slide_image_left
+	attr_accessible :name, :rage_id, :set_slide_image_right, :set_slide_image_left, :slide_image_right_file_name, :slide_image_left_file_name
 
 	has_attached_file :slide_image_left, :styles => {:full => "1024x150>", :half => "443x65>"}
 	has_attached_file :slide_image_right, :styles => {:full => "1024x150>", :half => "443x65>"}

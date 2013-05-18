@@ -11,7 +11,6 @@ namespace :db do
 		start_at = ENV["start"].to_s.to_i || 0
 
 		files = (ENV["files"] || "").split ","
-		files = ['genres', 'movies', 'movie_book_locations', 'movie_genres', 'people'] if files.empty?
 
 		files.each do |file|
 			csv_file  = File.join( File.dirname(__FILE__), '..', '..', 'db', 'fixtures', "#{file}.csv" )
@@ -42,14 +41,11 @@ namespace :db do
 					else
 						if model_result.is_a?(Array)
 							model_result = model_result.first
+						else
+							puts "I didn't expect this"
 						end
 
-						model_result.update_attributes(hashed_row)
-
-						if model_result.changed?
-							model_result.save!
-						end
-
+						model_result.update_attributes!(hashed_row)
 						puts "Updated #{activerecord_model.to_s} with id #{model_result.id}"
 					end
 

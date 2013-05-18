@@ -112,6 +112,21 @@
 .serieses {
 
 	.series {
+		background-repeat: no-repeat;
+		background-color: transparent;
+
+		@include respond-to(phone) {
+			background-size: 469px 67px;
+
+			&.left {
+				background-position: center left;
+			}
+
+			&.right {
+				background-position: center right;
+			}
+		}
+
 		&.left button {
 			text-align: left;
 		}

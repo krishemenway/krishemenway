@@ -7,7 +7,7 @@
 			ko.applyBindings(window.tvshows);
 		});
 
-ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'left', oddClass: 'right'"
+ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'right', oddClass: 'left'"
 	li.series data-bind="css: {selected: $root.selectedSeries() == $data}, style: {backgroundImage: 'url('+$data.slideImage()+')'}"
 		button data-bind="text: hasSlideImage() ? undefined : name, click: $root.selectSeries"
 

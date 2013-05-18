@@ -1,0 +1,34 @@
+
+@mixin transition-timing-function($timing-function...) {
+	-webkit-transition-timing-function: $timing-function;
+	-moz-transition-timing-function: $timing-function;
+	-ms-transition-timing-function: $timing-function;
+	-o-transition-timing-function: $timing-function;
+	transition-timing-function: $timing-function;
+}
+
+@mixin easeIn($property : all, $length: 200ms) {
+	@include transition($property $length cubic-bezier(0.120, 0.460, 0.215, 0.750));
+}
+
+@mixin transform-origin($xAxis, $yAxis) {
+	-webkit-transform-origin: $xAxis $yAxis;
+	-ms-transform-origin: $xAxis $yAxis;
+	transform-origin: $xAxis $yAxis;
+}
+
+@mixin scaleY($value) {
+	-webkit-transform: scaleY($value);
+	-moz-transform: scaleY($value);
+	-ms-transform: scaleY($value);
+	-o-transform: scaleY($value);
+	transform: scaleY($value);
+}
+
+@mixin scaleX($value) {
+	-webkit-transform: scaleX($value);
+	-moz-transform: scaleX($value);
+	-ms-transform: scaleX($value);
+	-o-transform: scaleX($value);
+	transform: scaleX($value);
+}

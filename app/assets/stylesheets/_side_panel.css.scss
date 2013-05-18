@@ -1,4 +1,9 @@
 
+@import "mixins/media_queries";
+@import "mixins/transitions";
+@import "mixins/visibility";
+@import "mixins/transform";
+
 .side-panel-open {
 	overflow: hidden;
 
@@ -80,7 +85,7 @@
 
 	.more {
 		@include transform(rotate(-90deg));
-		@include transform-origin(50% 50%);
+		@include transform-origin(50%, 50%);
 
 		height: 40px;
 		width: 110px;

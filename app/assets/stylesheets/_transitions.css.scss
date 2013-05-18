@@ -1,8 +1,0 @@
-
-@mixin transition-timing-function($timing-function...) {
-	-webkit-transition-timing-function: $timing-function;
-	-moz-transition-timing-function: $timing-function;
-	-ms-transition-timing-function: $timing-function;
-	-o-transition-timing-function: $timing-function;
-	transition-timing-function: $timing-function;
-}

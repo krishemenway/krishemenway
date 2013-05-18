@@ -11,13 +11,19 @@
  *= require_self
  */
 
-@import "bootstrap/_variables";
-@import "bootstrap/_mixins";
+@import "bourbon";
 @import "meyers-reset";
-@import "transitions";
-@import "transform_mixins";
-@import "media_queries";
+@import "mixins/transitions";
+@import "mixins/transform";
+@import "mixins/media_queries";
+@import "mixins/visibility";
+
 @import "side_panel";
+
+@mixin opacity($percent) {
+	opacity: $percent / 100;
+	filter:alpha(opacity=$percent); // For IE8 and earlier
+}
 
 $siteWidth: $desktopWidth;
 $sideNavigationHeight: 40px;
@@ -42,7 +48,7 @@ button {
 .site {
 	max-width: $siteWidth;
 	width: 100%;
-	@include center-block();
+	margin: 0 auto;
 	background-color: #282828;
 	padding-top: $sideNavigationHeight;
 	position: relative;

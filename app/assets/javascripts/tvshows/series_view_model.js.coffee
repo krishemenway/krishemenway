@@ -1,13 +1,21 @@
 
 class SeriesViewModel
-	constructor: (series) ->
+	constructor: (series, side) ->
 		self = this
+
+		self.side = side
 
 		self.name = series.name
 		self.id = series.id
 
 		self.slideImageLeft = series.slideImageLeft
 		self.slideImageRight = series.slideImageRight
+
+		self.slideImage = ko.computed ->
+			if self.side == "right" then self.slideImageRight else self.slideImageLeft
+
+		self.hasSlideImage = ko.computed ->
+			self.slideImage() != null
 
 		self.selectedEpisode = ko.observable()
 

@@ -1,4 +1,6 @@
 
+@import "mixins/media_queries";
+
 .selected-series {
 	@include side_panel();
 

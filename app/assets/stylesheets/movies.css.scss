@@ -1,4 +1,8 @@
 
+@import "mixins/media_queries";
+@import "mixins/transitions";
+@import "mixins/visibility";
+
 $moviesPerRow: 4;
 
 .selected-movie {
@@ -185,6 +189,7 @@ $moviesPerRow: 4;
 
 .filter {
 	padding: 5px 0;
+	// todo test if this broke something
 	@include text-overflow();
 	position: relative;
 

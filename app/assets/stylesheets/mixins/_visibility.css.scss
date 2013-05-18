@@ -1,0 +1,14 @@
+
+@mixin opacity($percent) {
+	opacity: $percent / 100;
+	filter:alpha(opacity=$percent); // For IE8 and earlier
+}
+
+@mixin text-offscreen() {
+	text-indent: -99999px;
+}
+
+@mixin text-overflow() {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

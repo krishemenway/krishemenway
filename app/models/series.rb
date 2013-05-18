@@ -17,8 +17,8 @@ class Series < ActiveRecord::Base
 			:name => self.name,
 			:id => self.id,
 			:seasons => self.seasons.as_json(options),
-			:slideImageLeft => self.slide_image_left.url(:full),
-			:slideImageRight => self.slide_image_right.url(:full)
+			:slideImageLeft => self.slide_image_left.present? ? self.slide_image_left.url(:full) : nil,
+			:slideImageRight => self.slide_image_right.present? ? self.slide_image_right.url(:full) : nil
 		}
 	end
 end

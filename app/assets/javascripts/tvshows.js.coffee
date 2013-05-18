@@ -2,7 +2,14 @@
 class BrowseTVShowsViewModel
 	constructor: (serieses) ->
 		self = this
-		self.serieses = ko.observableArray(new SeriesViewModel series for series in serieses)
+
+		seriesViewModels = (
+			for series in serieses
+				side = if _i % 2 == 0 then "right" else "left"
+				new SeriesViewModel(series,side)
+		)
+
+		self.serieses = ko.observableArray(seriesViewModels)
 
 		self.selectedSeries = ko.observable(undefined)
 
@@ -15,5 +22,6 @@ class BrowseTVShowsViewModel
 
 		self.isDoubleWide = ko.computed ->
 			self.selectedSeries() != undefined and self.selectedSeries().hasSelectedEpisode()
+
 
 window.BrowseTVShowsViewModel = BrowseTVShowsViewModel

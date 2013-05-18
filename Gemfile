@@ -23,7 +23,7 @@ group :production do
 	gem 'pg'
 end
 
-gem 'bootstrap-sass'
+gem 'bourbon'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier', '>= 1.0.3'

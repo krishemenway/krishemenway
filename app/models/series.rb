@@ -29,7 +29,6 @@ class Series < ActiveRecord::Base
 	end
 
 	def get_slide_image(image)
-		location =
 		path = URI.escape(remote_slide_image_location + image)
 		file = open(path)
 		def file.original_filename; base_uri.path.split('/').last end

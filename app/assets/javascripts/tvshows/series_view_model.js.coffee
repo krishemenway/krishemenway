@@ -27,7 +27,7 @@ class SeriesViewModel
 			$.get('/tvshows/series/' + self.id, self.loadEpisodes)
 
 		self.loadEpisodesIfNeccesary = () ->
-			self.fetchEpisodes() if self.episodes().length == 0
+			self.fetchEpisodes() if self.seasons().length == 0
 
 		self.selectedEpisode = ko.observable()
 

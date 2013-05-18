@@ -35,11 +35,15 @@ class Series < ActiveRecord::Base
 		file
 	end
 
-	def as_json(options)
+	def as_json(options = {})
+		options = {
+			:include_seasons => true
+		}.merge(options)
+
 		{
 			:name => self.name,
 			:id => self.id,
-			:seasons => self.seasons.as_json(options),
+			:seasons => if options[:include_seasons] then self.seasons.as_json(options) else nil end,
 			:slideImageLeft => self.slide_image_left.present? ? self.slide_image_left.url(:full) : nil,
 			:slideImageRight => self.slide_image_right.present? ? self.slide_image_right.url(:full) : nil
 		}

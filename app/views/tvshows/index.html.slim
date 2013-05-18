@@ -3,7 +3,7 @@
 = content_for :scripts do
 	javascript:
 		$(function(){
-			window.tvshows = new BrowseTVShowsViewModel(#{@series.to_json.html_safe});
+			window.tvshows = new BrowseTVShowsViewModel(#{@series.to_json({:include_seasons => false}).html_safe});
 			ko.applyBindings(window.tvshows);
 		});
 

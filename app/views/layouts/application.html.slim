@@ -10,8 +10,8 @@ html
 		= csrf_meta_tags
 		meta name="viewport" content="width=device-width initial-scale=1.0"
 
-	body
-		.site{class="#{yield :page_name}" data-bind="#{yield :site_bind}"}
+	body data-bind="#{yield :site_bind}"
+		.site{class="#{yield :page_name}"}
 			ul.site-navigation
 				li.frontpage
 					=link_to "/frontpage", root_path

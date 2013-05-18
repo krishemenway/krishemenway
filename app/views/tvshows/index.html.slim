@@ -8,7 +8,7 @@
 		});
 
 ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'left', oddClass: 'right'"
-	li.series data-bind="css: {selected: $root.selectedSeries() == $data}"
+	li.series data-bind="css: {selected: $root.selectedSeries() == $data}, style: {backgroundImage: 'url('+$data.slideImageRight+')'}"
 		button data-bind="text: name, click: $root.selectSeries"
 
 = content_for :after_site do

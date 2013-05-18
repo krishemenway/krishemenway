@@ -6,6 +6,7 @@ Movies::Application.routes.draw do
 		get 'movie_performances' => "movies#performances"
 	end
 
+	get '/leaderboard' => "leaderboard#index"
 	match "/tvshows/:series_name/season/:season/episode/:episode" => "tvshows#episode"
 	match "/tvshows/" => "tvshows#index"
 	match "/calendar/events" => "calendar#events"

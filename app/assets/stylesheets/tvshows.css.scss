@@ -2,8 +2,6 @@
 .selected-series {
 	@include side_panel();
 
-	overflow-y: auto;
-
 	@include respond-to(phone) {
 		overflow-y: hidden;
 	}

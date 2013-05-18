@@ -1,6 +1,6 @@
 class TvshowsController < ApplicationController
 	def index
-		@series = Series.all
+		@series = Series.includes(:episodes).all
 
 		respond_to do |format|
 			format.html

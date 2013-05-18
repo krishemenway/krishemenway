@@ -1,13 +1,18 @@
 
-.site.side-panel-open {
-	@include respond-to(phone) {
-		display: none;
+.side-panel-open {
+	overflow: hidden;
+
+	.site {
+		@include respond-to(phone) {
+			display: none;
+		}
 	}
 }
 
 @mixin side-panel($side-panel-width: 490px, $side-panel-padding: 40px) {
 
 	background-color: rgba(0,0,0, .8);
+	overflow-y: auto;
 
 	padding: $side-panel-padding;
 	width: ($side-panel-width * 2 - $side-panel-padding * 2);

@@ -3,6 +3,7 @@ $moviesPerRow: 4;
 
 .selected-movie {
 	@include side_panel();
+	overflow-y: visible;
 
 	.title {
 		text-align: center;

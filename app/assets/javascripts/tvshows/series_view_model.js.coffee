@@ -2,30 +2,33 @@
 class SeriesViewModel
 	constructor: (series) ->
 		self = this
-		@name = series.name
-		@id = series.id
 
-		@selectedEpisode = ko.observable()
+		self.name = series.name
+		self.id = series.id
 
-		@selectEpisode = (episode) ->
+		self.slideImageLeft = series.slideImageLeft
+		self.slideImageRight = series.slideImageRight
+
+		self.selectedEpisode = ko.observable()
+
+		self.selectEpisode = (episode) ->
 			self.selectedEpisode(episode)
 
-		@seasons = ko.observableArray (new SeasonViewModel season, episodes for season, episodes of series.seasons)
+		self.seasons = ko.observableArray (new SeasonViewModel season, episodes for season, episodes of series.seasons)
 
-		@selectedSeason = ko.observable()
+		self.selectedSeason = ko.observable()
 
-		@hasSelectedSeason = ko.computed ->
+		self.hasSelectedSeason = ko.computed ->
 			self.selectedSeason() != undefined
 
-		@hasSelectedEpisode = ko.computed ->
+		self.hasSelectedEpisode = ko.computed ->
 			self.selectedEpisode() != undefined
 
-		@selectSeason = (season) ->
+		self.selectSeason = (season) ->
 			self.selectedSeason(season)
 
-		@clearSeries = () ->
+		self.clearSeries = () ->
 			self.selectedSeason(undefined)
 			self.selectedEpisode(undefined)
-
 
 window.SeriesViewModel = SeriesViewModel

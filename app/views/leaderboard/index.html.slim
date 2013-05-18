@@ -1,0 +1,23 @@
+= content_for :title do "leaderboard" end
+= content_for :scripts do
+	javascript:
+		$(function(){
+			var teams = [
+				{name: "Team 1"},
+				{name: "Team 2"},
+				{name: "Team 3"},
+				{name: "Team 4"}
+			];
+
+			window.leaderboard = new LeaderboardViewModel(teams);
+			ko.applyBindings(window.leaderboard);
+		});
+
+#leaderboards
+	ol#individuals.ladder data-bind="foreach: individualsLeaderboard"
+		li.rung
+	ol#my-team.ladder data-bind="foreach: myTeamsLeaderboard"
+		li.rung
+	ol#teams.ladder data-bind="foreach: teamsLeaderboard"
+		li.rung
+			.team-name data-bind="text: name"

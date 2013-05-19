@@ -114,6 +114,8 @@
 	.series {
 		background-repeat: no-repeat;
 		background-color: transparent;
+		border: 5px solid #000;
+		border-style: solid none;
 
 		@include respond-to(phone) {
 			background-size: 469px 67px;

@@ -5,7 +5,7 @@ Movies::Application.routes.draw do
 	get '/projects' => 'projects#index'
 
 	get '/movies' => 'movies#index'
-	get '/movie_performances' => 'movies#performances'
+	get '/movies/:movie_id/movie_performances' => 'movies#performances'
 
 	get '/leaderboard' => 'leaderboard#index'
 

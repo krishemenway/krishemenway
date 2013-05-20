@@ -1,62 +1,74 @@
 
 @import "mixins/media_queries";
+@import "mixins/transitions";
 
-.selected-series {
-	@include side_panel();
+.serieses {
 
-	@include respond-to(phone) {
-		overflow-y: hidden;
-	}
+	.series {
+		background-repeat: no-repeat;
+		background-color: transparent;
+		border: 5px solid #000;
+		border-style: solid none;
 
-	.series-name {
-		font-size: 36px;
-		line-height: 40px;
+		@include respond-to(phone) {
+			background-size: 469px 67px;
+
+			&.left {
+				background-position: top left;
+			}
+
+			&.right {
+				background-position: top right;
+			}
+		}
+
+		&.left .select-series {
+			text-align: left;
+		}
+		&.right .select-series {
+			text-align: right;
+		}
+
+		.select-series {
+			font-size: 36px;
+			width: 100%;
+			padding: 50px;
+
+			@include respond-to(phone) {
+				padding: 12px;
+			}
+
+			&:hover {
+				background-color: rgba(0,0,0,.1);
+			}
+		}
 	}
 
 	.seasons {
-		background-color: #292929;
 		border: 5px solid #191919;
 		border-width: 5px 0;
 
 		&:before {
-			content: '';
+			content: 'Season ';
+			margin-right: 5px;
+
+			font-size: 24px;
+			line-height: 35px;
 		}
 
 		.season {
-			line-height: 35px;
-			display: block;
+			display: inline;
 
-			cursor: pointer;
-
-			&:before {
-				content: 'Season ';
-				padding-left: 20px;
-			}
-
-			&:hover, &:active, &.selected {
-				background-color: #191919;
-			}
-		}
-
-
-		&.season-selected {
-			&:before {
-				content: 'Season ';
-			}
-
-			.season {
-				display: inline;
-
-				&:before {
-					content: '';
-					padding-left: 0px;
+			&:hover, &.selected {
+				.select-season {
+					background-color: #191919;
 				}
 			}
 		}
 
-		button {
-			padding: 5px 10px;
-			font-size: 16px;
+		.select-season {
+			font-size: 18px;
+			padding: 5px 15px;
 		}
 	}
 
@@ -105,72 +117,6 @@
 			position: absolute;
 			bottom: 3px;
 			right: 10px;
-		}
-	}
-}
-
-.serieses {
-
-	.series {
-		background-repeat: no-repeat;
-		background-color: transparent;
-		border: 5px solid #000;
-		border-style: solid none;
-
-		@include respond-to(phone) {
-			background-size: 469px 67px;
-
-			&.left {
-				background-position: center left;
-			}
-
-			&.right {
-				background-position: center right;
-			}
-		}
-
-		&.left button {
-			text-align: left;
-		}
-		&.right button {
-			text-align: right;
-		}
-
-		&.open {
-			.seasons {
-				display: block;
-			}
-		}
-
-		.seasons {
-			cursor: pointer;
-			@include clearfix();
-			@include transition(height 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
-
-			display: none;
-
-			h3 {
-				font-size: 18px;
-				float: left;
-				padding: 4px 6px;
-			}
-		}
-
-
-		button {
-			font-size: 36px;
-			display: block;
-			width: 100%;
-			padding: 50px;
-
-			@include respond-to(phone) {
-				padding: 20px;
-				font-size: 22px;
-			}
-
-			&:hover {
-				background-color: rgba(0,0,0,.1);
-			}
 		}
 	}
 }

@@ -12,16 +12,18 @@ class SeriesViewModel
 		self.slideImageRight = series.slideImageRight
 
 		self.slideImage = ko.computed ->
-			if self.side == "right" then self.slideImageRight else self.slideImageLeft
+			imageUrl = (if self.side == "right" then self.slideImageRight else self.slideImageLeft)
+			if imageUrl == null then undefined else 'url('+imageUrl+')'
 
 		self.hasSlideImage = ko.computed ->
-			self.slideImage() != null
+			self.slideImage() != undefined
 
 		self.seasons = ko.observableArray()
 
 		self.loadEpisodes = (series) ->
 			seasonViewModels = (new SeasonViewModel season, episodes for season, episodes of series.seasons)
 			self.seasons(seasonViewModels)
+			self.selectedSeason(seasonViewModels[0])
 
 		self.fetchEpisodes = () ->
 			$.get('/tvshows/series/' + self.id, self.loadEpisodes)

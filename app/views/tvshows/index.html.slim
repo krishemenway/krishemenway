@@ -1,4 +1,3 @@
-= content_for :site_bind do "css: { 'side-panel-open': selectedSeries() != undefined }" end
 = content_for :title do "tv shows" end
 = content_for :scripts do
 	javascript:
@@ -8,17 +7,13 @@
 		});
 
 ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'right', oddClass: 'left'"
-	li.series data-bind="css: {selected: $root.selectedSeries() == $data}, style: {backgroundImage: 'url('+$data.slideImage()+')'}"
-		button data-bind="text: hasSlideImage() ? undefined : name, click: $root.selectSeries"
+	li.series data-bind="css: {selected: $root.selectedSeries() == $data}, style: {backgroundImage: slideImage()}"
+		button.select-series data-bind="text: hasSlideImage() ? undefined : name, click: $root.selectSeries"
 
-= content_for :after_site do
-	.selected-series data-bind="with: selectedSeries(), css: {open: selectedSeries() != undefined, 'double-wide': isDoubleWide()}"
-		button.close data-bind="click: $root.clearSeries"
-		.side-1
-			h2.series-name data-bind="text: name"
+		.series-details data-bind="if: $root.selectedSeries() == $data"
 			ul.seasons data-bind="foreach: seasons, css: {'season-selected': hasSelectedSeason()}"
 				li.season data-bind="css: {selected: $parent.selectedSeason() == $data}, click: $parent.selectSeason"
-					button data-bind="text: seasonNumber"
+					button.select-season data-bind="text: seasonNumber"
 			.selected-season data-bind="with: selectedSeason()"
 				ul.episodes data-bind="foreach: episodes.sort(function(l, r) { return l.episodeInSeason == r.episodeInSeason ? 0 : (l.episodeInSeason < r.episodeInSeason ? -1 : 1) })"
 					li.episode data-bind="click: $parents[1].selectEpisode, css: {selected: $parents[1].selectedEpisode() == $data}"
@@ -26,7 +21,3 @@ ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'right', 
 						span.episode-number-in-season data-bind="text: episodeInSeason"
 						span.episode-title data-bind="text: title"
 						span.episode-airdate data-bind="text: airdate('yy-mm-dd')"
-		.side-2 data-bind="with: selectedEpisode()"
-			.title data-bind="text: title"
-			.season-number data-bind="text: season"
-

@@ -9,6 +9,14 @@ class Episode < ActiveRecord::Base
 
  	belongs_to :series
 
+	def stream_path
+		"#{ENV['EPISODE_STREAM_URL']}/Season #{self.season}/#{self.filename}"
+	end
+
+	def filename
+		"#{sprintf '%02d', self.season}x#{sprintf '%02d', self.episode_in_season} - #{self.title}.mp4"
+	end
+
 	def as_ical
 		event = Event.new
 
@@ -20,7 +28,12 @@ class Episode < ActiveRecord::Base
 		event
 	end
 
-	def as_json(options)
+	def as_json(options = {})
+		options = {
+			:include_seasons => true,
+			:user_signed_in => false
+		}.merge(options)
+
 		{
 			:series_name => self.series.name,
 			:series_id => self.series_id,
@@ -29,7 +42,8 @@ class Episode < ActiveRecord::Base
 			:episode_in_season => self.episode_in_season,
 			:episode_number => self.episode_number,
 			:season => self.season,
-		    :video_path => self.video_path
+			:video_path => self.video_path,
+			:stream_path => options[:user_can_stream] ? self.stream_path : nil
 		}
 	end
 end

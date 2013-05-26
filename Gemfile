@@ -9,6 +9,8 @@ gem 'icalendar'
 
 gem 'numbers_and_words'
 
+gem 'random_data'
+
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'devise'

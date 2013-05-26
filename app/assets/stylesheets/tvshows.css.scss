@@ -29,6 +29,18 @@
 			text-align: right;
 		}
 
+		&.selected {
+			.series-details {
+				height: auto;
+			}
+		}
+
+		.series-details {
+			height: 0;
+			max-height: 4500px;
+			@include easeIn();
+		}
+
 		.select-series {
 			font-size: 36px;
 			width: 100%;

@@ -1,3 +1,6 @@
+@import "mixins/visibility";
+@import "mixins/media_queries";
+
 .frontpage {
 
 	.epic-image {
@@ -36,6 +39,8 @@
 	.upcoming, .recent-changes {
 		position: relative;
 		padding: $boxPadding 0;
+		margin-left: 30px;
+		width: 45%;
 
 		background-color: rgba(0,0,0,.5);
 
@@ -48,20 +53,7 @@
 		$minUpcomingHeight: 200px;
 		margin-top: $minUpcomingHeight * -1;
 		min-height: $minUpcomingHeight - $boxPadding * 2;
-		margin-left: 30px;
-		width: 32%;
-		float: left;
-
-	}
-
-	.recent-changes {
-		$minChangesHeight: 100px;
-		top: ($minChangesHeight + $boxPadding * 2) * -1;
-		min-height: $minChangesHeight - $boxPadding * 2;
-		margin-right: 30px;
-
-		float: right;
-		width: 60%;
+		border-bottom: 1px solid #c8c8c8;
 	}
 
 	.changes {
@@ -91,11 +83,6 @@
 			position: relative;
 
 			@include clearfix();
-
-			&:hover {
-				background-color: rgba(0,0,0,.2);
-				border-color: #191919;
-			}
 
 			.date {
 				float: left;

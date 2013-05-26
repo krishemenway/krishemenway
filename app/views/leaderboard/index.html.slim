@@ -2,22 +2,19 @@
 = content_for :scripts do
 	javascript:
 		$(function(){
-			var teams = [
-				{name: "Team 1"},
-				{name: "Team 2"},
-				{name: "Team 3"},
-				{name: "Team 4"}
-			];
-
-			window.leaderboard = new LeaderboardViewModel(teams);
+			var loggedInUsername = "Test User 01";
+			window.leaderboard = new LeaderboardViewModel(loggedInUsername);
 			ko.applyBindings(window.leaderboard);
 		});
 
 #leaderboards
-	ol#individuals.ladder data-bind="foreach: individualsLeaderboard"
+	ol#individuals.ladder data-bind="foreach: viewableIndividuals"
 		li.rung
-	ol#my-team.ladder data-bind="foreach: myTeamsLeaderboard"
+			.display-name data-bind="text: name"
+			.score data-bind="text: score()"
+	ol#my-team.ladder
 		li.rung
-	ol#teams.ladder data-bind="foreach: teamsLeaderboard"
+	ol#teams.ladder
 		li.rung
-			.team-name data-bind="text: name"
+			.team-name
+			.total-score

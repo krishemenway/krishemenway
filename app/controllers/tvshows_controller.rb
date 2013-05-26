@@ -4,7 +4,7 @@ class TvshowsController < ApplicationController
 
 		respond_to do |format|
 			format.html
-			format.json { render :json => @series }
+			format.json { render :json => @series, :user_can_stream => current_user_can_stream? }
 		end
 	end
 
@@ -13,7 +13,11 @@ class TvshowsController < ApplicationController
 		series = Series.find(series_id)
 
 		respond_to do |format|
-			format.json { render :json => series }
+			format.json { render :json => series, :user_can_stream => current_user_can_stream? }
 		end
+	end
+
+	def current_user_can_stream?
+		user_signed_in? && current_user.can_stream
 	end
 end

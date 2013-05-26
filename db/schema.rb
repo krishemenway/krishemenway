@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518190143) do
+ActiveRecord::Schema.define(:version => 20130526075159) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20130518190143) do
     t.boolean  "can_edit"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.boolean  "can_stream"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

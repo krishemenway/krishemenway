@@ -35,3 +35,11 @@
 				span premiere
 			.series-name data-bind="text: seriesName"
 			.title data-bind="text: title"
+
+ul.search-results data-bind="foreach: searchResults"
+	li.result
+		p Something
+
+ul.projects data-bind="foreach: projects"
+	li.project
+		a href="#{leaderboard_path}" Leaderboard

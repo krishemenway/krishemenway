@@ -9,6 +9,7 @@ Movies::Application.routes.draw do
 
 	get '/leaderboard' => 'leaderboard#index'
 	get '/leaderboard/individuals' => 'leaderboard#individuals'
+	get '/leaderboard/something' => 'leaderboard#something'
 
 	get '/tvshows/series/:series_id' => 'tvshows#series'
 	get '/tvshows/' => 'tvshows#index'

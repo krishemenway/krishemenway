@@ -10,6 +10,7 @@ class EpisodeViewModel
 		self.seriesName = episode.series_name
 		self.lastUpdate = episode.last_updated
 		self.seasonPremiere = episode.episode_number == 1
+		self.streamPath = episode.stream_path
 
 		self._airdate = $.datepicker.parseDate('yy-mm-dd', episode.airdate)
 		self.airdate = (format) ->

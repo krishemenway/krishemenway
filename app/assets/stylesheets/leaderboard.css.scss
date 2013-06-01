@@ -1,0 +1,92 @@
+@import "bourbon";
+
+.leaderboard {
+
+	#total-score {
+		font-size: 32px;
+		margin: 30px 0;
+	}
+
+	h2 {
+		font-size: 18px;
+		line-height: 24px;
+	}
+
+	.days {
+		.day {
+			@include clearfix();
+			margin: 10px 0;
+		}
+		.date, .score {
+			display: block;
+			height: 50px;
+		}
+		.date {
+			float: left;
+			width: 12.5%;
+			margin-left: 2.5%;
+		}
+		.score {
+			float: left;
+			width: 75%;
+			line-height: 20px;
+			font-size: 18px;
+			padding-left: 10px;
+		}
+	}
+
+	#leaderboards {
+		float: right;
+		width: 50%;
+	}
+
+	#individual {
+		float: left;
+		width: 50%;
+	}
+
+	.ladder {
+		width: 100%;
+	}
+
+	#individuals {
+		.next-page, .previous-page {
+			width: 40%;
+		}
+		.find-me {
+			width: 20%;
+		}
+	}
+
+	.next-page, .previous-page, .find-me {
+		background-color: #383838;
+		padding: 8px 0;
+		font-size: 18px;
+	}
+
+	.next-page, .previous-page {
+		width: 50%;
+	}
+
+	.rung {
+		@include clearfix();
+		padding: 5px;
+
+		&.is-me, &.is-my-team {
+			background-color: rgba(0,0,0,.7);
+		}
+
+		.rank, .name, .score {
+			float: left;
+		}
+		.rank {
+			width: 15%;
+		}
+		.name {
+			width: 50%;
+		}
+		.score {
+			width: 35%;
+		}
+	}
+}

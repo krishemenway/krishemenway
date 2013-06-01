@@ -21,3 +21,8 @@ ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'right', 
 						span.episode-number-in-season data-bind="text: episodeInSeason"
 						span.episode-title data-bind="text: title"
 						span.episode-airdate data-bind="text: airdate('yy-mm-dd')"
+
+						/! ko $parent.$parent.selectedEpisode() == $data
+						video width="100%"
+							source data-bind="attr: {src: streamPath}"
+						/! /ko

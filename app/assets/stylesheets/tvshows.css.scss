@@ -31,14 +31,14 @@
 
 		&.selected {
 			.series-details {
-				height: auto;
+				@include scaleY(1);
 			}
 		}
 
 		.series-details {
-			height: 0;
-			max-height: 4500px;
-			@include easeIn();
+			@include scaleY(0);
+			@include easeIn($length: 400ms);
+			@include transform-origin(50%, 0);
 		}
 
 		.select-series {
@@ -47,7 +47,8 @@
 			padding: 50px;
 
 			@include respond-to(phone) {
-				padding: 12px;
+				height: 67px;
+				padding: 0 50px;
 			}
 
 			&:hover {

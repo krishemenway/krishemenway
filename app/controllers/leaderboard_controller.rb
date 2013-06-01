@@ -2,13 +2,47 @@ class LeaderboardController < ApplicationController
 	def index
 	end
 
-	def individuals
-		@individuals = []
+	def something
+		data = []
 
 		for i in 0..10000
-			@individuals << {
-				:name => "Test User #{i}",
-				:score => Random.rand(100)
+			data << {
+				:rank => Random.rand(10000),
+				:score => Random.rand(10000)
+			}
+		end
+
+		respond_to do |format|
+			format.json { render :json => data }
+		end
+	end
+
+	def individuals
+		@individuals = Rails.cache.fetch('leaderboard') do
+			individuals = []
+			teams = []
+
+			for i in 0..9
+				teams << {
+					:external_id => Random.alphanumeric(5),
+					:name => "Team #{Random.state_full}"
+				}
+			end
+
+			for i in 0..1000
+				individuals << {
+					:name => "#{Random.first_name} #{Random.initial}",
+					:score => Random.rand(100000),
+					:team_external_id => teams[i % 10][:external_id],
+					:days_entered => Random.rand(100),
+					:average => Random.rand(10000)
+				}
+			end
+
+			{
+				:logged_in_user => individuals[0][:name],
+				:individuals => individuals.sort_by { |individual| -individual[:score] },
+				:teams => teams
 			}
 		end
 

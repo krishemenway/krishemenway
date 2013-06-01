@@ -1,20 +1,55 @@
 = content_for :title do "leaderboard" end
+= content_for :page_name do "leaderboard" end
 = content_for :scripts do
 	javascript:
 		$(function(){
-			var loggedInUsername = "Test User 01";
-			window.leaderboard = new LeaderboardViewModel(loggedInUsername);
+			window.leaderboard = new ChallengeViewModel({programStartDate: '1/1/2013', programEndDate: '1/1/2014'});
 			ko.applyBindings(window.leaderboard);
 		});
 
+#individual data-bind="with: loggedInIndividual"
+	#who-am-i data-bind="text: individual.name"
+	#myRank
+		| Ranked:
+		span data-bind="spinning_number_text: individual.rank()"
+	#total-score data-bind="spinning_number_text: totalScore()"
+	ol.days data-bind="foreach: days"
+		li.day
+			.date
+				.month data-bind="text: getDate('M')"
+				.day-of-month data-bind="text: getDate('d')"
+				.day-of-week data-bind="text: getDate('D')"
+			input.score type="tel" data-bind="value: score, event: {change: $parent.updateScore, keypress: keyPress}" placeholder="Enter score ..."
+
 #leaderboards
-	ol#individuals.ladder data-bind="foreach: viewableIndividuals"
-		li.rung
-			.display-name data-bind="text: name"
-			.score data-bind="text: score()"
-	ol#my-team.ladder
-		li.rung
-	ol#teams.ladder
-		li.rung
-			.team-name
-			.total-score
+	#teams data-bind="with: teamsLeaderboard"
+		h2.title Teams
+		ol.ladder data-bind="foreach: viewableTeams"
+			li.rung data-bind="css: {'is-my-team': $root.myTeam && $data == $root.myTeam}"
+				.rank data-bind="text: rank"
+				.name data-bind="text: name"
+				.score data-bind="text: membersAggregateScore"
+		button.previous-page data-bind="click: reverseOnePage" <
+		button.next-page data-bind="click: advanceOnePage" >
+
+	#individuals data-bind="with: individualLeaderboard"
+		h2.title Overall Scoreboard
+		ol.ladder data-bind="foreach: viewableIndividuals"
+			li.rung data-bind="css: {'is-me': $root.loggedInIndividual() && $data == $root.loggedInIndividual().individual}"
+				.rank data-bind="text: rank()"
+				.name data-bind="text: name"
+				.score data-bind="text: score()"
+		button.previous-page data-bind="click: reverseOnePage" <
+		button.next-page data-bind="click: advanceOnePage" >
+		button.find-me data-bind="click: gotoMe" Me
+
+	#my-team data-bind="with: myTeamLeaderboard"
+		h2.team-name data-bind="text: team.name + ' (my team)'"
+		ol.ladder data-bind="foreach: viewableIndividuals"
+			li.rung data-bind="css: {'is-me': $root.loggedInIndividual() && $data == $root.loggedInIndividual().individual}"
+				.rank data-bind="text: rank()"
+				.name data-bind="text: name"
+				.score data-bind="text: score()"
+		button.previous-page data-bind="click: reverseOnePage" <
+		button.next-page data-bind="click: advanceOnePage" >
+		button.find-me data-bind="click: gotoMe" Me

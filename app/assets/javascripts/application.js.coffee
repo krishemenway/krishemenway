@@ -13,6 +13,8 @@
 #= require jquery
 #= require jquery-ui
 #= require knockout
+#= require binding_handlers/_stripe
+#= require binding_handlers/_animate_numeric_change
 #= require day_view_model
 #= require tvshows/series_view_model
 #= require tvshows/season_view_model

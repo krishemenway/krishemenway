@@ -51,4 +51,8 @@ class SeriesViewModel
 			self.selectedSeason(undefined)
 			self.selectedEpisode(undefined)
 
+		window.setTimeout( ->
+			self.loadEpisodesIfNeccesary()
+		, 10)
+
 window.SeriesViewModel = SeriesViewModel

@@ -10,7 +10,7 @@ class Episode < ActiveRecord::Base
  	belongs_to :series
 
 	def stream_path
-		"#{ENV['EPISODE_STREAM_URL']}/Season #{self.season}/#{self.filename}"
+		"#{ENV['EPISODE_STREAM_URL']}/#{self.series.name}/Season #{self.season}/#{self.filename}"
 	end
 
 	def filename

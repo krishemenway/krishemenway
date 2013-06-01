@@ -7,12 +7,11 @@
 			ko.applyBindings(window.leaderboard);
 		});
 
+h1
+	| The Leaderboard
+	span.sub-text (where the points don't matter)
+
 #individual data-bind="with: loggedInIndividual"
-	#who-am-i data-bind="text: individual.name"
-	#myRank
-		| Ranked:
-		span data-bind="spinning_number_text: individual.rank()"
-	#total-score data-bind="spinning_number_text: totalScore()"
 	ol.days data-bind="foreach: days"
 		li.day
 			.date
@@ -22,6 +21,17 @@
 			input.score type="tel" data-bind="value: score, event: {change: $parent.updateScore, keypress: keyPress}" placeholder="Enter score ..."
 
 #leaderboards
+	#MyStats data-bind="with: loggedInIndividual"
+		#who-am-i
+			.label You
+			.name data-bind="text: individual.name"
+		#my-rank
+			.label Rank
+			.rank data-bind="spinning_number_text: individual.rank()"
+		#my-total-score
+			.label Score
+			.score data-bind="spinning_number_text: totalScore()"
+
 	#teams data-bind="with: teamsLeaderboard"
 		h2.title Teams
 		ol.ladder data-bind="foreach: viewableTeams"

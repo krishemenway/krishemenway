@@ -2,9 +2,16 @@
 
 .leaderboard {
 
-	#total-score {
+	h1 {
 		font-size: 32px;
-		margin: 30px 0;
+		font-weight: 100;
+		margin: 10px;
+
+		.sub-text {
+			font-size: 24px;
+			font-weight: 100;
+			margin-left: 10px;
+		}
 	}
 
 	h2 {
@@ -49,7 +56,7 @@
 		width: 100%;
 	}
 
-	#individuals {
+	#individuals, #my-team {
 		.next-page, .previous-page {
 			width: 40%;
 		}
@@ -68,25 +75,75 @@
 		width: 50%;
 	}
 
+	#who-am-i, #my-total-score, #my-rank {
+		float: left;
+		margin: 5px 0;
+
+		.label {
+			width: 60px;
+			text-transform: uppercase;
+			color: #181818;
+			font-weight: bold;
+			float: left;
+			padding: 7px 0;
+		}
+	}
+
+	#who-am-i .name,
+	#my-total-score .score,
+	#my-rank .rank {
+		background-color: #181818;
+		@include border-left-radius(5px);
+		@include border-right-radius(5px);
+		margin-left: 60px;
+		padding: 7px;
+	}
+
+	#who-am-i {
+		width: 100%;
+	}
+
+	#my-total-score {
+		width: 55%;
+		margin-left: 1%;
+	}
+
+	#my-rank {
+		width: 40%;
+	}
+
 	.rung {
 		@include clearfix();
 		padding: 5px;
 
 		&.is-me, &.is-my-team {
-			background-color: rgba(0,0,0,.7);
+			.name, .score {
+				background-color: #ED2939;
+			}
 		}
 
 		.rank, .name, .score {
 			float: left;
+			padding: 10px 0;
 		}
 		.rank {
-			width: 15%;
+			width: 10%;
+			padding-right: 3%;
+			text-align: right;
 		}
 		.name {
-			width: 50%;
+			width: 40%;
+			text-indent: 15px;
+			background-color: #181818;
+			@include border-left-radius(5px);
 		}
 		.score {
 			width: 35%;
+			padding-right: 2%;
+
+			text-align: right;
+			background-color: #181818;
+			@include border-right-radius(5px);
 		}
 	}
 }

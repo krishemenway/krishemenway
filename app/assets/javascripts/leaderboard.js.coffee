@@ -16,6 +16,10 @@ class ChallengeViewModel
 		self.myTeam = undefined
 		self.myTeamLeaderboard = ko.observable()
 
+		self.gotoMe = () ->
+			self.individualLeaderboard.gotoMe()
+			self.myTeamLeaderboard().gotoMe() if self.myTeamLeaderboard() != undefined
+
 		self.reRankTeams = () ->
 			sortedTeams = self.teams.sort (left, right) -> right.membersAggregateScore() - left.membersAggregateScore()
 			team.rank(i + 1) for team, i in sortedTeams
@@ -98,6 +102,7 @@ class LoggedInIndividual
 			challenge.myTeam.recalculateScore() if challenge.myTeam
 			challenge.myTeam.sortMembersByRank() if challenge.myTeam
 			challenge.reRankTeams()
+			challenge.gotoMe()
 
 		self.totalScore = ko.computed ->
 			self.individual.score()

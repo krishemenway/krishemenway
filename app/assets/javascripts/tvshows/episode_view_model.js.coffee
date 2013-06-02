@@ -12,8 +12,9 @@ class EpisodeViewModel
 		self.seasonPremiere = episode.episode_number == 1
 		self.streamPath = episode.stream_path
 
-		self._airdate = $.datepicker.parseDate('yy-mm-dd', episode.airdate)
+		self._airdate = new Date(Date.parse("#{episode.airdate} GMT-0800"))
+
 		self.airdate = (format) ->
-			$.datepicker.formatDate(format, self._airdate)
+			strftime(format, self._airdate)
 
 window.EpisodeViewModel = EpisodeViewModel

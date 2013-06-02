@@ -11,7 +11,7 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery
-#= require jquery-ui
+#= require strftime
 #= require knockout
 #= require binding_handlers/_stripe
 #= require binding_handlers/_animate_numeric_change

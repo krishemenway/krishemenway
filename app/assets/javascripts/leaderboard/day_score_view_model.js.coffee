@@ -10,6 +10,6 @@ class DayScoreViewModel
 			event.which >= '0'.charCodeAt(0) and event.which <= '9'.charCodeAt(0)
 
 		self.getDate = (format) ->
-			$.datepicker.formatDate(format, self.date)
+			strftime(format, self.date)
 
 window.DayScoreViewModel = DayScoreViewModel

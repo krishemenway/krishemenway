@@ -2,11 +2,12 @@
 class DayViewModel
 	constructor: (date, events) ->
 		self = this
-		@date = date
 
-		@events = events
+		self.date = date
 
-		@getDate = (format) ->
-			$.datepicker.formatDate(format, self.date)
+		self.events = events
+
+		self.getDate = (format) ->
+			strftime(format, self.date)
 
 window.DayViewModel = DayViewModel

@@ -5,7 +5,7 @@ class CalendarViewModel
 		self.currentMonth = ko.observable(new Date)
 		self.events_by_date = ko.observable({})
 
-		self.header_date_format = 'MM yy'
+		self.headerDateFormat = '%B %Y'
 
 		self.loadEventsForDay = (day, events) ->
 			self.events_by_date()[day] = events
@@ -23,16 +23,17 @@ class CalendarViewModel
 			return new Date(self.currentMonth().getFullYear(), self.currentMonth().getMonth() + 1, 1)
 
 		self.currentMonthName = ko.computed ->
-			return $.datepicker.formatDate(self.header_date_format, self.currentMonth())
+
+			return strftime(self.headerDateFormat, self.currentMonth())
 
 		self.lastMonthName = ko.computed ->
-			return $.datepicker.formatDate(self.header_date_format, self.lastMonth())
+			return strftime(self.headerDateFormat, self.lastMonth())
 
 		self.nextMonthName = ko.computed ->
-			return $.datepicker.formatDate(self.header_date_format, self.nextMonth())
+			return strftime(self.headerDateFormat, self.nextMonth())
 
 		self.events_for_day = (date) ->
-			formatted_date = $.datepicker.formatDate("yy-mm-dd", date)
+			formatted_date = strftime("%Y-%m-%d", date)
 			return self.events_by_date()[formatted_date] || []
 
 		self.days = ko.computed ->

@@ -27,8 +27,8 @@
 	ul.changes data-bind="foreach: latest_episodes"
 		li.change
 			.date
-				span.day-of-month data-bind="text: airdate('dd')"
-				span.month data-bind="text: airdate('M')"
+				span.day-of-month data-bind="text: airdate('%d')"
+				span.month data-bind="text: airdate('%b')"
 			.series-primere data-bind="visible: seasonPremiere"
 				span Season
 				span data-bind="text: season"
@@ -40,7 +40,7 @@
 	ul.search-results data-bind="foreach: searchResults"
 		li.result
 
-	ul.projects data-bind="foreach: projects"
+	ul.projects
 		li.project
 			img src=""
 			a href="#{leaderboard_path}" Leaderboard

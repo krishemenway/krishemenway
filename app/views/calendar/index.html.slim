@@ -17,12 +17,12 @@ ul.months
 ul.days data-bind="foreach: days"
 	li.day
 		.date
-			span.day-of-month data-bind="text: getDate('dd')"
-			span.month data-bind="text: getDate('M')"
+			span.day-of-month data-bind="text: getDate('%d')"
+			span.month data-bind="text: getDate('%b')"
 
 		ul.events data-bind="foreach: events"
 			li.event
 				span.series-name data-bind="text: series_name"
 				span.title data-bind="text: title"
 
-		span.day-of-week data-bind="text: getDate('DD')"
+		span.day-of-week data-bind="text: getDate('%w')"

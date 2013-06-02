@@ -5,10 +5,10 @@
 
 	$boxPadding: 20px;
 
-	.results-and-projects, .upcoming, .recent-changes {
+	.results-and-projects, .tv-shows {
 		position: relative;
 		padding: $boxPadding 0;
-		width: 40%;
+		width: 43%;
 
 		background-color: rgba(0,0,0,.5);
 	}
@@ -56,19 +56,19 @@
 		background-color: rgba(0,0,0,.5);
 	}
 
-	.upcoming, .recent-changes {
+	.tv-shows {
 		margin-left: 30px;
 		float: left;
 
-		h3 {
-			padding: 0 20px;
-		}
-	}
-
-	.upcoming {
 		$minUpcomingHeight: 200px;
 		margin-top: $minUpcomingHeight * -1;
 		min-height: $minUpcomingHeight - $boxPadding * 2;
+	}
+
+	.upcoming, .recent-changes {
+		h3 {
+			padding: 0 20px;
+		}
 	}
 
 	.changes {

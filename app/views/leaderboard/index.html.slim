@@ -9,15 +9,16 @@
 
 h1
 	| The Leaderboard
-	span.sub-text (where the points don't matter)
+	span.sub-text
+		| (where the points don't matter)
 
 #individual data-bind="with: loggedInIndividual"
 	ol.days data-bind="foreach: days"
 		li.day
 			.date
-				.month data-bind="text: getDate('M')"
-				.day-of-month data-bind="text: getDate('d')"
-				.day-of-week data-bind="text: getDate('D')"
+				.month data-bind="text: getDate('%b')"
+				.day-of-month data-bind="text: getDate('%d')"
+				.day-of-week data-bind="text: getDate('%a')"
 			input.score type="tel" data-bind="value: score, event: {change: $parent.updateScore, keypress: keyPress}" placeholder="Enter score ..."
 
 #my-stats data-bind="with: loggedInIndividual"

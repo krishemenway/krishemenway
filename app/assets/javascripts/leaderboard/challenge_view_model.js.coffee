@@ -70,6 +70,7 @@ class ChallengeViewModel
 
 			self.reRankIndividuals()
 			self.reRankTeams()
+			self.gotoMe()
 
 		self.fetchDataFromServer = () ->
 			$.get("/leaderboard/individuals", {}, self.loadIndividuals)

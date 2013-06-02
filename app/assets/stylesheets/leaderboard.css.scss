@@ -1,6 +1,7 @@
 @import "bourbon";
 @import "mixins/transform";
 @import "mixins/visibility";
+@import "mixins/media_queries";
 
 .leaderboard {
 
@@ -22,7 +23,6 @@
 	}
 
 	.days {
-		width: 100%;
 
 		.day-of-month, .day-of-week, .month {
 			margin: 3px 0;
@@ -60,6 +60,23 @@
 		@include respond-to(phone) {
 			width: 100%;
 		}
+
+		@include respond-to(tablet) {
+			width: 75%;
+		}
+	}
+
+	#individual {
+		float: left;
+		width: 50%;
+
+		@include respond-to(phone) {
+			width: 100%;
+		}
+
+		@include respond-to(tablet) {
+			width: 25%;
+		}
 	}
 
 	#leaderboard-selector {
@@ -86,15 +103,6 @@
 			&.is-selected {
 				background-color: #ED2939;
 			}
-		}
-	}
-
-	#individual {
-		float: left;
-		width: 50%;
-
-		@include respond-to(phone) {
-			width: 100%;
 		}
 	}
 

@@ -20,46 +20,51 @@ h1
 				.day-of-week data-bind="text: getDate('D')"
 			input.score type="tel" data-bind="value: score, event: {change: $parent.updateScore, keypress: keyPress}" placeholder="Enter score ..."
 
-#leaderboards
-	#MyStats data-bind="with: loggedInIndividual"
-		#who-am-i
-			.label You
-			.name data-bind="text: individual.name"
-		#my-rank
-			.label Rank
-			.rank data-bind="spinning_number_text: individual.rank()"
-		#my-total-score
-			.label Score
-			.score data-bind="spinning_number_text: totalScore()"
+#my-stats data-bind="with: loggedInIndividual"
+	#who-am-i
+		.label You
+		.name data-bind="text: individual.name"
+	#my-rank
+		.label Rank
+		.rank data-bind="spinning_number_text: individual.rank()"
+	#my-total-score
+		.label Score
+		.score data-bind="spinning_number_text: totalScore()"
 
-	#teams data-bind="with: teamsLeaderboard"
-		h2.title Teams
-		ol.ladder data-bind="foreach: viewableTeams"
-			li.rung data-bind="css: {'is-my-team': $root.myTeam && $data == $root.myTeam}"
-				.rank data-bind="text: rank"
-				.name data-bind="text: name"
-				.score data-bind="text: membersAggregateScore"
-		button.previous-page data-bind="click: reverseOnePage" <
-		button.next-page data-bind="click: advanceOnePage" >
+#leaderboard-selector
+	button#teams-selector data-bind="css: {'is-selected': selectedLeaderboard() == teamsLeaderboard}, click: selectTeamsLeaderboard" All Teams
+	button#individuals-selector data-bind="css: {'is-selected': selectedLeaderboard() == individualLeaderboard}, click: selectIndividualLeaderboard" Overall
+	button#my-team-selector data-bind="with: myTeamLeaderboard, css: {'is-selected': selectedLeaderboard() == myTeamLeaderboard()}, click: selectMyTeamLeaderboard"
+		/! ko text: team.name
+		/! /ko
 
-	#individuals data-bind="with: individualLeaderboard"
-		h2.title Overall Scoreboard
-		ol.ladder data-bind="foreach: viewableIndividuals"
-			li.rung data-bind="css: {'is-me': $root.loggedInIndividual() && $data == $root.loggedInIndividual().individual}"
-				.rank data-bind="text: rank()"
-				.name data-bind="text: name"
-				.score data-bind="text: score()"
-		button.previous-page data-bind="click: reverseOnePage" <
-		button.next-page data-bind="click: advanceOnePage" >
-		button.find-me data-bind="click: gotoMe" Me
+#leaderboards-overflow-wrapper
+	#leaderboards data-bind="css: selectedLeaderboardClass"
+		#teams data-bind="with: teamsLeaderboard"
+			ol.ladder data-bind="foreach: viewableTeams"
+				li.rung data-bind="css: {'is-my-team': $root.myTeam && $data == $root.myTeam}"
+					.rank data-bind="text: rank"
+					.name data-bind="text: name"
+					.score data-bind="text: membersAggregateScore"
+			button.previous-page data-bind="visible: paginationEnabled, click: reverseOnePage" <
+			button.next-page data-bind="visible: paginationEnabled, click: advanceOnePage" >
 
-	#my-team data-bind="with: myTeamLeaderboard"
-		h2.team-name data-bind="text: team.name + ' (my team)'"
-		ol.ladder data-bind="foreach: viewableIndividuals"
-			li.rung data-bind="css: {'is-me': $root.loggedInIndividual() && $data == $root.loggedInIndividual().individual}"
-				.rank data-bind="text: rank()"
-				.name data-bind="text: name"
-				.score data-bind="text: score()"
-		button.previous-page data-bind="click: reverseOnePage" <
-		button.next-page data-bind="click: advanceOnePage" >
-		button.find-me data-bind="click: gotoMe" Me
+		#individuals data-bind="with: individualLeaderboard"
+			ol.ladder data-bind="foreach: viewableIndividuals"
+				li.rung data-bind="css: {'is-me': $root.loggedInIndividual() && $data == $root.loggedInIndividual().individual}"
+					.rank data-bind="text: rank()"
+					.name data-bind="text: name"
+					.score data-bind="text: score()"
+			button.previous-page data-bind="visible: paginationEnabled, click: reverseOnePage" <
+			button.next-page data-bind="visible: paginationEnabled, click: advanceOnePage" >
+			button.find-me data-bind="click: gotoMe" Me
+
+		#my-team data-bind="with: myTeamLeaderboard"
+			ol.ladder data-bind="foreach: viewableIndividuals"
+				li.rung data-bind="css: {'is-me': $root.loggedInIndividual() && $data == $root.loggedInIndividual().individual}"
+					.rank data-bind="text: rank()"
+					.name data-bind="text: name"
+					.score data-bind="text: score()"
+			button.previous-page data-bind="visible: paginationEnabled, click: reverseOnePage" <
+			button.next-page data-bind="visible: paginationEnabled, click: advanceOnePage" >
+			button.find-me data-bind="click: gotoMe" Me

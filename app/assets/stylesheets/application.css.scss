@@ -63,6 +63,7 @@ button {
 .content {
 	position: relative;
 	overflow: hidden;
+	@include clearfix();
 }
 
 .site-navigation {
@@ -118,6 +119,20 @@ button {
 
 		&.active, &:hover {
 			background-color: #282828;
+		}
+	}
+}
+
+.footer-links {
+	@include clearfix();
+
+	li {
+		float: left;
+
+		a {
+			padding: 5px 20px;
+			border-left: 1px solid #181818;
+			border-right: 1px solid #383838;
 		}
 	}
 }

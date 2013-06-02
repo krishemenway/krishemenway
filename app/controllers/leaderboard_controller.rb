@@ -22,18 +22,21 @@ class LeaderboardController < ApplicationController
 			individuals = []
 			teams = []
 
-			for i in 0..9
+			teamCount = 20
+			individualCount = 1000
+
+			for i in 1..teamCount
 				teams << {
 					:external_id => Random.alphanumeric(5),
 					:name => "Team #{Random.state_full}"
 				}
 			end
 
-			for i in 0..1000
+			for i in 1..individualCount
 				individuals << {
 					:name => "#{Random.first_name} #{Random.initial}",
 					:score => Random.rand(100000),
-					:team_external_id => teams[i % 10][:external_id],
+					:team_external_id => teams[i % teamCount][:external_id],
 					:days_entered => Random.rand(100),
 					:average => Random.rand(10000)
 				}

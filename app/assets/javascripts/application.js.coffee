@@ -23,5 +23,5 @@
 #= require tvshows
 #= require calendar
 #= require frontpage
-#= require leaderboard
+#= require leaderboard/leaderboard
 #= require_directory ./binding_handlers

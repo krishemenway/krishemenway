@@ -1,4 +1,6 @@
 
+@import "bourbon";
+
 @mixin transform-origin($content) {
 	-webkit-transform-origin: $content;
 	-moz-transform-origin: $content;
@@ -13,4 +15,8 @@
 	-ms-transform: $content;
 	-o-transform: $content;
 	transform: $content;
+}
+
+@mixin translate3d($x, $y, $z) {
+	@include prefixer(transform, translate3d($x, $y, $z), webkit moz ms o spec);
 }

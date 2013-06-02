@@ -13,15 +13,15 @@ html
 	body data-bind="#{yield :site_bind}"
 		.site{class="#{yield :page_name}"}
 			ul.site-navigation
-				li.frontpage
+				li
 					=link_to "/frontpage", root_path
-				li.projects
+				li
 					=link_to projects_path, projects_path
-				li.movies
+				li
 					=link_to movies_path, movies_path
-				li.tvshows
+				li
 					=link_to tvshows_path, tvshows_path
-				li.calendar
+				li
 					=link_to calendar_path, calendar_path
 			.content
 				= content_for?(:content) ? yield(:content) : yield

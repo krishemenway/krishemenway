@@ -1,4 +1,6 @@
 @import "bourbon";
+@import "mixins/transform";
+@import "mixins/visibility";
 
 .leaderboard {
 
@@ -8,7 +10,7 @@
 		margin: 10px;
 
 		.sub-text {
-			font-size: 24px;
+			font-size: 20px;
 			font-weight: 100;
 			margin-left: 10px;
 		}
@@ -42,9 +44,37 @@
 		}
 	}
 
-	#leaderboards {
+	#leaderboards-overflow-wrapper, #my-stats, #leaderboard-selector {
 		float: right;
 		width: 50%;
+		overflow: hidden;
+	}
+
+	#leaderboard-selector {
+		@include clearfix();
+		text-align: center;
+		margin: 15px 0;
+
+		button {
+			display: inline-block;
+			width: 30%;
+			height: 40px;
+			padding: 10px 0;
+			background-color: #383838;
+			font-size: 14px;
+
+			&:first-child {
+				@include border-left-radius(5px);
+			}
+
+			&:last-child {
+				@include border-right-radius(5px);
+			}
+
+			&.is-selected {
+				background-color: #ED2939;
+			}
+		}
 	}
 
 	#individual {
@@ -56,14 +86,25 @@
 		width: 100%;
 	}
 
-	#individuals, #my-team {
-		.next-page, .previous-page {
-			width: 40%;
-		}
-		.find-me {
-			width: 20%;
-		}
+	#leaderboards {
+		width: 300%;
 	}
+
+	#individuals, #my-team, #teams {
+		width: 33%;
+		float: left;
+		@include easeIn();
+	}
+
+	#teams { @include translate3d(-100%,0,0); @include opacity(0); }
+	.all-teams-selected #teams { @include translate3d(0,0,0); @include opacity(100); }
+
+	.all-teams-selected #individuals { @include translate3d(0,0,0); @include opacity(0); }
+	.individuals-selected #individuals { @include translate3d(-100%,0,0); @include opacity(100); }
+	.team-selected #individuals { @include translate3d(-200%,0,0); @include opacity(0); }
+
+	#my-team { @include translate3d(-100%,0,0); @include opacity(0); }
+	.team-selected #my-team { @include translate3d(-200%,0,0); @include opacity(100); }
 
 	.next-page, .previous-page, .find-me {
 		background-color: #383838;
@@ -71,45 +112,64 @@
 		font-size: 18px;
 	}
 
-	.next-page, .previous-page {
-		width: 50%;
-	}
-
-	#who-am-i, #my-total-score, #my-rank {
-		float: left;
-		margin: 5px 0;
-
-		.label {
-			width: 60px;
-			text-transform: uppercase;
-			color: #181818;
-			font-weight: bold;
-			float: left;
-			padding: 7px 0;
-		}
-	}
-
-	#who-am-i .name,
-	#my-total-score .score,
-	#my-rank .rank {
-		background-color: #181818;
+	.find-me {
 		@include border-left-radius(5px);
 		@include border-right-radius(5px);
-		margin-left: 60px;
-		padding: 7px;
+		float: right;
+		width: 20%;
 	}
 
-	#who-am-i {
-		width: 100%;
+	.next-page {
+		@include border-right-radius(5px);
+	}
+	.previous-page {
+		@include border-left-radius(5px);
+		margin-right: 1px;
 	}
 
-	#my-total-score {
-		width: 55%;
-		margin-left: 1%;
+	.next-page, .previous-page {
+		width: 30%;
 	}
 
-	#my-rank {
-		width: 40%;
+	#my-stats {
+		@include clearfix();
+
+		#who-am-i, #my-total-score, #my-rank {
+			float: left;
+			margin: 5px 0;
+
+			.label {
+				width: 60px;
+				text-transform: uppercase;
+				color: #181818;
+				font-weight: bold;
+				float: left;
+				padding: 7px 0;
+			}
+		}
+
+		#who-am-i .name,
+		#my-total-score .score,
+		#my-rank .rank {
+			background-color: #181818;
+			@include border-left-radius(5px);
+			@include border-right-radius(5px);
+			margin-left: 60px;
+			padding: 7px;
+		}
+
+		#who-am-i {
+			width: 96%;
+		}
+
+		#my-total-score {
+			width: 55%;
+			margin-left: 1%;
+		}
+
+		#my-rank {
+			width: 40%;
+		}
 	}
 
 	.rung {
@@ -135,6 +195,9 @@
 			width: 40%;
 			text-indent: 15px;
 			background-color: #181818;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
 			@include border-left-radius(5px);
 		}
 		.score {

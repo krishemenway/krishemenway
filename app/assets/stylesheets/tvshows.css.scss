@@ -44,11 +44,12 @@
 		.select-series {
 			font-size: 36px;
 			width: 100%;
-			padding: 50px;
+			height: 150px;
 
 			@include respond-to(phone) {
 				height: 67px;
 				padding: 0 50px;
+				font-size: 18px;
 			}
 
 			&:hover {

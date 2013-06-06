@@ -8,6 +8,9 @@ class Series < ActiveRecord::Base
 
 	has_many :episodes
 
+	has_many :user_series
+	has_many :users, :through => :user_series
+
 	def seasons
 		self.episodes.group_by(&:season)
 	end

@@ -16,6 +16,7 @@ gem 'aws-sdk'
 gem 'devise'
 
 gem 'sqlite3', :group => [:development, :test]
+gem 'rack-mini-profiler', :group => [:development]
 
 group :test do
 	gem 'rspec'

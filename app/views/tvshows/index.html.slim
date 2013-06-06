@@ -6,7 +6,13 @@
 			ko.applyBindings(window.tvshows);
 		});
 
-a.calendar-link href="#{calendar_path}" Calendar
+.add-more-series
+	.search-for-series
+		.search
+			input.search-input type="text" placeholder="Search ... "
+		ul.search-results
+			li.search-result
+	.browse
 
 ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'right', oddClass: 'left'"
 	li.series data-bind="css: {selected: $root.selectedSeries() == $data}, style: {backgroundImage: slideImage()}"

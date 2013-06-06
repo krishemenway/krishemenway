@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130526075159) do
+ActiveRecord::Schema.define(:version => 20130603034816) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -131,6 +131,16 @@ ActiveRecord::Schema.define(:version => 20130526075159) do
     t.integer  "slide_image_right_file_size"
     t.datetime "slide_image_right_updated_at"
   end
+
+  create_table "user_series", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "series_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_series", ["series_id"], :name => "index_user_series_on_series_id"
+  add_index "user_series", ["user_id"], :name => "index_user_series_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

@@ -14,8 +14,11 @@ class BrowseTVShowsViewModel
 		self.selectedSeries = ko.observable(undefined)
 
 		self.selectSeries = (series) ->
-			self.selectedSeries(if self.selectedSeries() == series then undefined else series)
-			self.selectedSeries().loadEpisodesIfNeccesary()
+			if self.selectedSeries() == series
+				self.selectedSeries(undefined)
+			else
+				self.selectedSeries(series)
+				self.selectedSeries().loadEpisodesIfNeccesary()
 
 		self.clearSeries = ->
 			self.selectedSeries().clearSeries()

@@ -1,26 +1,38 @@
 
+#= require movies/movie_view_model
+#= require movies/movie_book_location_view_model
+
+#= require movies/decade_filter_view_model
+#= require movies/decade_view_model
+
+#= require movies/genre_filters_view_model
+#= require movies/genre_filter_view_model
+
+#= require movies/letter_filter_view_model
+#= require movies/letter_view_model
+
 class BrowseMoviesViewModel
 	constructor: (movies, genres, decades) ->
 		self = this
 
-		@createMovies = (movies) ->
+		self.createMovies = (movies) ->
 			return (new MovieViewModel movie for movie in movies)
 
-		@shouldShowFilters = ko.observable(true)
-		@genreFilter = new GenreFiltersViewModel genres, self
-		@decadeFilter = new DecadeFilterViewModel decades, self
-		@letterFilter = new LetterFilterViewModel self
+		self.shouldShowFilters = ko.observable(true)
+		self.genreFilter = new GenreFiltersViewModel genres, self
+		self.decadeFilter = new DecadeFilterViewModel decades, self
+		self.letterFilter = new LetterFilterViewModel self
 
-		@movies = ko.observableArray(self.createMovies(movies))
+		self.movies = ko.observableArray(self.createMovies(movies))
 
-		@currentMovie = ko.observable()
-		@secondMovie = ko.observable()
+		self.currentMovie = ko.observable()
+		self.secondMovie = ko.observable()
 
-		@isDoubleWide = ko.observable(false)
-		@toggleDoubleWide = ->
+		self.isDoubleWide = ko.observable(false)
+		self.toggleDoubleWide = ->
 			self.isDoubleWide(!self.isDoubleWide())
 
-		@reloadMovies = () ->
+		self.reloadMovies = () ->
 			movie_filters =
 				letter: self.letterFilter.getSelectedLetter(),
 				genres: self.genreFilter.getSelected(),
@@ -29,7 +41,7 @@ class BrowseMoviesViewModel
 			$.get "/movies.json", movie_filters, (movies) ->
 				self.movies(self.createMovies(movies))
 
-		@gotoMovie = (movie) ->
+		self.gotoMovie = (movie) ->
 			window.location.hash = movie.title
 			movie.load_performances()
 			self.isDoubleWide(false)
@@ -43,123 +55,20 @@ class BrowseMoviesViewModel
 				self.currentMovie(movie)
 				self.secondMovie(undefined)
 
-		@clearMovieOnEsc = (event) ->
+		self.clearMovieOnEsc = (event) ->
 			key = event.which if event.which else event.keyCode
 			self.clearMovie if key == 13
 
-		@clearMovie = () ->
+		self.clearMovie = () ->
 			if self.currentMovie()
 				self.currentMovie(undefined)
 			else
 				self.secondMovie(undefined)
 
-class MovieViewModel
-	constructor: (movie) ->
-		self = this
-		@title = movie.title
-		@small_poster_path = movie.small_poster_path
-		@large_poster_path = movie.large_poster_path
-		@description = movie.description
-		@short_description = movie.short_description
-		@id = movie.id
-		@length = movie.length
-		@movie_book_locations = ko.observableArray(new MovieBookLocationViewModel mbl for mbl in JSON.parse(movie.movie_book_locations))
-		@actors = ko.observableArray []
-		@directors = ko.observableArray []
-		@writers = ko.observableArray []
-		@genres = ko.observableArray JSON.parse(movie.genres)
-		@load_performances = ->
-			$.get "/movies/#{self.id}/movie_performances.json", (data) ->
-				self.actors(data.actors)
-				self.writers(data.writers)
-				self.directors(data.directors)
-
-class MovieBookLocationViewModel
-	constructor: (movie_book_location) ->
-		@book_id = movie_book_location.book_id
-		@page_id = movie_book_location.page_id
-
-class LetterFilterViewModel
-	constructor: (filterViewModel) ->
-		self = this
-		a = "a".charCodeAt(0)
-		z = "z".charCodeAt(0)
-		@letters = (new LetterViewModel String.fromCharCode(letter), self, filterViewModel for letter in [a..z])
-
-		@getSelectedLetter = ->
-			letters = self.letters.filter((letterViewModel) -> letterViewModel.isChecked())
-			return if letters.length == 0 then "" else letters[0].letter
-
-		@clearAll = ->
-			letter.isChecked(false) for letter in self.letters
-
-class DecadeFilterViewModel
-	constructor: (decades, filterViewModel) ->
-		self = this
-		@decades = ko.observableArray(new DecadeViewModel decade, self, filterViewModel for decade in decades)
-
-		@getSelected = ->
-			decades = self.decades().filter((letterViewModel) -> letterViewModel.isChecked())
-			return if decades.length == 0 then "" else decades[0].year
-
-		@clearAll = ->
-			decade.isChecked(false) for decade in self.decades()
-
-class GenreFiltersViewModel
-	constructor: (genres, filterViewModel) ->
-		self = this
-		@genres = ko.observableArray(new GenreFilterViewModel g, self, filterViewModel for g in genres)
-		@getSelected = ->
-			return (self.genres().filter((genreViewModel) -> genreViewModel.isChecked()) || []).map (genre) ->
-				return genre.id
-
-		@clearAll = ->
-			genre.isChecked(false) for genre in self.genres()
-
-class LetterViewModel
-	constructor: (letter, lettersFilterViewModel, filterViewModel) ->
-		self = this
-		@filterViewModel = filterViewModel
-		@lettersFilterViewModel = lettersFilterViewModel
-		@letter = letter
-		@isChecked = ko.observable(false)
-		@toggleCheck = ->
-			isChecked = self.isChecked()
-			self.lettersFilterViewModel.clearAll()
-			self.isChecked(!isChecked)
-			self.filterViewModel.reloadMovies()
-
-class GenreFilterViewModel
-	constructor: (genre, genresFilterViewModel, filterViewModel) ->
-		self = this
-		@filterViewModel = filterViewModel
-		@genresFilterViewModel = genresFilterViewModel
-		@name = genre.name
-		@id = genre.id
-		@isChecked = ko.observable(false)
-		@toggleCheck = ->
-			isChecked = self.isChecked()
-			self.genresFilterViewModel.clearAll()
-			self.isChecked(!isChecked)
-			self.filterViewModel.reloadMovies()
-
-class DecadeViewModel
-	constructor: (decade, decadesFilterViewModel, filterViewModel) ->
-		self = this
-		@year = decade
-		@filterViewModel = filterViewModel
-		@decadesFilterViewModel = decadesFilterViewModel
-		@isChecked = ko.observable(false)
-		@toggleCheck = ->
-			isChecked = self.isChecked()
-			self.decadesFilterViewModel.clearAll()
-			self.isChecked(!isChecked)
-			self.filterViewModel.reloadMovies()
-
 window.BrowseMoviesViewModel = BrowseMoviesViewModel
 
 $ ->
-	$(".back").on 'click', ->
+	$('.movies .back').on 'click', ->
 		$overflowContainer = $(this).parent()
 		$scrollableList = $(this).siblings("ul")
 		width = parseInt($overflowContainer.innerWidth())
@@ -167,7 +76,7 @@ $ ->
 		newLeft = if currentLeft - width >= 0 then currentLeft + width else 0
 		$scrollableList.css("left", newLeft)
 
-	$(".forward").on 'click', ->
+	$('.movies .forward').on 'click', ->
 		$overflowContainer = $(this).parent()
 		$scrollableList = $(this).siblings("ul")
 		width = parseInt($overflowContainer.innerWidth())

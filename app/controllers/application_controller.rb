@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 		@latest_episodes_by_date = Episode.order("updated_at desc").limit(10)
 
 		respond_to do |format|
-			format.html { render "frontpage/default" }
+			format.html { render 'frontpage/index' }
 		end
 	end
 end

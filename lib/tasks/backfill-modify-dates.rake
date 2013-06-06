@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-require 'csv'
 
 task :'backfill-modify-dates' => :environment do |t|
 	DEFAULT_DATE = Date.new(1900)

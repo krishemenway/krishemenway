@@ -11,6 +11,7 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery
+#= require prototype/date
 #= require strftime
 #= require knockout
 #= require binding_handlers/_stripe

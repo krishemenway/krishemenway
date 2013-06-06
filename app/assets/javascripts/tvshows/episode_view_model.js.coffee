@@ -12,7 +12,7 @@ class EpisodeViewModel
 		self.seasonPremiere = episode.episode_number == 1
 		self.streamPath = episode.stream_path
 
-		self._airdate = new Date(Date.parse("#{episode.airdate} GMT-0800"))
+		self._airdate = Date.parseFromServer(episode.airdate)
 
 		self.airdate = (format) ->
 			strftime(format, self._airdate)

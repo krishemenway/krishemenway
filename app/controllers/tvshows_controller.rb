@@ -1,6 +1,10 @@
 class TvshowsController < ApplicationController
 	def index
-		@series = Series.all.sort_by(&:name)
+		if user_signed_in?
+			@series = current_user.series.sort_by(&:name)
+		else
+			@series = Series.all.sort_by(&:name)
+		end
 
 		respond_to do |format|
 			format.html

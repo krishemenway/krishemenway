@@ -10,7 +10,7 @@ class FrontPageViewModel
 			self.latest_episodes.push new EpisodeViewModel(episode)
 
 		self.loadEventsForDay = (day, events) ->
-			date = new Date(Date.parse("#{day} GMT-0800"))
+			date = Date.parseFromServer(day)
 			self.days.push new DayViewModel(date, events)
 
 		self.addLatestEpisode episode for episode in latest_episodes

@@ -6,4 +6,7 @@ class User < ActiveRecord::Base
 			:recoverable, :rememberable, :trackable, :validatable
 
 	attr_accessible :email, :password, :password_confirmation, :remember_me, :can_edit, :id
+
+	has_many :user_series
+	has_many :series, :through => :user_series
 end

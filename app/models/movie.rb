@@ -53,8 +53,8 @@ class Movie < ActiveRecord::Base
 	end
 
 	def set_poster_by_filename=(filename)
-		path = URI.escape("http://coyotesrestaurant.com/krishemenway/movies/images/movies/#{filename}")
-		file = open(path)
+		poster_image_location = ENV['MOVIE_POSTER_IMAGE_LOCATION']
+		file = open URI.escape("#{poster_image_location}/#{filename}")
 		def file.original_filename; base_uri.path.split('/').last end
 		self.poster = file
 	end

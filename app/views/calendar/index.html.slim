@@ -3,7 +3,7 @@
 = content_for :scripts do
 	javascript:
 		$(function(){
-			window.calendar = new CalendarViewModel(#{@events.to_json.html_safe});
+			window.calendar = new CalendarViewModel(#{@events.to_json(:include_series_name => true).html_safe});
 			ko.applyBindings(window.calendar);
 		});
 
@@ -25,4 +25,4 @@ ul.days data-bind="foreach: days"
 				span.series-name data-bind="text: series_name"
 				span.title data-bind="text: title"
 
-		span.day-of-week data-bind="text: getDate('%w')"
+		span.day-of-week data-bind="text: getDate('%A')"

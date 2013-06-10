@@ -22,7 +22,7 @@ class CalendarController < ApplicationController
 
 	def events
 		respond_to do |format|
-			format.json { render :json => get_events(params[:year], params[:month]) }
+			format.json { render :json => get_events(params[:year], params[:month]), :include_series_name => true }
 		end
 	end
 

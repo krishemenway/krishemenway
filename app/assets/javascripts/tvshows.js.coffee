@@ -19,6 +19,7 @@ class BrowseTVShowsViewModel
 			else
 				self.selectedSeries(series)
 				self.selectedSeries().loadEpisodesIfNeccesary()
+				window.scrollTo(0,0)
 
 		self.clearSeries = ->
 			self.selectedSeries().clearSeries()

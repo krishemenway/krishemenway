@@ -2,6 +2,16 @@
 @import "mixins/media_queries";
 @import "mixins/transitions";
 
+.has-selected-series .serieses {
+	.series {
+		display: none;
+	}
+
+	.series.selected {
+		display: block;
+	}
+}
+
 .serieses {
 
 	.series {
@@ -9,6 +19,7 @@
 		background-color: transparent;
 		border: 5px solid #000;
 		border-style: solid none;
+		overflow: hidden;
 
 		@include respond-to(phone) {
 			background-size: 469px 67px;
@@ -31,13 +42,15 @@
 
 		&.selected {
 			.series-details {
-				@include scaleY(1);
+				@include opacity(100);
+				display: block;
 			}
 		}
 
 		.series-details {
-			@include scaleY(0);
-			@include easeIn($length: 400ms);
+			@include opacity(0);
+			display: none;
+			@include easeIn();
 			@include transform-origin(50%, 0);
 		}
 
@@ -91,7 +104,7 @@
 
 		.episode {
 			position: relative;
-			height: 4em;
+			height: 2em;
 
 			cursor: pointer;
 

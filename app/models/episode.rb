@@ -31,11 +31,12 @@ class Episode < ActiveRecord::Base
 	def as_json(options = {})
 		options = {
 			:include_seasons => true,
+			:include_series_name => false,
 			:user_signed_in => false
 		}.merge(options)
 
 		{
-			:series_name => self.series.name,
+			:series_name => options[:include_series_name] ? self.series.name : nil,
 			:series_id => self.series_id,
 			:title => self.title,
 			:airdate => self.airdate.to_s,

@@ -12,6 +12,13 @@ class TvshowsController < ApplicationController
 		end
 	end
 
+	def upcoming
+		respond_to do |format|
+			format.json { render :json => Episode.upcoming }
+			format.xml { render :xml => Episode.upcoming }
+		end
+	end
+
 	def series
 		series_id = params[:series_id].to_s.to_i
 		series = Series.find(series_id)

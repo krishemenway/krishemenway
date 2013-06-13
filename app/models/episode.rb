@@ -17,6 +17,12 @@ class Episode < ActiveRecord::Base
 		"#{sprintf '%02d', self.season}x#{sprintf '%02d', self.episode_in_season} - #{self.title}.mp4"
 	end
 
+	def self.upcoming
+		start_date = Date.today
+		end_date = start_date + 40
+		where(:airdate => start_date..end_date).order(&:airdate)
+	end
+
 	def as_ical
 		event = Event.new
 

@@ -3,7 +3,7 @@
 = content_for :scripts do
 	javascript:
 		$(function(){
-			window.frontpage = new FrontPageViewModel(#{@episodes_by_date.to_json.html_safe}, #{@latest_episodes_by_date.to_json.html_safe});
+			window.frontpage = new FrontPageViewModel(#{@episodes_by_date.to_json(:include_series_name => true).html_safe}, #{@latest_episodes_by_date.to_json(:include_series_name => true).html_safe});
 			ko.applyBindings(window.frontpage);
 		});
 

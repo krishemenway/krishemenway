@@ -14,8 +14,8 @@ class TvshowsController < ApplicationController
 
 	def upcoming
 		respond_to do |format|
-			format.json { render :json => Episode.upcoming }
-			format.xml { render :xml => Episode.upcoming }
+			format.json { render :json => Episode.upcoming, :include_series_name => true }
+			format.xml { render :xml => Episode.upcoming, :include_series_name => true }
 		end
 	end
 

@@ -34,6 +34,21 @@ class Episode < ActiveRecord::Base
 		event
 	end
 
+	def to_xml(options = {}, &block)
+		xml_properties = {
+			:series_name => self.series.name,
+			:series_id => self.series_id,
+			:title => self.title,
+			:airdate => self.airdate.to_s,
+			:episode_in_season => self.episode_in_season,
+			:episode_number => self.episode_number,
+			:season => self.season,
+			:video_path => self.video_path
+		}
+
+		xml_properties.to_xml options
+	end
+
 	def as_json(options = {})
 		options = {
 			:include_seasons => true,

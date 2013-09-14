@@ -20,6 +20,14 @@ class Episode < ActiveRecord::Base
 	def self.upcoming
 		start_date = Date.today
 		end_date = start_date + 40
+		self.in_dates(start_date, end_date)
+	end
+
+	def self.on_date(date)
+		self.in_dates(date.to_datetime.in_pacific.beginning_of_day, date.to_datetime.in_pacific.end_of_day)
+	end
+
+	def self.in_dates(start_date, end_date)
 		where(:airdate => start_date..end_date).order(&:airdate)
 	end
 

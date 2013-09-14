@@ -13,9 +13,25 @@ class TvshowsController < ApplicationController
 	end
 
 	def upcoming
+		upcoming_response(Episode.upcoming)
+	end
+
+	def today
+		upcoming_response(Episode.on_date(Date.today))
+	end
+
+	def tomorrow
+		upcoming_response(Episode.on_date(Date.tomorrow))
+	end
+
+	def in_2_days
+		upcoming_response(Episode.on_date(Date.tomorrow.tomorrow))
+	end
+
+	def upcoming_response(episodes)
 		respond_to do |format|
-			format.json { render :json => Episode.upcoming, :include_series_name => true }
-			format.xml { render :xml => Episode.upcoming, :include_series_name => true }
+			format.json { render :json => episodes, :include_series_name => true }
+			format.xml { render :xml => episodes, :include_series_name => true }
 		end
 	end
 

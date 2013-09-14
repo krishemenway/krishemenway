@@ -12,6 +12,9 @@ Movies::Application.routes.draw do
 	get '/leaderboard/something' => 'leaderboard#something'
 
 	get '/tvshows/series/:series_id' => 'tvshows#series'
+	get '/tvshows/upcoming/in-2-days' => 'tvshows#in_2_days'
+	get '/tvshows/upcoming/tomorrow' => 'tvshows#tomorrow'
+	get '/tvshows/upcoming/today' => 'tvshows#upcoming'
 	get '/tvshows/upcoming' => 'tvshows#upcoming'
 	get '/tvshows/' => 'tvshows#index'
 

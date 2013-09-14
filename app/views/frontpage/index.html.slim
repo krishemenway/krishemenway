@@ -12,7 +12,7 @@
 
 .tv-shows
 	.upcoming
-		h3 Upcoming ...
+		h3 Upcoming Shows ...
 		ul.days data-bind="foreach: days.sort(function(l, r) { return l.date == r.date ? 0 : (l.date < r.date ? -1 : 1) })"
 			li.day
 				.date
@@ -24,18 +24,18 @@
 						span.title data-bind="text: title"
 
 	.recent-changes
-		h3 Recent Updates ...
+		h3 This Just In
 		ul.changes data-bind="foreach: latest_episodes"
 			li.change
 				.date
-					span.day-of-month data-bind="text: airdate('%d')"
-					span.month data-bind="text: airdate('%b')"
+					.day-of-month data-bind="text: airdate('%d')"
+					.month data-bind="text: airdate('%b')"
 				.series-primere data-bind="visible: seasonPremiere"
-					span Season
+					| Season
 					span data-bind="text: season"
-					span premiere
-				.series-name data-bind="text: seriesName"
-				.title data-bind="text: title"
+					| premiere
+				span.series-name data-bind="text: seriesName"
+				span.title data-bind="text: title"
 
 .results-and-projects
 	ul.search-results data-bind="foreach: searchResults"

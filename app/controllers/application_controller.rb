@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
 	def frontpage
 		@episodes_by_date = Episode.upcoming.group_by(&:airdate)
-		@latest_episodes_by_date = Episode.order("updated_at desc").limit(10)
+		@latest_episodes_by_date = Episode.order("updated_at desc").limit(5)
 
 		respond_to do |format|
 			format.html { render 'frontpage/index' }

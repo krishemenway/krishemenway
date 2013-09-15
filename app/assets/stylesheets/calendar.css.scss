@@ -1,3 +1,5 @@
+@import "mixins/media_queries";
+
 .calendar {
 
 	.months {
@@ -8,18 +10,55 @@
 		li:last-child { text-align: left; }
 
 		li {
-			$currentMonthFontSize: 34px;
-
 			float: left;
 			width: 33.333333333333333332%;
 			text-align: center;
-			font-size: $currentMonthFontSize;
-			line-height: $currentMonthFontSize;
 
 			button {
-				line-height: $currentMonthFontSize;
-				font-size: $currentMonthFontSize * .8;
+				font-size: 28px;
+				line-height: 28px;
+				height: 70px;
+				font-weight: bold;
+				text-shadow: -2px 2px 0 #000;
+				padding: 0 30px;
+
+				@include respond-to(mobile) {
+					font-size: 22px;
+					padding: 0;
+				}
+
+				&:hover {
+					background-color: #303030;
+				}
 			}
+
+			&.currentMonth {
+
+				button {
+					font-size: 34px;
+					line-height: 34px;
+					cursor: default;
+
+					@include respond-to(phone) {
+						font-size: 24px;
+					}
+
+					&:hover {
+						background-color: transparent;
+					}
+				}
+			}
+
+			span {
+				display: inline;
+				margin: 0 4px;
+
+				@include respond-to(mobile) {
+					display: block;
+					margin: 0;
+				}
+			}
+
 		}
 	}
 
@@ -27,7 +66,7 @@
 		@include clearfix();
 
 		.day {
-			padding: 10px 30px;
+			padding: 10px 0px;
 			position: relative;
 			border: 1px solid #383838;
 			border-width: 1px 0 0 0;
@@ -41,12 +80,9 @@
 
 			.date {
 				float: left;
-				width: 10%;
+				width: 75px;
+				text-align: center;
 				cursor: default;
-
-				@include respond-to(phone) {
-					width: 15%;
-				}
 			}
 
 			.month {
@@ -64,12 +100,11 @@
 		}
 
 		.events {
-			float: left;
-			width: 90%;
+			margin-left: 85px;
+		}
 
-			@include respond-to(phone) {
-				width: 85%;
-			}
+		.event {
+			margin: 0 0 8px 0;
 		}
 
 		.series-name {

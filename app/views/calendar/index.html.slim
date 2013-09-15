@@ -7,10 +7,17 @@
 
 ul.months
 	li
-		button.previousMonth type="button" data-bind="text: lastMonthName(), click: gotoLastMonth"
-	li.currentMonth data-bind="text: currentMonthName()"
+		button.previousMonth type="button" data-bind="click: gotoLastMonth"
+			span data-bind="text: lastMonthName()"
+			span data-bind="text: lastYearName()"
+	li.currentMonth
+		button type="button"
+			span data-bind="text: currentMonthName()"
+			span data-bind="text: currentYearName()"
 	li
-		button.nextMonth type="button" data-bind="text: nextMonthName(), click: gotoNextMonth"
+		button.nextMonth type="button" data-bind="click: gotoNextMonth"
+			span data-bind="text: nextMonthName()"
+			span data-bind="text: nextYearName()"
 
 ul.days data-bind="foreach: days"
 	li.day

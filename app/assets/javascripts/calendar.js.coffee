@@ -2,10 +2,12 @@
 class CalendarViewModel
 	constructor: (initial_events) ->
 		self = this
+
+		monthNameFormat = '%B'
+		yearNameFormat = '%Y'
+
 		self.currentMonth = ko.observable(new Date)
 		self.events_by_date = ko.observable({})
-
-		self.headerDateFormat = '%B %Y'
 
 		self.loadEventsForDay = (day, events) ->
 			self.events_by_date()[day] = events
@@ -23,14 +25,22 @@ class CalendarViewModel
 			return new Date(self.currentMonth().getFullYear(), self.currentMonth().getMonth() + 1, 1)
 
 		self.currentMonthName = ko.computed ->
-
-			return strftime(self.headerDateFormat, self.currentMonth())
+			return strftime(monthNameFormat, self.currentMonth())
 
 		self.lastMonthName = ko.computed ->
-			return strftime(self.headerDateFormat, self.lastMonth())
+			return strftime(monthNameFormat, self.lastMonth())
 
 		self.nextMonthName = ko.computed ->
-			return strftime(self.headerDateFormat, self.nextMonth())
+			return strftime(monthNameFormat, self.nextMonth())
+
+		self.currentYearName = ko.computed ->
+			return strftime(yearNameFormat, self.currentMonth())
+
+		self.lastYearName = ko.computed ->
+			return strftime(yearNameFormat, self.lastMonth())
+
+		self.nextYearName = ko.computed ->
+			return strftime(yearNameFormat, self.nextMonth())
 
 		self.events_for_day = (date) ->
 			formatted_date = strftime("%Y-%m-%d", date)

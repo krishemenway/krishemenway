@@ -6,7 +6,7 @@
 #= require movies/decade_view_model
 
 #= require movies/genre_filters_view_model
-#= require movies/genre_filter_view_model
+#= require movies/genre_view_model
 
 #= require movies/letter_filter_view_model
 #= require movies/letter_view_model
@@ -50,12 +50,14 @@ class BrowseMoviesViewModel
 			else
 				movie_filters =
 					letter: self.letterFilter.getSelectedLetter(),
-					genres: self.genreFilter.getSelected() || [],
-					decades: self.decadeFilter.getSelected()
+					genres: self.genreFilter.getSelectedGenre(),
+					decades: self.decadeFilter.getSelectedDecade()
 
 				self.isReloading(true)
 				$.getJSON "/movies", movie_filters, loadMovies
 
+		self.genreFilter.selectedGenre.subscribe(self.reloadMovies)
+		self.decadeFilter.selectedDecade.subscribe(self.reloadMovies)
 
 		self.gotoMovie = (movie) ->
 			window.location.hash = movie.title
@@ -80,8 +82,5 @@ class BrowseMoviesViewModel
 				self.currentMovie(undefined)
 			else
 				self.secondMovie(undefined)
-
-		(genreFilterViewModel.isChecked.subscribe(self.reloadMovies) for genreFilterViewModel in self.genreFilter.genres)
-		(decadeViewModel.isChecked.subscribe(self.reloadMovies) for decadeViewModel in self.decadeFilter.decades)
 
 window.BrowseMoviesViewModel = BrowseMoviesViewModel

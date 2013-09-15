@@ -189,15 +189,20 @@ $moviesPerRow: 4;
 
 .filter {
 	padding: 5px 0;
-	// todo test if this broke something
-	@include text-overflow();
 	position: relative;
 
 	@include respond-to(mobile) {
 		padding: 0;
 	}
 
+	&.genre-filter, &.decade-filter {
+		display: inline-block;
+		margin: 5px 10px;
+	}
+
 	.letters {
+		overflow: hidden;
+
 		.letter {
 			button {
 				float: left;
@@ -223,22 +228,51 @@ $moviesPerRow: 4;
 		}
 	}
 
+	.genre-selector,.decade-selector {
+		width: 250px;
+		text-align: left;
+		height: 40px;
+		font-size: 18px;
+		padding: 10px;
+		background-color: #282828;
+
+		.chevron {
+			display: inline-block;
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-top: 12px solid #585858;
+			float: right;
+			margin: 6px 0 0 0;
+		}
+	}
+
 	.genres, .decades {
 		list-style-type: none;
 		margin: 0;
-		clear: left;
-		width: 15000px;
-		position: relative;
+		width: 250px;
+		position: absolute;
+		z-index: 10;
+		height: 0;
+		overflow: hidden;
+		background-color: #000;
 
 		@include transition(all 200ms cubic-bezier(0.120, 0.460, 0.215, 0.750));
 		@include transition-timing-function(cubic-bezier(0.120, 0.460, 0.215, 0.750));
+
+		&.is-visible {
+			min-height: 200px;
+			max-height: 350px;
+			height: auto;
+			overflow-y: scroll;
+		}
 	}
 
 	.genre, .decade {
-		width: 200px;
-		padding: 10px 0;
+		width: 250px;
+		padding: 10px;
 		float: left;
-		text-align: center;
 		cursor: pointer;
 		border: 1px solid rgba(0,0,0,0);
 
@@ -280,21 +314,4 @@ $moviesPerRow: 4;
 			}
 		}
 	}
-
-	.back,.forward {
-		@include box-shadow(0);
-		cursor: pointer;
-		position: absolute;
-		background: rgba(30,30,30,.5);
-		color: #E8E8E8;
-		border: 0;
-		height:  100%;
-		z-index: 2;
-		top: 0;
-		bottom: 0;
-		width: 50px;
-	}
-
-	.back { left: 0; }
-	.forward { right: 0; }
 }

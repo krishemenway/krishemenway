@@ -3,13 +3,20 @@ class GenreFiltersViewModel
 	constructor: (genres) ->
 		self = this
 
-		self.genres = (new GenreFilterViewModel g, self for g in genres)
+		self.selectedGenre = ko.observable(undefined)
+		self.genreListVisible = ko.observable(false)
 
-		self.getSelected = ->
-			return (self.genres.filter((genreViewModel) -> genreViewModel.isChecked()) || []).map (genre) ->
-				return genre.id
+		self.toggleViewingGenres = () ->
+			self.genreListVisible(!self.genreListVisible())
 
-		self.clearAll = ->
-			g.isChecked(false) for g in self.genres
+		self.genres = (new GenreViewModel g, self for g in genres)
+
+		self.selectGenre = (targetGenre) ->
+			newGenre = if self.selectedGenre() == targetGenre then undefined else targetGenre
+			self.selectedGenre(newGenre)
+			self.toggleViewingGenres()
+
+		self.getSelectedGenre = () ->
+			return if self.selectedGenre() != undefined then self.selectedGenre().id else ''
 
 window.GenreFiltersViewModel = GenreFiltersViewModel

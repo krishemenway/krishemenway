@@ -1,12 +1,18 @@
 .filters data-bind="css: {open: shouldShowFilters}"
-	.filter data-bind="with: genreFilter"
-		button.back &lt;
-		= render "movies/genre_list"
-		button.forward &gt;
-	.filter data-bind="with: decadeFilter"
-		button.back &lt;
-		= render "movies/decade_list"
-		button.forward &gt;
+	.filter.genre-filter data-bind="with: genreFilter"
+		button.genre-selector data-bind="click: toggleViewingGenres"
+			span data-bind="text: selectedGenre() !== undefined ? selectedGenre().name : 'Filter by Genre ...'"
+			span.chevron
+		ul.genres data-bind="foreach: genres, css: {'is-visible': genreListVisible}"
+			li.genre data-bind="click: $parent.selectGenre, css: {checked: $parent.selectedGenre() == $data}"
+				span.name data-bind="text: name"
+	.filter.decade-filter data-bind="with: decadeFilter"
+		button.decade-selector data-bind="click: toggleViewingDecades"
+			span data-bind="text: selectedDecade() !== undefined ? selectedDecade().year : 'Filter by Decade ...'"
+			span.chevron
+		ul.decades data-bind="foreach: decades, css: {'is-visible': decadeListVisible}"
+			li.decade data-bind="click: $parent.selectDecade, css: {checked: $parent.selectedDecade() == $data}"
+				span.year data-bind="text: year"
 	.filter data-bind="with: letterFilter"
 		ul.letters data-bind="foreach: letters"
 			li.letter

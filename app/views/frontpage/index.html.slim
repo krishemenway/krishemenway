@@ -2,10 +2,8 @@
 = content_for :page_name do "frontpage" end
 = content_for :scripts do
 	javascript:
-		$(function(){
-			window.frontpage = new FrontPageViewModel(#{@episodes_by_date.to_json(:include_series_name => true).html_safe}, #{@latest_episodes_by_date.to_json(:include_series_name => true).html_safe});
-			ko.applyBindings(window.frontpage);
-		});
+		window.frontpage = new FrontPageViewModel(#{@episodes_by_date.to_json(:include_series_name => true).html_safe}, #{@latest_episodes_by_date.to_json(:include_series_name => true).html_safe});
+		ko.applyBindings(window.frontpage);
 
 .epic-image{class="#{(rand(3) + 1).to_words}"}
 	input.search type="text" placeholder="Search ..."

@@ -10,12 +10,12 @@
 # WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 # GO AFTER THE REQUIRES BELOW.
 #
-#= require jquery
+#= require zepto
 #= require prototype/date
 #= require strftime
 #= require knockout
 #= require binding_handlers/_stripe
-#= require binding_handlers/_animate_numeric_change
+#= require binding_handlers/_count_number
 #= require day_view_model
 #= require tvshows/series_view_model
 #= require tvshows/season_view_model

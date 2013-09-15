@@ -73,7 +73,7 @@ class ChallengeViewModel
 			self.gotoMe()
 
 		self.fetchDataFromServer = () ->
-			$.get("/leaderboard/individuals", {}, self.loadIndividuals)
+			$.getJSON "/leaderboard/individuals", {}, self.loadIndividuals
 
 		self.fetchDataFromServer()
 

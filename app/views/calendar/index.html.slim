@@ -2,10 +2,8 @@
 = content_for :page_name do "calendar" end
 = content_for :scripts do
 	javascript:
-		$(function(){
-			window.calendar = new CalendarViewModel(#{@events.to_json(:include_series_name => true).html_safe});
-			ko.applyBindings(window.calendar);
-		});
+		window.calendar = new CalendarViewModel(#{@events.to_json(:include_series_name => true).html_safe});
+		ko.applyBindings(window.calendar);
 
 ul.months
 	li

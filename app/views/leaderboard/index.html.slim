@@ -1,11 +1,9 @@
-= content_for :title do "leaderboard" end
-= content_for :page_name do "leaderboard" end
+= content_for :title do 'leaderboard' end
+= content_for :page_name do 'leaderboard' end
 = content_for :scripts do
 	javascript:
-		$(function(){
-			window.leaderboard = new ChallengeViewModel({programStartDate: '1/1/2013', programEndDate: '1/1/2014'});
-			ko.applyBindings(window.leaderboard);
-		});
+		window.leaderboard = new ChallengeViewModel({programStartDate: '1/1/2013', programEndDate: '1/1/2014'});
+		ko.applyBindings(window.leaderboard);
 
 h1
 	| The Leaderboard
@@ -27,10 +25,10 @@ h1
 		.name data-bind="text: individual.name"
 	#my-rank
 		.label Rank
-		.rank data-bind="spinning_number_text: individual.rank()"
+		.rank data-bind="countNumber: individual.rank()"
 	#my-total-score
 		.label Score
-		.score data-bind="spinning_number_text: totalScore()"
+		.score data-bind="countNumber: totalScore()"
 
 #leaderboard-selector
 	button#teams-selector data-bind="css: {'is-selected': selectedLeaderboard() == teamsLeaderboard}, click: selectTeamsLeaderboard" All Teams

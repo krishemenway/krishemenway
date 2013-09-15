@@ -26,7 +26,7 @@ class SeriesViewModel
 			self.selectedSeason(seasonViewModels[0])
 
 		self.fetchEpisodes = () ->
-			$.get('/tvshows/series/' + self.id, self.loadEpisodes)
+			$.getJSON "/tvshows/series/#{self.id}", self.loadEpisodes
 
 		self.loadEpisodesIfNeccesary = () ->
 			self.fetchEpisodes() if self.seasons().length == 0

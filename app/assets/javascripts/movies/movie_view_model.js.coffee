@@ -24,7 +24,7 @@ class MovieViewModel
 		self.writers = ko.observableArray()
 
 		self.load_performances = ->
-			$.get "/movies/#{self.id}/movie_performances.json", (data) ->
+			$.getJSON "/movies/#{self.id}/movie_performances", (data) ->
 				self.actors(data.actors)
 				self.writers(data.writers)
 				self.directors(data.directors)

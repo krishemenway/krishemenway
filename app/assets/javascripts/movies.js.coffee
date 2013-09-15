@@ -54,7 +54,7 @@ class BrowseMoviesViewModel
 					decades: self.decadeFilter.getSelected()
 
 				self.isReloading(true)
-				$.get "/movies.json", movie_filters, loadMovies
+				$.getJSON "/movies", movie_filters, loadMovies
 
 
 		self.gotoMovie = (movie) ->
@@ -85,19 +85,3 @@ class BrowseMoviesViewModel
 		(decadeViewModel.isChecked.subscribe(self.reloadMovies) for decadeViewModel in self.decadeFilter.decades)
 
 window.BrowseMoviesViewModel = BrowseMoviesViewModel
-
-$ ->
-	$('.movies .back').on 'click', ->
-		$overflowContainer = $(this).parent()
-		$scrollableList = $(this).siblings("ul")
-		width = parseInt($overflowContainer.innerWidth())
-		currentLeft = parseInt($scrollableList.css("left")) || 0
-		newLeft = if currentLeft - width >= 0 then currentLeft + width else 0
-		$scrollableList.css("left", newLeft)
-
-	$('.movies .forward').on 'click', ->
-		$overflowContainer = $(this).parent()
-		$scrollableList = $(this).siblings("ul")
-		width = parseInt($overflowContainer.innerWidth())
-		currentLeft = parseInt($scrollableList.css("left")) || 0
-		$scrollableList.css("left", currentLeft - width)

@@ -2,10 +2,8 @@
 = content_for :title do "tv shows" end
 = content_for :scripts do
 	javascript:
-		$(function(){
-			window.tvshows = new BrowseTVShowsViewModel(#{@series.to_json({:include_seasons => false}).html_safe});
-			ko.applyBindings(window.tvshows);
-		});
+		window.tvshows = new BrowseTVShowsViewModel(#{@series.to_json({:include_seasons => false}).html_safe});
+		ko.applyBindings(window.tvshows);
 
 .add-more-series
 	.search-for-series

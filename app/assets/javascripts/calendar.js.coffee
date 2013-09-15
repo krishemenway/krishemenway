@@ -13,7 +13,7 @@ class CalendarViewModel
 		self.loadEventsForDay date, events for date,events of initial_events
 
 		self.loadEventsForMonth = (date) ->
-			$.get "/calendar/events.json", {year: date.getFullYear(), month: date.getMonth() + 1}, (events_by_date) ->
+			$.getJSON "/calendar/events", {year: date.getFullYear(), month: date.getMonth() + 1}, (events_by_date) ->
 				self.loadEventsForDay date, events for date,events of events_by_date
 
 		self.lastMonth = ko.computed ->

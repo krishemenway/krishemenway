@@ -1,11 +1,9 @@
 
 class DecadeViewModel
-	constructor: (decade, decadesFilterViewModel, filterViewModel) ->
+	constructor: (decade, decadesFilterViewModel) ->
 		self = this
 
 		self.year = decade
-
-		self.filterViewModel = filterViewModel
 
 		self.decadesFilterViewModel = decadesFilterViewModel
 
@@ -15,6 +13,5 @@ class DecadeViewModel
 			isChecked = self.isChecked()
 			self.decadesFilterViewModel.clearAll()
 			self.isChecked(!isChecked)
-			self.filterViewModel.reloadMovies()
 
 window.DecadeViewModel = DecadeViewModel

@@ -1,7 +1,7 @@
 require "open-uri"
 
 class Movie < ActiveRecord::Base
-	attr_accessible :description, :imdb_id, :length, :released, :title, :id, :set_poster_by_filename
+	attr_accessible :description, :imdb_id, :length, :released, :title, :id, :set_poster_by_filename, :released
 	has_attached_file :poster, :styles => {:medium => "300x450>", :thumb => "100x150>"}
 	before_save :correct_movie_titles, :ensure_first_letter_is_set
 

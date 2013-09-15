@@ -1,15 +1,15 @@
 
 class GenreFiltersViewModel
-	constructor: (genres, filterViewModel) ->
+	constructor: (genres) ->
 		self = this
 
-		self.genres = ko.observableArray(new GenreFilterViewModel g, self, filterViewModel for g in genres)
+		self.genres = (new GenreFilterViewModel g, self for g in genres)
 
 		self.getSelected = ->
-			return (self.genres().filter((genreViewModel) -> genreViewModel.isChecked()) || []).map (genre) ->
+			return (self.genres.filter((genreViewModel) -> genreViewModel.isChecked()) || []).map (genre) ->
 				return genre.id
 
 		self.clearAll = ->
-			genre.isChecked(false) for genre in self.genres()
+			g.isChecked(false) for g in self.genres
 
 window.GenreFiltersViewModel = GenreFiltersViewModel

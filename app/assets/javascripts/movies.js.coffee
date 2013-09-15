@@ -19,8 +19,9 @@ class BrowseMoviesViewModel
 			return (new MovieViewModel movie for movie in movies)
 
 		self.shouldShowFilters = ko.observable(true)
-		self.genreFilter = new GenreFiltersViewModel genres, self
-		self.decadeFilter = new DecadeFilterViewModel decades, self
+
+		self.genreFilter = new GenreFiltersViewModel genres
+		self.decadeFilter = new DecadeFilterViewModel decades
 		self.letterFilter = new LetterFilterViewModel self
 
 		self.movies = ko.observableArray(self.createMovies(movies))
@@ -32,14 +33,29 @@ class BrowseMoviesViewModel
 		self.toggleDoubleWide = ->
 			self.isDoubleWide(!self.isDoubleWide())
 
-		self.reloadMovies = () ->
-			movie_filters =
-				letter: self.letterFilter.getSelectedLetter(),
-				genres: self.genreFilter.getSelected(),
-				decades: self.decadeFilter.getSelected()
+		self.isReloading = ko.observable(false)
+		self.shouldReloadAgain = false
 
-			$.get "/movies.json", movie_filters, (movies) ->
-				self.movies(self.createMovies(movies))
+		loadMovies = (movies) ->
+			self.movies(self.createMovies(movies))
+			self.isReloading(false)
+
+			if(self.shouldReloadAgain)
+				self.shouldReloadAgain = false
+				self.reloadMovies()
+
+		self.reloadMovies = () ->
+			if(self.isReloading())
+				self.shouldReloadAgain = true
+			else
+				movie_filters =
+					letter: self.letterFilter.getSelectedLetter(),
+					genres: self.genreFilter.getSelected() || [],
+					decades: self.decadeFilter.getSelected()
+
+				self.isReloading(true)
+				$.get "/movies.json", movie_filters, loadMovies
+
 
 		self.gotoMovie = (movie) ->
 			window.location.hash = movie.title
@@ -64,6 +80,9 @@ class BrowseMoviesViewModel
 				self.currentMovie(undefined)
 			else
 				self.secondMovie(undefined)
+
+		(genreFilterViewModel.isChecked.subscribe(self.reloadMovies) for genreFilterViewModel in self.genreFilter.genres)
+		(decadeViewModel.isChecked.subscribe(self.reloadMovies) for decadeViewModel in self.decadeFilter.decades)
 
 window.BrowseMoviesViewModel = BrowseMoviesViewModel
 

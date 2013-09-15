@@ -1,14 +1,14 @@
 
 class DecadeFilterViewModel
-	constructor: (decades, filterViewModel) ->
+	constructor: (decadesFromServer) ->
 		self = this
-		self.decades = ko.observableArray(new DecadeViewModel decade, self, filterViewModel for decade in decades)
+		self.decades = (new DecadeViewModel decade, self for decade in decadesFromServer)
 
 		self.getSelected = ->
-			decades = self.decades().filter((letterViewModel) -> letterViewModel.isChecked())
-			return if decades.length == 0 then "" else decades[0].year
+			filteredDecades = self.decades.filter((letterViewModel) -> letterViewModel.isChecked())
+			return if filteredDecades.length == 1 then filteredDecades[0].year else ''
 
 		self.clearAll = ->
-			decade.isChecked(false) for decade in self.decades()
+			decade.isChecked(false) for decade in self.decades
 
 window.DecadeFilterViewModel = DecadeFilterViewModel

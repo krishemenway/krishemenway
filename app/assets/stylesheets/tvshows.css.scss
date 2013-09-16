@@ -15,9 +15,6 @@
 .serieses {
 
 	.series {
-		background-repeat: no-repeat;
-		background-color: transparent;
-		background-size: 100% 100%;
 		border: 5px solid #000;
 		border-style: solid none;
 		overflow: hidden;
@@ -59,11 +56,14 @@
 			font-size: 36px;
 			width: 100%;
 			height: 150px;
+			background-repeat: no-repeat;
+			background-color: transparent;
 
 			@include respond-to(phone) {
 				height: 67px;
 				padding: 0 50px;
 				font-size: 18px;
+				background-size: 100% 100%;
 			}
 
 			&:hover {

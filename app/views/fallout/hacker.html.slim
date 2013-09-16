@@ -1,0 +1,19 @@
+= content_for :title do 'fallout' end
+= content_for :page_name do 'calendar' end
+= content_for :scripts do
+	javascript:
+		window.fallout = new FalloutViewModel();
+		ko.applyBindings(window.fallout);
+
+.hacker
+	ul.words data-bind="foreach: remainingWords"
+		li.word data-bind="text: $data"
+
+
+	form data-bind="submit: addWord"
+		input.addNewWordInput type="text" value="" data-bind="value: newWord"
+		button.addNewWord type="submit" Add New Word
+
+	select.selectedWord data-bind="options: remainingWords, value: selectedWord"
+	select.numberOfLettersThatMatched data-bind="options: remainingWordLengths, value: numberOfLettersSelected"
+	button.findNewWords data-bind="click: filterWordsOnNewInformation" Add New Information

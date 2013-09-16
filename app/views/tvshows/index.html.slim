@@ -14,8 +14,8 @@
 	.browse
 
 ul.serieses data-bind="foreach: serieses, stripe: serieses, evenClass: 'right', oddClass: 'left'"
-	li.series data-bind="css: {selected: $root.selectedSeries() == $data}, style: {backgroundImage: slideImage()}"
-		button.select-series data-bind="text: hasSlideImage() ? undefined : name, click: $root.selectSeries"
+	li.series data-bind="css: {selected: $root.selectedSeries() == $data}"
+		button.select-series data-bind="text: hasSlideImage() ? undefined : name, click: $root.selectSeries, style: {backgroundImage: slideImage()}"
 
 		.series-details data-bind="if: $root.selectedSeries() == $data"
 			ul.seasons data-bind="foreach: seasons, css: {'season-selected': hasSelectedSeason()}"

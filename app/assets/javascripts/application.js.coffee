@@ -25,4 +25,5 @@
 #= require calendar
 #= require frontpage
 #= require leaderboard/leaderboard
+#= require fallout/fallout
 #= require_directory ./binding_handlers

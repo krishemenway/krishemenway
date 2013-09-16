@@ -21,5 +21,7 @@ Movies::Application.routes.draw do
 	get '/calendar/events' => 'calendar#events'
 	get '/calendar' => 'calendar#index'
 
+	get '/fallout' => 'application#fallout'
+
 	root :to => 'application#frontpage'
 end

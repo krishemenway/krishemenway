@@ -9,4 +9,10 @@ class ApplicationController < ActionController::Base
 			format.html { render 'frontpage/index' }
 		end
 	end
+
+	def fallout
+		respond_to do |format|
+			format.html { render 'fallout/hacker' }
+		end
+	end
 end

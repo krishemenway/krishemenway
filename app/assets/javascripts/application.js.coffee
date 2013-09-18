@@ -16,6 +16,7 @@
 #= require knockout
 #= require binding_handlers/_stripe
 #= require binding_handlers/_count_number
+#= require binding_handlers/_enter
 #= require day_view_model
 #= require tvshows/series_view_model
 #= require tvshows/season_view_model

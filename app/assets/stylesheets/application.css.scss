@@ -30,6 +30,7 @@ $sideNavigationHeight: 40px;
 
 html, body {
 	background-color: #010101;
+	padding-bottom: 20px;
 }
 
 a,li,h1,h2,h3,h4,h5,h6,input,button,p,ul,span,div {
@@ -39,6 +40,18 @@ a,li,h1,h2,h3,h4,h5,h6,input,button,p,ul,span,div {
 	border: 0;
 	padding: 0;
 	margin: 0;
+}
+
+h1 {
+	font-size: 38px;
+	font-weight: 100;
+	margin: 10px;
+
+	.sub-text {
+		font-size: 26px;
+		font-weight: 100;
+		margin-left: 10px;
+	}
 }
 
 button {
@@ -128,11 +141,16 @@ button {
 
 	li {
 		float: left;
+		padding: 10px 0;
 
 		a {
 			padding: 5px 20px;
 			border-left: 1px solid #181818;
 			border-right: 1px solid #383838;
+		}
+
+		&:hover {
+			background-color: rgba(10,10,10,.1);
 		}
 	}
 }
@@ -142,3 +160,4 @@ button {
 @import "movies";
 @import "tvshows";
 @import "frontpage";
+@import "fallout";

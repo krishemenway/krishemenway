@@ -1,0 +1,80 @@
+@import "mixins/media_queries";
+
+.fallout {
+
+	p {
+		margin: 10px;
+		line-height: 24px;
+		font-size: 14px;
+		color: #E8E8E8;
+	}
+
+	.word {
+		position: relative;
+		overflow: hidden;
+		margin: 0 10px;
+
+		input[type=text] {
+			font-family: 'Lucida Console', Monaco, monospace;
+
+			display: block;
+			width: 100%;
+			height: 50px;
+
+			font-size: 34px;
+			line-height: 28px;
+			text-transform: uppercase;
+
+			text-indent: 20px;
+
+			border: 1px solid #181818;
+			border-color: #181818 #383838 #383838 #181818;
+
+			&:focus{
+				outline: 0;
+			}
+		}
+
+		select,button {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: -100px;
+		}
+
+		select {
+			top: 20px;
+		}
+
+		button {
+			width: 50px;
+			height: 50px;
+
+			.arrow {
+				margin: 0 auto;
+				height: 0;
+				width: 0;
+				border-top: 13px solid transparent;
+				border-left: 20px solid rgba(255,255,255,.2);
+				border-bottom: 13px solid transparent;
+			}
+
+			&:hover .arrow {
+				border-left-color: rgba(255,255,255,.4);
+			}
+		}
+
+		&:hover {
+			select, button {
+			}
+			button {
+				right: 0;
+			}
+			select {
+				right: 100px;
+			}
+		}
+
+
+	}
+}

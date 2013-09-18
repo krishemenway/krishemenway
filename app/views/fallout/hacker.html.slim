@@ -1,19 +1,22 @@
 = content_for :title do 'fallout' end
-= content_for :page_name do 'calendar' end
+= content_for :page_name do 'fallout' end
 = content_for :scripts do
 	javascript:
 		window.fallout = new FalloutViewModel();
 		ko.applyBindings(window.fallout);
 
-.hacker
+.fallout
+	h1.title
+		| Fallout tool
+	p
+		|  So all you need to do is enter all the words you see in the hack screen while playing Fallout into to the list below.
+		|  After you have entered all the words, pick a random word of the list and select it in the game.
+		|  It should tell you how many letters match the word you selected when you do this.
+		|  Put the number of letters that matched in the nearby dropdown of the word you selected and we will find out which words
+		|  could be the secret password. It's not rocket science but someone has to do it.
 	ul.words data-bind="foreach: remainingWords"
-		li.word data-bind="text: $data"
-
-
-	form data-bind="submit: addWord"
-		input.addNewWordInput type="text" value="" data-bind="value: newWord"
-		button.addNewWord type="submit" Add New Word
-
-	select.selectedWord data-bind="options: remainingWords, value: selectedWord"
-	select.numberOfLettersThatMatched data-bind="options: remainingWordLengths, value: numberOfLettersSelected"
-	button.findNewWords data-bind="click: filterWordsOnNewInformation" Add New Information
+		li.word
+			input tabindex="0" type="text" data-bind="value: word, onEnter: $parent.addNewWord, hasFocus: hasFocus, limitCharacters: $parent.maxWordLength"
+			select.numberOfLettersThatMatched tabindex="1" data-bind="options: $parent.remainingWordLengths, value: $parent.numberOfLettersSelected"
+			button.findNewWords tabindex="2" data-bind="click: $parent.filterWordsOnNewInformation"
+				.arrow

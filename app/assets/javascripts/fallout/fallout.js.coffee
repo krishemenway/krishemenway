@@ -2,38 +2,44 @@
 class FalloutViewModel
 	constructor: () ->
 		self = this
-		wordLength = ko.observable(0)
 
-		self.newWord = ko.observable()
 		self.remainingWords = ko.observableArray()
 
-		self.addWord = () ->
-			if self.remainingWords().length == 0
-				wordLength(self.newWord().length)
-
-			if self.newWord().length == wordLength()
-				self.remainingWords.push(self.newWord())
-				self.newWord("")
+		self.addNewWord = () ->
+			self.remainingWords.push(new Word())
+			self.remainingWords()[self.remainingWords().length - 1].hasFocus(true)
 
 		self.selectedWord = ko.observable()
 
+		currentWordLength = ->
+			if self.remainingWords().length > 0 then self.remainingWords()[0].word().length else 0
+
+		self.maxWordLength = ko.computed ->
+			if self.remainingWords().length > 1 then self.remainingWords()[0].word().length else 99
+
 		self.remainingWordLengths = ko.computed ->
-			[0..wordLength()]
+			return [0..currentWordLength()]
 
 		self.numberOfLettersSelected = ko.observable()
 
-		self.filterWordsOnNewInformation = () ->
-			self.selectedWord()
-
+		self.filterWordsOnNewInformation = (model) ->
 			filteredWords = []
 
 			for remainingWord in self.remainingWords()
 				matches = 0
-				for letter, i in remainingWord
-					matches++ if letter == self.selectedWord()[i]
+				for letter, i in remainingWord.word()
+					matches++ if letter.toLowerCase() == model.word()[i].toLowerCase()
 				if matches == self.numberOfLettersSelected()
 					filteredWords.push(remainingWord)
 
 			self.remainingWords(filteredWords)
+
+		self.addNewWord()
+
+class Word
+	constructor: () ->
+		self = this
+		self.word = ko.observable("")
+		self.hasFocus = ko.observable(false)
 
 window.FalloutViewModel = FalloutViewModel

@@ -1,6 +1,15 @@
 @import "mixins/transitions";
 @import "mixins/transform";
 
+hr {
+	border-top: 1px solid #686868;
+	border-bottom: 1px solid #181818;
+	margin: 0;
+	padding: 0;
+	height: 0;
+	width: 100%;
+}
+
 .game-container {
 	padding: 0 12px 12px 12px;
 	width: 50%;
@@ -9,6 +18,19 @@
 }
 
 .recently-played-games {
+
+	h1 {
+		font-size: 28px;
+		text-transform: uppercase;
+		margin: 0;
+		color: #181818;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.game:last-child hr {
+		display: none;
+	}
 
 	.game {
 		width: calc(50% - 6px);
@@ -84,7 +106,53 @@
 }
 
 .tags {
-	.tag {
 
+	.tag {
+		display: block;
+		position: relative;
+		@include easeIn();
+
+		margin: 0 -12px;
+		padding: 12px 12px;
+
+		&:hover {
+			background-color: rgba(0,0,0,.3);
+		}
+	}
+
+	hr {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+
+	.examples {
+		display: block;
+		margin-top: 6px;
+		color: #a8a8a8;
+
+		&:before {
+			display: inline;
+			color: #a8a8a8;
+			content: 'i.e. ';
+		}
+	}
+
+	.example {
+		display: inline;
+		color: #a8a8a8;
+	}
+
+	.example:nth-child(n+2) {
+		&:before {
+			display: inline;
+			color: #a8a8a8;
+			content: ', ';
+		}
+	}
+
+	.name {
+		font-weight: 100;
+		font-size: 28px;
 	}
 }

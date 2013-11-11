@@ -1,19 +1,42 @@
 = content_for :title do 'games' end
 = content_for :page_name do 'games' end
 
-ul.recently-played-games.game-container
-	- @recent_games.each do |game|
-		li.game
-			img.game-cover src="#{game.image_path}"
-			.controls
-				a.play href="#{game.run_app_url}"
-					i.icon-play
-				button.info i
+section
+	= @steam_user.steam_name
+
+section.recently-played-games.game-container
+	h1 Recently Played
+	ul
+		- @recent_games.each do |game|
+			li.game
+				img.game-cover src="#{game.image_path}"
+				.controls
+					a.play href="#{game.run_app_url}"
+						i.icon-play
+					button.info i
 
 ul.tags.game-container
 	li.tag
-		.name First Person Shooters
-		.count-of-games (80)
+		.name First Person Shooter (80)
 		ul.examples
 			li.example Doom 3
 			li.example Counter-Strike: Global Offensive
+		hr
+	li.tag
+		.name Realtime Strategy (15)
+		ul.examples
+			li.example Company of Heroes
+			li.example Age of Empires II: HD Edition
+		hr
+	li.tag
+		.name Racing (20)
+		ul.examples
+			li.example Trials Evolution: Gold
+			li.example Need for Speed: Wanted
+		hr
+	li.tag
+		.name Platformer (25)
+		ul.examples
+			li.example Super Meat Boy
+			li.example Super Mario Bros. 3
+		hr

@@ -44,6 +44,10 @@ class TvshowsController < ApplicationController
 		end
 	end
 
+	def graph
+
+	end
+
 	def current_user_can_stream?
 		user_signed_in? && current_user.can_stream
 	end

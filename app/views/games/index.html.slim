@@ -1,0 +1,19 @@
+= content_for :title do 'games' end
+= content_for :page_name do 'games' end
+
+ul.recently-played-games.game-container
+	- @recent_games.each do |game|
+		li.game
+			img.game-cover src="#{game.image_path}"
+			.controls
+				a.play href="#{game.run_app_url}"
+					i.icon-play
+				button.info i
+
+ul.tags.game-container
+	li.tag
+		.name First Person Shooters
+		.count-of-games (80)
+		ul.examples
+			li.example Doom 3
+			li.example Counter-Strike: Global Offensive

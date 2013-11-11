@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603034816) do
+ActiveRecord::Schema.define(:version => 20131111005132) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -131,6 +131,53 @@ ActiveRecord::Schema.define(:version => 20130603034816) do
     t.integer  "slide_image_right_file_size"
     t.datetime "slide_image_right_updated_at"
   end
+
+  create_table "steam_game_tags", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "steam_games", :force => true do |t|
+    t.string   "name"
+    t.integer  "app_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "image_path"
+  end
+
+  add_index "steam_games", ["app_id"], :name => "index_steam_games_on_app_id", :unique => true
+
+  create_table "steam_tagged_games", :force => true do |t|
+    t.integer  "steam_game_tag_id"
+    t.integer  "steam_app_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "steam_tagged_games", ["steam_app_id"], :name => "index_steam_tagged_games_on_steam_app_id"
+  add_index "steam_tagged_games", ["steam_game_tag_id", "steam_app_id"], :name => "index_steam_tagged_games_on_steam_game_tag_id_and_steam_app_id", :unique => true
+  add_index "steam_tagged_games", ["steam_game_tag_id"], :name => "index_steam_tagged_games_on_steam_game_tag_id"
+
+  create_table "steam_user_games", :force => true do |t|
+    t.integer  "steam_id",     :limit => 8
+    t.integer  "steam_app_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "steam_user_games", ["steam_id", "steam_app_id"], :name => "index_steam_user_games_on_steam_id_and_steam_app_id", :unique => true
+
+  create_table "steam_users", :force => true do |t|
+    t.integer  "steam_id",   :limit => 8
+    t.string   "steam_name"
+    t.integer  "user_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "steam_users", ["steam_id"], :name => "index_steam_users_on_steam_id", :unique => true
+  add_index "steam_users", ["user_id"], :name => "index_steam_users_on_user_id"
 
   create_table "user_series", :force => true do |t|
     t.integer  "user_id"

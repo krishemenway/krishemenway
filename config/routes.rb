@@ -16,12 +16,16 @@ Movies::Application.routes.draw do
 	get '/tvshows/upcoming/tomorrow' => 'tvshows#tomorrow'
 	get '/tvshows/upcoming/today' => 'tvshows#upcoming'
 	get '/tvshows/upcoming' => 'tvshows#upcoming'
+	get '/tvshows/graph' => 'tvshows#graph'
 	get '/tvshows/' => 'tvshows#index'
 
 	get '/calendar/events' => 'calendar#events'
 	get '/calendar' => 'calendar#index'
 
 	get '/fallout' => 'application#fallout'
+
+	get '/games' => 'games#index'
+	post '/games/setup' => 'games#setup'
 
 	root :to => 'application#frontpage'
 end

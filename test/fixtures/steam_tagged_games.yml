@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  steam_game_tag: 
+  steam_app_id: 1
+
+two:
+  steam_game_tag: 
+  steam_app_id: 1

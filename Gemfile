@@ -10,6 +10,7 @@ gem 'icalendar'
 gem 'numbers_and_words'
 
 gem 'random_data'
+gem 'nokogiri'
 
 gem 'paperclip'
 gem 'aws-sdk'

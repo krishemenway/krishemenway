@@ -1,0 +1,71 @@
+
+.game-container {
+	padding: 0 12px 12px 12px;
+	width: 50%;
+	box-shadow: 1px 3px 6px 3px rgba(0, 0, 0,.3);
+	margin: 12px 0 0 12px;
+}
+
+.recently-played-games {
+
+	.game {
+		width: calc(50% - 6px);
+		display: inline-block;
+		margin-top: 10px;
+		position: relative;
+
+		&:first-child {
+			width: 100%;
+		}
+
+		&:nth-child(2n+3) {
+			margin-left: 12px;
+		}
+
+		.game-cover {
+			width: 100%;
+		}
+
+		.controls {
+			position: absolute;
+			display: none;
+			background-color: rgba(0,0,0,.2);
+
+			width: 50px;
+
+			right: 0;
+			top: 0;
+			bottom: 2px;
+		}
+
+		&:hover .controls {
+			display: block;
+		}
+
+		.play, .info {
+			display: block;
+			width: 100%;
+			height: 50px;
+
+			&:hover {
+				background-color: rgba(0,0,0,.3);
+			}
+		}
+
+		.icon-play {
+			border: 8px solid transparent;
+			border-width: 8px 12px;
+			border-left-color: #FFF;
+			margin: 10px 0 0 19px;
+			width: 0;
+			height: 0;
+			display: block;
+		}
+	}
+}
+
+.tags {
+	.tag {
+
+	}
+}

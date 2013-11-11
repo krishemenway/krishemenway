@@ -166,6 +166,7 @@ DEPENDENCIES
   icalendar
   jquery-rails
   newrelic_rpm
+  nokogiri
   numbers_and_words
   paperclip
   pg

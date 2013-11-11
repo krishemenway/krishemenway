@@ -15,4 +15,10 @@ class ApplicationController < ActionController::Base
 			format.html { render 'fallout/hacker' }
 		end
 	end
+
+	def supermarket
+		respond_to do |format|
+			format.html { render 'supermarket/supermarket', :layout => false }
+		end
+	end
 end

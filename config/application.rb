@@ -57,6 +57,8 @@ module Movies
     config.assets.enabled = true
     config.assets.paths << "#{Rails.root}/app/assets/pdfs"
 
+    config.assets.initialize_on_precompile = false
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 

@@ -1,14 +1,6 @@
 
 @import "bourbon";
 
-@mixin transform-origin($content) {
-	-webkit-transform-origin: $content;
-	-moz-transform-origin: $content;
-	-ms-transform-origin: $content;
-	-o-transform-origin: $content;
-	transform-origin: $content;
-}
-
 @mixin transform($content) {
 	-webkit-transform: $content;
 	-moz-transform: $content;

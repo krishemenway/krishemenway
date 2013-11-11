@@ -28,10 +28,6 @@ hr {
 		font-weight: bold;
 	}
 
-	.game:last-child hr {
-		display: none;
-	}
-
 	.game {
 		width: calc(50% - 6px);
 		display: inline-block;
@@ -117,6 +113,7 @@ hr {
 
 		&:hover {
 			background-color: rgba(0,0,0,.3);
+			cursor: pointer;
 		}
 	}
 
@@ -124,6 +121,10 @@ hr {
 		position: absolute;
 		bottom: 0;
 		left: 0;
+	}
+
+	.tag:last-child hr {
+		display: none;
 	}
 
 	.examples {

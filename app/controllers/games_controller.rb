@@ -13,6 +13,7 @@ class GamesController < ApplicationController
 			end
 
 			@recent_games = steam_game_retriever.get_recently_played_games(@steam_user).slice(0,5)
+			@search_results = SteamGame.all.slice(0,24)
 			@top_tags = SteamGameTag.all
 
 			respond_to do |format|

@@ -2,9 +2,11 @@
 = content_for :page_name do 'games' end
 
 section.games-list
-	input type="text" id="search-games" value="" placeholder="What game are you looking for?"
+	h1 Your Library
+	label id="search-label" for="search-games" Search
+	input type="text" id="search-games" value="" placeholder="i.e. Doom 3 or tag:first person shooter"
 	button type="button" id="search-button" value="Search"
-		i.icon-search
+		.icon-search
 
 	ul#search-results
 		- @search_results.each do |result|

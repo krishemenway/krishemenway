@@ -9,13 +9,10 @@
 	transform: $content;
 }
 
-@mixin translate3d($x, $y, $z) {
-	@include prefixer(transform, translate3d($x, $y, $z), webkit moz ms o spec);
+@mixin rotate($percent) {
+	@include transform($percent + '%');
 }
 
-@mixin calc($property, $expression) {
-	#{$property}: -moz-calc(#{$expression});
-	#{$property}: -o-calc(#{$expression});
-	#{$property}: -webkit-calc(#{$expression});
-	#{$property}: calc(#{$expression});
+@mixin translate3d($x, $y, $z) {
+	@include prefixer(transform, translate3d($x, $y, $z), webkit moz ms o spec);
 }

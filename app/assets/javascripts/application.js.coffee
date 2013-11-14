@@ -25,6 +25,7 @@
 #= require tvshows
 #= require calendar
 #= require frontpage
+#= require games
 #= require leaderboard/leaderboard
 #= require fallout/fallout
 #= require_directory ./binding_handlers

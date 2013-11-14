@@ -1,0 +1,17 @@
+@import "bourbon";
+
+@mixin border-radius($radius) {
+	@include prefixer(border-radius, $radius, spec);
+}
+
+@mixin calc($property, $expression) {
+	#{$property}: -moz-calc(#{$expression});
+	#{$property}: -o-calc(#{$expression});
+	#{$property}: -webkit-calc(#{$expression});
+	#{$property}: calc(#{$expression});
+}
+
+@mixin opacity($percent) {
+	opacity: $percent / 100;
+	filter:alpha(opacity=$percent); // For IE8 and earlier
+}

@@ -17,13 +17,9 @@
 @import "mixins/transform";
 @import "mixins/media_queries";
 @import "mixins/visibility";
+@import "mixins/misc";
 
 @import "side_panel";
-
-@mixin opacity($percent) {
-	opacity: $percent / 100;
-	filter:alpha(opacity=$percent); // For IE8 and earlier
-}
 
 $siteWidth: $desktopWidth;
 $sideNavigationHeight: 40px;

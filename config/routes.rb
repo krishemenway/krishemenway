@@ -24,6 +24,8 @@ Movies::Application.routes.draw do
 
 	get '/fallout' => 'application#fallout'
 
+	get '/games/search/game' => 'games#search'
+	get '/games/search/tag' => 'games#tags_like'
 	get '/games' => 'games#index'
 	post '/games/setup' => 'games#setup'
 

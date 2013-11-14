@@ -1,5 +1,8 @@
 = content_for :title do 'games' end
 = content_for :page_name do 'games' end
+= content_for :scripts do
+	javascript:
+		window.kris.games.init();
 
 section.games-list
 	h1 Your Library

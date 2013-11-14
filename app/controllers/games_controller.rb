@@ -2,30 +2,36 @@ class GamesController < ApplicationController
 	def index
 		steam_game_retriever = SteamGameRetriever.new
 
-		if user_signed_in?
-			@steam_user = params[:user].present? ? SteamUser.find_by_steam_name(params[:user]) : SteamUser.find_by_user(current_user)
+		if params[:user].present?
+			@steam_user = SteamUser.find_by_steam_name params[:user]
+		end
 
-			if @steam_user.nil? and params[:user].nil?
-				redirect_to games_setup_url
-			end
-
-			if @steam_user.nil?
-				@steam_user = SteamUser.create :steam_name => params[:user]
-				@steam_user.steam_id = steam_game_retriever.get_steam_id @steam_user
-				@steam_user.save
-
-				steam_game_retriever.load_games_for_user @steam_user
-			end
-
-			@recent_games = steam_game_retriever.get_recently_played_games(@steam_user).slice(0,5)
-			@search_results = SteamGame.all.slice(0,24)
-			@top_tags = SteamGameTag.all
-
-			respond_to do |format|
-				format.html
-			end
-		else
+		if @steam_user.nil? and user_signed_in?
+			@steam_user = SteamUser.find_by_user(current_user)
+		elsif user_signed_in?
+			redirect_to games_setup_url
+		elsif @steam_user.nil?
 			redirect_to new_user_session_path
+		end
+
+		if @steam_user.nil? and params[:user].nil?
+			redirect_to games_setup_url
+		end
+
+		if @steam_user.nil?
+			@steam_user = SteamUser.new :steam_name => params[:user]
+			@steam_user.steam_id = steam_game_retriever.get_steam_id @steam_user
+			@steam_user.save!
+
+			steam_game_retriever.load_games_for_user @steam_user
+		end
+
+		@recent_games = steam_game_retriever.get_recently_played_games(@steam_user).slice(0,5)
+		@search_results = SteamGame.all.slice(0,24)
+		@top_tags = SteamGameTag.all
+
+		respond_to do |format|
+			format.html
 		end
 	end
 

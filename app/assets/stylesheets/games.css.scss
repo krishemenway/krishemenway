@@ -3,12 +3,14 @@
 @import "mixins/visibility";
 @import "mixins/misc";
 
-section {
-	@include opacity(45);
-	@include easeIn();
+.games {
+	section {
+		@include opacity(70);
+		@include easeIn();
 
-	&:hover {
-		@include opacity(95);
+		&:hover {
+			@include opacity(95);
+		}
 	}
 }
 
@@ -64,7 +66,7 @@ section {
 	@include transform(rotate(-45deg));
 }
 
-#search-button:hover .icon-search:before,
+#search_button:hover .icon-search:before,
 .icon-search:hover:before,
 .icon-search:focus:before,
 .icon-search:active:before {
@@ -72,7 +74,7 @@ section {
 	background:transparent;
 }
 
-#search-button:hover .icon-search:after,
+#search_button:hover .icon-search:after,
 .icon-search:hover:after,
 .icon-search:focus:after,
 .icon-search:active:after {
@@ -98,19 +100,17 @@ section {
 	width: 100%;
 }
 
-.games-list {
+.game-library {
 	@include calc(width, "50% - 24px");
 	float: right;
 	margin: 0 12px 0 0;
-}
 
-#search-results {
-	.game:nth-child(2n+2) {
+	.games .game:nth-child(2n+2) {
 		margin-left: 12px;
 	}
 }
 
-#search-label {
+#search_label {
 	@include calc(width, "12.5% - 12px");
 	display: inline-block;
 	vertical-align: top;
@@ -120,7 +120,7 @@ section {
 	font-weight: 100;
 }
 
-#search-games {
+#search_games {
 	@include calc(width, "75% - 8px");
 	vertical-align: top;
 	margin: 12px 12px 0 0;
@@ -133,7 +133,7 @@ section {
 	display: inline-block;
 }
 
-#search-button {
+#search_button {
 	@include calc(width, "12.5% - 12px");
 	background-color: #383838;
 	height: 18px;

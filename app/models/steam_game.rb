@@ -1,6 +1,9 @@
 class SteamGame < ActiveRecord::Base
 	attr_accessible :app_id, :name, :image_path
 
+	has_many :steam_tagged_games, :primary_key => 'app_id', :foreign_key => 'steam_app_id'
+	has_many :steam_game_tags, :through => :steam_tagged_games
+
 	def run_app_url
 		"steam://run/#{self.app_id}"
 	end

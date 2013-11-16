@@ -4,56 +4,26 @@
 	javascript:
 		window.kris.games.init();
 
-section.games-list
+section.game-library
 	h1 Your Library
-	label id="search-label" for="search-games" Search
-	input type="text" id="search-games" value="" placeholder="i.e. Doom 3 or tag:first person shooter"
-	button type="button" id="search-button" value="Search"
+	label id="search_label" for="search_games" Search
+	input type="text" id="search_games" value="" placeholder="i.e. Doom 3 or tag:first person shooter"
+	button type="button" id="search_button" value="Search"
 		.icon-search
-
-	ul#search-results
-		- @search_results.each do |result|
-			li.search-result.game
-				img.game-cover src="#{result.image_path}"
-				.controls
-					a.play href="#{result.run_app_url}"
-						i.icon-play
-					button.info i
+	#search_results
+		= render :partial => 'game_list', :locals => { :games => @search_results }
 
 section.recently-played-games.game-container
 	h1 Recently Played
-	ul
-		- @recent_games.each do |game|
-			li.game
-				img.game-cover src="#{game.image_path}"
-				.controls
-					a.play href="#{game.run_app_url}"
-						i.icon-play
-					button.info i
+	= render :partial => 'game_list', :locals => { :games => @recent_games }
 
 section.personalized-tags.game-container
 	ul.tags
-		li.tag
-			.name First Person Shooter (80)
-			ul.examples
-				li.example Doom 3
-				li.example Counter-Strike: Global Offensive
-			hr.separator
-		li.tag
-			.name Realtime Strategy (15)
-			ul.examples
-				li.example Company of Heroes
-				li.example Age of Empires II: HD Edition
-			hr.separator
-		li.tag
-			.name Racing (20)
-			ul.examples
-				li.example Trials Evolution: Gold
-				li.example Need for Speed: Wanted
-			hr.separator
-		li.tag
-			.name Platformer (25)
-			ul.examples
-				li.example Super Meat Boy
-				li.example Super Mario Bros. 3
-			hr.separator
+		-@tags.each do |tag|
+			li.tag data-tag-name="#{tag.name}"
+				.name= tag.name
+				ul.examples
+					- [tag.example_one, tag.example_two].each do |example|
+						-if example.present?
+							li.example= example.name
+				hr.separator

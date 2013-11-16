@@ -27,7 +27,8 @@ Movies::Application.routes.draw do
 	get '/games/search/game' => 'games#search'
 	get '/games/search/tag' => 'games#tags_like'
 	get '/games' => 'games#index'
-	post '/games/setup' => 'games#setup'
+	get '/games/setup' => 'games#setup'
+	post '/games/create_steam_user' => 'games#create_steam_user'
 
 	root :to => 'application#frontpage'
 end

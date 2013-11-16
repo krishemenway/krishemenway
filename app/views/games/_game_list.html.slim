@@ -1,0 +1,3 @@
+ul.games
+	- games.each do |result|
+		= render partial: 'game', :locals => { :game => result }

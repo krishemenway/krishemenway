@@ -10,4 +10,8 @@ class String
 
 		raise "Could not determine if it was true or false with #{string}"
 	end
+
+	def remove_leading_characters(n)
+		self[n..self.length]
+	end
 end

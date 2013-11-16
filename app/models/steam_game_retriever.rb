@@ -4,7 +4,11 @@ require 'open-uri'
 class SteamGameRetriever
 
 	def get_steam_id(steam_user)
-		games_xml = Nokogiri::XML open("http://steamcommunity.com/id/#{steam_user.steam_name}/games?tab=all&xml=1")
+		get_steam_id_by_name steam_user.steam_name
+	end
+
+	def get_steam_id_by_name(steam_name)
+		games_xml = Nokogiri::XML open("http://steamcommunity.com/id/#{steam_name}/games?tab=all&xml=1")
 		games_xml.xpath('//gamesList/steamID64').text
 	end
 

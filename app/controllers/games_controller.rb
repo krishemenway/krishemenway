@@ -48,8 +48,18 @@ class GamesController < ApplicationController
 
 		@games = []
 
+		if query.nil? or query.blank?
+			render :status => :ok
+			return
+		end
+
 		if query.starts_with? 'tag:'
-			@tag = SteamGameTag.where('name like ?', "%#{query.remove_leading_characters(4)}%")
+			if query.remove_leading_characters(4).blank?
+				render :nothing => true
+				return
+			end
+
+			@tag = SteamGameTag.where('lower(name) like ?', "%#{query.remove_leading_characters(4).downcase}%")
 
 			if @tag.nil?
 				render :status => :ok
@@ -58,7 +68,7 @@ class GamesController < ApplicationController
 
 			@games = @tag.first.steam_games
 		else
-			@games = SteamGame.where('name like ?', "%#{query}%")
+			@games = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
 		end
 
 		respond_to do |format|

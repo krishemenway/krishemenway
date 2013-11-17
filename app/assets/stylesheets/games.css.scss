@@ -14,14 +14,12 @@
 	}
 }
 
-.game-profile-open {
-	.game-profile {
-		display: block;
-	}
-}
-
 .game-profile {
-	display: none;
+	text-align: center;
+
+	.game-cover {
+		width: 100%;
+	}
 }
 
 .icon-search {

@@ -8,6 +8,11 @@ class SteamGame < ActiveRecord::Base
 		"steam://run/#{self.app_id}"
 	end
 
+	def tag_game(tag)
+		self.steam_game_tags << tag
+		self.save
+	end
+
 	def self.from_xml(xml)
 		game_hash = Hash.from_xml xml
 

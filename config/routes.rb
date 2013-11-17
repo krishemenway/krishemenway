@@ -26,6 +26,8 @@ Movies::Application.routes.draw do
 
 	get '/games/search/game' => 'games#search'
 	get '/games/search/tag' => 'games#tags_like'
+	get '/games/game/tags' => 'games#tags'
+	post '/games/game/tag_game' => 'games#tag'
 	get '/games' => 'games#index'
 	get '/games/setup' => 'games#setup'
 	post '/games/create_steam_user' => 'games#create_steam_user'

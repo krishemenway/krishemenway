@@ -21,6 +21,8 @@ html
 					=link_to tvshows_path, tvshows_path
 				li
 					=link_to calendar_path, calendar_path
+				li
+					=link_to games_path, games_path
 			.content
 				= content_for?(:content) ? yield(:content) : yield
 			ul.footer-links

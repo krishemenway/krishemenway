@@ -4,6 +4,42 @@ class GamesController < ApplicationController
 		SteamGameRetriever.new.get_recently_played_games(steam_user).slice(0,5)
 	end
 
+	def top_tags
+		SteamGameTag.limit 10
+	end
+
+	def tags
+		@game = SteamGame.find_by_app_id(params[:app_id])
+
+		respond_to do |format|
+			format.json { render :json => @game.steam_game_tags }
+		end
+	end
+
+	def find_tag_by_name(name)
+		tag = SteamGameTag.where 'lower(name) like ?', "%#{params[:tag_name].downcase}%"
+		tag.present? ? tag.first : tag
+	end
+
+	def create_tag(name)
+		SteamGameTag.create :name => name
+	end
+
+	def tag
+		@tag = find_tag_by_name(params[:tag_name])
+
+		if @tag.nil?
+			@tag = create_tag(params[:tag_name])
+		end
+
+		@game = SteamGame.find_by_app_id(params[:app_id])
+		@game.tag_game(@tag)
+
+		respond_to do |format|
+			format.json { render :json => @tag }
+		end
+	end
+
 	def index
 		if params[:user].present?
 			@steam_user = SteamUser.find_by_steam_name params[:user]
@@ -29,9 +65,11 @@ class GamesController < ApplicationController
 			end
 		end
 
+		@is_viewing_own_profile = (user_signed_in? and current_user.id == @steam_user.user_id)
+
 		@search_results = @steam_user.steam_games.slice(0,20)
 		@recent_games = recent_games(@steam_user)
-		@tags = SteamGameTag.limit 10
+		@tags = top_tags
 
 		respond_to do |format|
 			format.html
@@ -94,14 +132,6 @@ class GamesController < ApplicationController
 			redirect_to games_path
 		else
 			redirect_to new_user_session_path
-		end
-	end
-
-	def game_profile
-		@game = SteamGame.find_by_steam_app_id params[:app_id]
-
-		respond_to do |format|
-			format.html { render :partial => 'game_profile', :locals => {:game => @game} }
 		end
 	end
 end

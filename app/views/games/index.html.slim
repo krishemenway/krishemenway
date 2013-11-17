@@ -6,16 +6,27 @@
 		window.games.init(#{@recent_games.to_json.html_safe}, #{@search_results.to_json.html_safe}, #{@tags.to_json.html_safe});
 		ko.applyBindings(window.games);
 
-section.game-profile.game-container
-
 section.game-library
-	h1 Your Library
+	- if @is_viewing_own_profile
+		h1 Your Library
+	- else
+		h1= "#{@steam_user.steam_name}'s Library"
 	label id="search_label" for="search_games" Search
 	input type="text" id="search_games" value="" placeholder="i.e. Doom 3 or tag:first person shooter" data-bind="value: search_query, valueUpdate: 'keyup', event: {keyup: try_to_search}"
 	button type="button" id="search_button" value="Search"
 		i.icon-search
 	#search_results data-bind="with: search_results"
 		= render :partial => 'game_list'
+	.game-profile data-bind="with: selected_game"
+		h2.name data-bind="text: name"
+		img.game-cover data-bind="attr: { src: image_path }"
+
+		h3 Tags
+		ul.tags data-bind="foreach: tags"
+			li.tag data-bind="text: name"
+		form data-bind="submit: add_tag"
+			input type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup'"
+			input type="submit" value="Add"
 
 section.recently-played-games.game-container data-bind="with: recently_played"
 	h1 Recently Played

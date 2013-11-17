@@ -2,6 +2,6 @@ ul.games data-bind="foreach: $data"
 	li.game
 		img.game-cover data-bind="attr: { src: image_path }"
 		.controls
-			a.play data-bind="attr: {href: run_app_url}"
+			a.play data-bind="attr: {href: run_url}"
 				i.icon-play
-			button.info i
+			button.info data-bind="click: $root.open_profile" i

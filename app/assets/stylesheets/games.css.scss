@@ -14,6 +14,16 @@
 	}
 }
 
+.game-profile-open {
+	.game-profile {
+		display: block;
+	}
+}
+
+.game-profile {
+	display: none;
+}
+
 .icon-search {
 	display:block;
 	border:0;
@@ -210,6 +220,7 @@
 	}
 
 	.play {
+		position: relative;
 		border-radius: 22px;
 		@include easeIn();
 

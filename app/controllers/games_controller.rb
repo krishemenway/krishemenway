@@ -1,7 +1,10 @@
 class GamesController < ApplicationController
-	def index
-		steam_game_retriever = SteamGameRetriever.new
 
+	def recent_games(steam_user)
+		SteamGameRetriever.new.get_recently_played_games(steam_user).slice(0,5)
+	end
+
+	def index
 		if params[:user].present?
 			@steam_user = SteamUser.find_by_steam_name params[:user]
 
@@ -10,7 +13,7 @@ class GamesController < ApplicationController
 				@steam_user.steam_id = steam_game_retriever.get_steam_id @steam_user
 				@steam_user.save!
 
-				steam_game_retriever.load_games_for_user @steam_user
+				SteamGameRetriever.new.load_games_for_user @steam_user
 			end
 		else
 			if user_signed_in?
@@ -26,9 +29,9 @@ class GamesController < ApplicationController
 			end
 		end
 
-		@recent_games = steam_game_retriever.get_recently_played_games(@steam_user).slice(0,5)
 		@search_results = @steam_user.steam_games.slice(0,20)
-		@tags = SteamGameTag.all
+		@recent_games = recent_games(@steam_user)
+		@tags = SteamGameTag.limit 10
 
 		respond_to do |format|
 			format.html
@@ -48,12 +51,7 @@ class GamesController < ApplicationController
 
 		@games = []
 
-		if query.nil? or query.blank?
-			render :status => :ok
-			return
-		end
-
-		if query.starts_with? 'tag:'
+		if query.present? and query.starts_with? 'tag:'
 			if query.remove_leading_characters(4).blank?
 				render :nothing => true
 				return
@@ -67,12 +65,12 @@ class GamesController < ApplicationController
 			end
 
 			@games = @tag.first.steam_games
-		else
+		elsif query.present?
 			@games = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
 		end
 
 		respond_to do |format|
-			format.html { render :partial => 'games/game_list', :locals => { :games => @games } }
+			format.json { render :json => @games }
 		end
 	end
 
@@ -96,6 +94,14 @@ class GamesController < ApplicationController
 			redirect_to games_path
 		else
 			redirect_to new_user_session_path
+		end
+	end
+
+	def game_profile
+		@game = SteamGame.find_by_steam_app_id params[:app_id]
+
+		respond_to do |format|
+			format.html { render :partial => 'game_profile', :locals => {:game => @game} }
 		end
 	end
 end

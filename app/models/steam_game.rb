@@ -19,4 +19,13 @@ class SteamGame < ActiveRecord::Base
 
 		SteamGame.new game_options
 	end
+
+	def as_json(options)
+		{
+			:app_id => self.app_id,
+			:name => self.name,
+			:run_url => self.run_app_url,
+			:image_path => self.image_path
+		}
+	end
 end

@@ -95,9 +95,10 @@ class TagViewModel
 		self = this
 
 		self.name = tag_json.name
-		self.example_one = new GameViewModel(tag_json.example_one)
-		self.example_two = new GameViewModel(tag_json.example_two)
-		self.examples = [self.example_one, self.example_two]
+		self.examples = []
+
+		for game in [tag_json.example_one, tag_json.example_two]
+			self.examples.push(new GameViewModel(JSON.parse(game))) if game != "null"
 
 		return self
 

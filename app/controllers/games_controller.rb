@@ -17,7 +17,7 @@ class GamesController < ApplicationController
 	end
 
 	def find_tag_by_name(name)
-		tag = SteamGameTag.where 'lower(name) like ?', "%#{params[:tag_name].downcase}%"
+		tag = SteamGameTag.where 'lower(name) like ?', "%#{name.downcase}%"
 		tag.present? ? tag.first : tag
 	end
 
@@ -26,17 +26,17 @@ class GamesController < ApplicationController
 	end
 
 	def tag
-		@tag = find_tag_by_name(params[:tag_name])
+		tag = find_tag_by_name(params[:tag_name])
 
-		if @tag.nil?
-			@tag = create_tag(params[:tag_name])
+		if tag.nil?
+			tag = create_tag(params[:tag_name])
 		end
 
-		@game = SteamGame.find_by_app_id(params[:app_id])
-		@game.tag_game(@tag)
+		game = SteamGame.find_by_app_id(params[:app_id])
+		game.tag_game(tag)
 
 		respond_to do |format|
-			format.json { render :json => @tag }
+			format.json { render :json => tag }
 		end
 	end
 
@@ -46,7 +46,7 @@ class GamesController < ApplicationController
 
 			if @steam_user.nil?
 				@steam_user = SteamUser.new :steam_name => params[:user]
-				@steam_user.steam_id = steam_game_retriever.get_steam_id @steam_user
+				@steam_user.steam_id = SteamGameRetriever.new.get_steam_id @steam_user
 				@steam_user.save!
 
 				SteamGameRetriever.new.load_games_for_user @steam_user
@@ -87,7 +87,7 @@ class GamesController < ApplicationController
 	def search
 		query = params[:query].to_s
 
-		@games = []
+		games = []
 
 		if query.present? and query.starts_with? 'tag:'
 			if query.remove_leading_characters(4).blank?
@@ -95,20 +95,20 @@ class GamesController < ApplicationController
 				return
 			end
 
-			@tag = SteamGameTag.where('lower(name) like ?', "%#{query.remove_leading_characters(4).downcase}%")
+			tag = SteamGameTag.where('lower(name) like ?', "%#{query.remove_leading_characters(4).downcase}%")
 
-			if @tag.nil?
+			if tag.nil?
 				render :status => :ok
 				return
 			end
 
-			@games = @tag.first.steam_games
+			games = tag.first.steam_games
 		elsif query.present?
-			@games = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
+			games = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
 		end
 
 		respond_to do |format|
-			format.json { render :json => @games }
+			format.json { render :json => games }
 		end
 	end
 

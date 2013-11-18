@@ -38,15 +38,18 @@ class SteamGameRetriever
 	end
 
 	def get_recently_played_games(steam_user)
-		api_key = ENV['STEAM_API_KEY']
-		games_xml = Nokogiri::XML open("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=#{api_key}&steamid=#{steam_user.steam_id}&format=xml")
-		games = []
+		Rails.cache.fetch [steam_user, 'recent_games'], expires_in: 5.hours do
+			api_key = ENV['STEAM_API_KEY']
 
-		games_xml.xpath('//response/games/message').each do |message|
-			message_hash = Hash.from_xml message.to_s
-			games.push SteamGame.find_by_app_id(message_hash['message']['appid'])
+			games_xml = Nokogiri::XML open("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=#{api_key}&steamid=#{steam_user.steam_id}&format=xml")
+			retrieved_games = []
+
+			games_xml.xpath('//response/games/message').each do |message|
+				message_hash = Hash.from_xml message.to_s
+				retrieved_games.push SteamGame.find_by_app_id(message_hash['message']['appid'])
+			end
+
+			retrieved_games
 		end
-
-		games
 	end
 end

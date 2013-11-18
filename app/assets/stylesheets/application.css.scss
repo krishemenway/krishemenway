@@ -139,6 +139,14 @@ button {
 		&:hover {
 			background-color: rgba(10,10,10,.1);
 		}
+
+		&:first-child a {
+			border-left-style: none;
+		}
+
+		&:last-child a {
+			border-right-style: none;
+		}
 	}
 }
 

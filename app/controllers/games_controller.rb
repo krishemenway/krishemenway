@@ -18,7 +18,7 @@ class GamesController < ApplicationController
 
 	def find_tag_by_name(name)
 		tag = SteamGameTag.where 'lower(name) like ?', "%#{name.downcase}%"
-		tag.present? ? tag.first : tag
+		tag.present? ? tag.first : nil
 	end
 
 	def create_tag(name)

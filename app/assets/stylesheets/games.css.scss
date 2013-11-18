@@ -3,6 +3,8 @@
 @import "mixins/visibility";
 @import "mixins/misc";
 
+$margin-size: 12px;
+
 .games {
 	section {
 		@include opacity(70);
@@ -20,6 +22,50 @@
 	.game-cover {
 		width: 100%;
 	}
+
+	.tags .tag {
+		margin: 0;
+	}
+
+	input[type=text] {
+		background-color: #F8F8F8;
+		color: #181818;
+
+		height: 16px;
+		padding: 4px;
+	}
+}
+
+.game-meta-data, .misc-game-info {
+	@include calc(width, "50% - 12px");
+	float: left;
+	margin: 12px 0 0 0;
+}
+
+.misc-game-info {
+	margin-left: 24px;
+
+	.play-button {
+		text-decoration: none;
+		background-color: #181818;
+		height: 44px;
+		display: block;
+		line-height: 22px;
+		font-size: 24px;
+
+		&:hover {
+			color: #686868;
+
+			.icon-play {
+				border-left-color: #686868;
+			}
+		}
+	}
+
+	.icon-play {
+		vertical-align: bottom;
+		margin-left: 0;
+	}
 }
 
 .icon-search {
@@ -28,7 +74,7 @@
 	padding-left:28px;
 	color:#F8F8F8;
 	position: relative;
-	left: 13px;
+	left: 10px;
 }
 
 .icon-search:hover,
@@ -111,10 +157,14 @@
 .game-library {
 	@include calc(width, "50% - 24px");
 	float: right;
-	margin: 0 12px 0 0;
+	margin: 0 $margin-size 0 0;
+
+	h1 {
+		text-transform: lowercase;
+	}
 
 	.games .game:nth-child(2n+2) {
-		margin-left: 12px;
+		margin-left: $margin-size;
 	}
 }
 
@@ -251,6 +301,10 @@
 }
 
 .recently-played-games {
+	h1 {
+		letter-spacing: 5px;
+		text-transform: lowercase;
+	}
 
 	.game:first-child {
 		width: 100%;
@@ -259,6 +313,10 @@
 	.game:nth-child(2n+3) {
 		margin-left: 12px;
 	}
+}
+
+.all-tags {
+	margin-bottom: 12px;
 }
 
 .tags {

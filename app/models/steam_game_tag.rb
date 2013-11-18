@@ -5,11 +5,11 @@ class SteamGameTag < ActiveRecord::Base
 	has_many :steam_games, :through => :steam_tagged_games
 
 	def example_one
-		self.steam_games.where('app_id = ?', example_one_app_id).first
+		self.steam_games.first
 	end
 
 	def example_two
-		self.steam_games.where('app_id = ?', example_two_app_id).first
+		self.steam_games.second
 	end
 
 	def as_json(options)

@@ -1,4 +1,4 @@
-
+# global ko: true #
 class GamesViewModel
 	constructor: () ->
 		self = this
@@ -16,6 +16,7 @@ class GamesViewModel
 		clear_search = () ->
 			self.search_results([])
 			self.search_query("")
+			last_searched_query = ""
 
 		create_tags_from_server = (tags_json)  ->
 			(new TagViewModel(tag) for tag in tags_json)
@@ -82,7 +83,8 @@ class GameViewModel
 			$.getJSON '/games/game/tags', {app_id: self.app_id}, self.load_tags
 
 		self.handle_successful_add = (response) ->
-			self.tags.push(new TagViewModel(response))
+			self.tags.push(new TagViewModel(JSON.parse(response)))
+			self.tags(self.tags())
 
 		self.add_tag = () ->
 			$.post '/games/game/tag_game', {app_id: self.app_id, tag_name: self.new_tag_name()}, self.handle_successful_add

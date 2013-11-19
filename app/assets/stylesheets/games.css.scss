@@ -16,6 +16,20 @@ $margin-size: 12px;
 	}
 }
 
+.os-support {
+	text-align: center;
+
+	.osx, .windows, .linux {
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+	}
+
+	.osx { background-image: url(image_path('osx.png'))}
+	.windows { background-image: url(image_path('win.png'))}
+	.linux { background-image: url(image_path('linx.png'))}
+}
+
 .game-profile {
 	text-align: center;
 
@@ -44,6 +58,24 @@ $margin-size: 12px;
 
 .misc-game-info {
 	margin-left: 24px;
+
+	.news, .news p, .news .read-more, .news h3 {
+		margin-top: $margin-size;
+		display: block;
+	}
+
+	.news {
+		background-color: #181818;
+		padding: 6px 0;
+
+		.article {
+			text-align: left;
+		}
+
+		p {
+			font-size: 10px;
+		}
+	}
 
 	.play-button {
 		text-decoration: none;

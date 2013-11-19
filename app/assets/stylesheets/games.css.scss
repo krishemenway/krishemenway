@@ -39,6 +39,34 @@ $margin-size: 12px;
 	}
 }
 
+.game-meta-data {
+	text-align: left;
+
+	.developer, .publisher, .release-date {
+		padding: $margin-size / 2 0;
+		font-size: 12px;
+		font-weight: 100;
+		letter-spacing: 1px;
+	}
+
+	h3 {
+		padding: $margin-size 0 $margin-size 0;
+		border-bottom: 1px solid #383838;
+	}
+	.tags {
+		font-weight: 100;
+
+		.tag {
+			padding: $margin-size 0;
+			border-bottom: 1px solid #383838;
+		}
+
+		.tag:last-child {
+			border-bottom-style: none;
+		}
+	}
+}
+
 .game-meta-data, .misc-game-info {
 	@include calc(width, "50% - 12px");
 	float: left;
@@ -353,7 +381,7 @@ $margin-size: 12px;
 	margin-bottom: 12px;
 }
 
-.tags {
+.all-tags .tags {
 
 	.tag {
 		display: block;

@@ -75,6 +75,11 @@ class GameViewModel
 
 		self.new_tag_name = ko.observable()
 
+		self.adding_tag = ko.observable(false)
+
+		self.start_adding_tag = () ->
+			self.adding_tag(true)
+
 		self.load_tags = (response) ->
 			tags = (new TagViewModel(tag) for tag in response)
 			self.tags(tags)
@@ -89,6 +94,7 @@ class GameViewModel
 		self.add_tag = () ->
 			$.post '/games/game/tag_game', {app_id: self.app_id, tag_name: self.new_tag_name()}, self.handle_successful_add
 			self.new_tag_name('')
+			self.adding_tag(false)
 
 		return self
 

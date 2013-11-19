@@ -26,13 +26,18 @@ section.game-library
 				.osx
 				.linux
 
-			h3 Tags
+			.developer Developer: Someone Inc.
+			.publisher Publisher: Someone Else Inc.
+			.release-date Released: July 41st, 2052
+
+			h3 Categories
 			ul.tags data-bind="foreach: tags"
 				li.tag data-bind="text: name"
 
-			form data-bind="submit: add_tag"
-				input type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup'"
-				input type="submit" value="Add"
+			button.add-tag-button data-bind="visible: !adding_tag(), click: start_adding_tag" Add New Category
+			form.add-tag data-bind="submit: add_tag, visible: adding_tag"
+				input.tag-name type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup'"
+				input.submit-tag type="submit" value="+"
 
 		.misc-game-info
 			a.play-button data-bind="attr: {href: run_url}"

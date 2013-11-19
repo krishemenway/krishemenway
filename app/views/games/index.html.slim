@@ -37,7 +37,8 @@ section.game-library
 			button.add-tag-button data-bind="visible: !adding_tag(), click: start_adding_tag" Add New Category
 			form.add-tag data-bind="submit: add_tag, visible: adding_tag"
 				input.tag-name type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup'"
-				input.submit-tag type="submit" value="+"
+				button.submit-tag type="submit"
+					span +
 
 		.misc-game-info
 			a.play-button data-bind="attr: {href: run_url}"

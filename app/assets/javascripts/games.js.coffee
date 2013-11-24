@@ -38,7 +38,7 @@ class GamesViewModel
 
 		self.open_profile = (game) ->
 			self.selected_game(game)
-			self.selected_game().fetch_and_load_tags()
+			self.selected_game().initialize_extras()
 			clear_search()
 
 		self.search_for_tag = (tag) ->
@@ -72,27 +72,37 @@ class GameViewModel
 		self.run_url = game_json.run_url
 
 		self.tags = ko.observableArray()
+		self.articles = ko.observableArray()
 
 		self.new_tag_name = ko.observable()
-
 		self.adding_tag = ko.observable(false)
+
+		handle_successful_add = (response) ->
+			self.tags.push(new TagViewModel(JSON.parse(response)))
+			self.tags(self.tags())
+
+		load_tags = (response) ->
+			tags = (new TagViewModel(tag) for tag in response)
+			self.tags(tags)
+
+		load_news = (response) ->
+			self.articles(response)
+
+		fetch_and_load_tags = () ->
+			$.getJSON '/games/game/tags', {app_id: self.app_id}, load_tags
+
+		fetch_and_load_news = () ->
+			$.getJSON '/games/game/news', {app_id: self.app_id}, load_news
 
 		self.start_adding_tag = () ->
 			self.adding_tag(true)
 
-		self.load_tags = (response) ->
-			tags = (new TagViewModel(tag) for tag in response)
-			self.tags(tags)
-
-		self.fetch_and_load_tags = () ->
-			$.getJSON '/games/game/tags', {app_id: self.app_id}, self.load_tags
-
-		self.handle_successful_add = (response) ->
-			self.tags.push(new TagViewModel(JSON.parse(response)))
-			self.tags(self.tags())
+		self.initialize_extras = () ->
+			fetch_and_load_tags()
+			fetch_and_load_news()
 
 		self.add_tag = () ->
-			$.post '/games/game/tag_game', {app_id: self.app_id, tag_name: self.new_tag_name()}, self.handle_successful_add
+			$.post '/games/game/tag_game', {app_id: self.app_id, tag_name: self.new_tag_name()}, handle_successful_add
 			self.new_tag_name('')
 			self.adding_tag(false)
 

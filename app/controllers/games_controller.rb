@@ -40,6 +40,14 @@ class GamesController < ApplicationController
 		end
 	end
 
+	def news
+		articles = SteamArticleRepository.new.find_articles_for_app_id params[:app_id]
+
+		respond_to do |format|
+			format.json { render :json => articles }
+		end
+	end
+
 	def index
 		if params[:user].present?
 			@steam_user = SteamUser.find_by_steam_name params[:user]

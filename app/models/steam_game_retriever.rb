@@ -41,7 +41,16 @@ class SteamGameRetriever
 		Rails.cache.fetch [steam_user, 'recent_games'], expires_in: 5.hours do
 			api_key = ENV['STEAM_API_KEY']
 
-			games_xml = Nokogiri::XML open("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=#{api_key}&steamid=#{steam_user.steam_id}&format=xml")
+			url_options = {
+				:key => api_key,
+				:steamid => steam_user.steam_id,
+				:format => 'xml'
+			}
+
+			recently_played_url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/'
+			url = "#{recently_played_url}?#{URI.encode_www_form(url_options)}"
+
+			games_xml = Nokogiri::XML open(url)
 			retrieved_games = []
 
 			games_xml.xpath('//response/games/message').each do |message|

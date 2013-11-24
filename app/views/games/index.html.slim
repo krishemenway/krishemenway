@@ -45,19 +45,11 @@ section.game-library
 				.icon-play
 				| Play Game
 
-			ul.news
+			ul.news data-bind="foreach: articles"
 				li.article
-					h3 News Article Title
-					p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas magna dui, mollis ut hendrerit in, dictum vel metus. Morbi laoreet erat non rhoncus malesuada. Suspendisse id odio turpis. Pellentesque mattis felis a ipsum interdum lobortis. Etiam placerat, felis in tempor cursus, dui mauris vulputate dui, ut suscipit velit purus quis mauris. Etiam posuere mollis nunc at dictum.
-					a.read-more href="#" Read More...
-				li.article
-					h3 News Article Title
-					p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas magna dui, mollis ut hendrerit in, dictum vel metus. Morbi laoreet erat non rhoncus malesuada. Suspendisse id odio turpis. Pellentesque mattis felis a ipsum interdum lobortis. Etiam placerat, felis in tempor cursus, dui mauris vulputate dui, ut suscipit velit purus quis mauris. Etiam posuere mollis nunc at dictum.
-					a.read-more href="#" Read More...
-				li.article
-					h3 News Article Title
-					p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas magna dui, mollis ut hendrerit in, dictum vel metus. Morbi laoreet erat non rhoncus malesuada. Suspendisse id odio turpis. Pellentesque mattis felis a ipsum interdum lobortis. Etiam placerat, felis in tempor cursus, dui mauris vulputate dui, ut suscipit velit purus quis mauris. Etiam posuere mollis nunc at dictum.
-					a.read-more href="#" Read More...
+					h3 data-bind="text: title"
+					p data-bind="html: contents"
+					a.read-more data-bind="attr: {href: url}" Read More...
 
 section.recently-played-games.game-container data-bind="with: recently_played"
 	h1 Recently Played

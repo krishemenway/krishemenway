@@ -26,6 +26,7 @@ Movies::Application.routes.draw do
 
 	get '/games/search/game' => 'games#search'
 	get '/games/search/tag' => 'games#tags_like'
+	get '/games/game/news' => 'games#news'
 	get '/games/game/tags' => 'games#tags'
 	post '/games/game/tag_game' => 'games#tag'
 	get '/games' => 'games#index'

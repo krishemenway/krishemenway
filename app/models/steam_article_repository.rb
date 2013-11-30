@@ -1,6 +1,6 @@
 
 class SteamArticleRepository
-	@@max_length = 300
+	@@max_length = 100
 	@@back_article_count = 3
 	@@base_url = 'http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/'
 

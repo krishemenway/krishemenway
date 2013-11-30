@@ -463,3 +463,14 @@ $margin-size: 12px;
 		font-size: 28px;
 	}
 }
+
+#search_results {
+	&.is-loading {
+		background: url("/assets/loading.gif") no-repeat 50% 50%;
+		min-height: 200px;
+
+		.games {
+			display: none;
+		}
+	}
+}

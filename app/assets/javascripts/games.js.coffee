@@ -2,7 +2,7 @@
 class GamesViewModel
 	constructor: () ->
 		self = this
-		isQueryingServer = false
+		self.isQueryingServer = ko.observable(false)
 		tryOneMoreTime = false
 		last_searched_query = ""
 
@@ -25,7 +25,7 @@ class GamesViewModel
 			(new GameViewModel(game) for game in games_json)
 
 		load_search_results = (games_from_server) ->
-			isQueryingServer = false
+			self.isQueryingServer(false)
 
 			if tryOneMoreTime
 				self.try_to_search()
@@ -49,9 +49,10 @@ class GamesViewModel
 			unless can_search()
 				return
 
-			if isQueryingServer
+			if self.isQueryingServer()
 				tryOneMoreTime = true
 			else
+				self.isQueryingServer(true)
 				$.getJSON "/games/search/game", { query: self.search_query() }, load_search_results
 				last_searched_query = self.search_query()
 

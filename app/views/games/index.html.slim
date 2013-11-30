@@ -15,7 +15,7 @@ section.game-library
 	input type="text" id="search_games" value="" placeholder="i.e. Doom 3 or tag:first person shooter" data-bind="value: search_query, valueUpdate: 'keyup', event: {keyup: try_to_search}"
 	button type="button" id="search_button" value="Search"
 		i.icon-search
-	#search_results data-bind="with: search_results"
+	#search_results data-bind="with: search_results, css: {'is-loading': isQueryingServer}"
 		= render :partial => 'game_list'
 	.game-profile data-bind="with: selected_game"
 		.game-meta-data
@@ -62,3 +62,5 @@ section.all-tags.game-container
 			ul.examples data-bind="foreach: examples"
 				li.example data-bind="text: name"
 			hr.separator
+
+link rel="prefetch" href="#{image_path('loading.gif')}"

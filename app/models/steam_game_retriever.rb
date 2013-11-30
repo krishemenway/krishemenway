@@ -13,6 +13,7 @@ class SteamGameRetriever
 	end
 
 	def load_games_for_user(steam_user)
+		puts "is loading games"
 		games_xml = Nokogiri::XML open("http://steamcommunity.com/id/#{steam_user.steam_name}/games?tab=all&xml=1")
 
 		games_xml.xpath('//gamesList/games/game').each do |game_xml|

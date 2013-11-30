@@ -18,7 +18,7 @@ class SteamGameRetriever
 		games_xml.xpath('//gamesList/games/game').each do |game_xml|
 			game_from_xml = SteamGame::from_xml game_xml.to_s
 
-			existing_steam_game = SteamGame.where(:app_id => game_from_xml.app_id).first
+			existing_steam_game = SteamGame.find_by_app_id(game_from_xml.app_id)
 
 			if existing_steam_game.nil?
 				existing_steam_game = game_from_xml
@@ -55,7 +55,16 @@ class SteamGameRetriever
 
 			games_xml.xpath('//response/games/message').each do |message|
 				message_hash = Hash.from_xml message.to_s
-				retrieved_games.push SteamGame.find_by_app_id(message_hash['message']['appid'])
+				app_id = message_hash['message']['appid']
+
+				game = SteamGame.find_by_app_id(app_id)
+
+				if game.nil?
+					load_games_for_user(steam_user)
+					game = SteamGame.find_by_app_id(app_id)
+				end
+
+				retrieved_games.push game
 			end
 
 			retrieved_games

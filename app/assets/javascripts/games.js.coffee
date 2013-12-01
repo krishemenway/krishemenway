@@ -1,4 +1,4 @@
-# global ko: true #
+#global ko
 class GamesViewModel
 	constructor: () ->
 		self = this
@@ -28,6 +28,7 @@ class GamesViewModel
 			self.isQueryingServer(false)
 
 			if tryOneMoreTime
+				tryOneMoreTime = false
 				self.try_to_search()
 			else
 				self.selected_game(null)
@@ -78,6 +79,8 @@ class GameViewModel
 		self.new_tag_name = ko.observable()
 		self.adding_tag = ko.observable(false)
 
+		self.is_loading_news = ko.observable(false)
+
 		handle_successful_add = (response) ->
 			self.tags.push(new TagViewModel(JSON.parse(response)))
 			self.tags(self.tags())
@@ -88,11 +91,13 @@ class GameViewModel
 
 		load_news = (response) ->
 			self.articles(response)
+			self.is_loading_news(false)
 
 		fetch_and_load_tags = () ->
 			$.getJSON '/games/game/tags', {app_id: self.app_id}, load_tags
 
 		fetch_and_load_news = () ->
+			self.is_loading_news(true)
 			$.getJSON '/games/game/news', {app_id: self.app_id}, load_news
 
 		self.start_adding_tag = () ->

@@ -30,12 +30,7 @@ $margin-size: 12px;
 		margin: 0;
 	}
 
-	input[type=text] {
-		background-color: #F8F8F8;
-		color: #181818;
-
-		height: 16px;
-		padding: 4px;
+	#search_games {
 	}
 }
 
@@ -50,28 +45,39 @@ $margin-size: 12px;
 	}
 
 	.add-tag {
-		* {
+		> * {
 			vertical-align: top;
+			height: 32px;
+			padding: 4px 0;
+			font-weight: 100;
+			color: #e8e8e8;
 		}
+
 		.tag-name {
 			background-color: rgba(0,0,0,.1);
 			font-size: 16px;
-			color: #e8e8e8;
-			height: 32px;
-			padding-left: $margin-size;
-			font-weight: 100;
+			width: 80%;
 		}
 
 		.submit-tag {
 			background-color: rgba(0,0,0,.2);
-			padding: 0 $margin-size;
+			width: 20%;
+			height: 40px;
+			font-size:
 
 			span {
-				font-size: 32px;
-				color: #e8e8e8;
-				font-weight: 100;
+				font-size: 24px;
 			}
 		}
+	}
+
+	.add-tag-button {
+		font-size: 16px;
+		font-weight: 100;
+		text-align: left;
+		width: 100%;
+		padding: 12px 0;
+		border-top: 1px solid #383838;
 	}
 
 	h3 {
@@ -130,6 +136,16 @@ $margin-size: 12px;
 		.read-more {
 			text-align: right;
 			color: #8787ff;
+		}
+
+		&.no-articles {
+			display: none;
+		}
+
+		&.loading {
+			display: block;
+			min-height: 150px;
+			background: url("/assets/loading.gif") no-repeat 50% 50% #181818;
 		}
 	}
 
@@ -270,13 +286,13 @@ $margin-size: 12px;
 	@include calc(width, "75% - 8px");
 	vertical-align: top;
 	margin: 12px 12px 0 0;
-	background-color: #e8e8e8;
 	border: 1px solid #181818;
 	height: 16px;
 	padding: 4px;
 	border: 0;
-	color: #181818;
 	display: inline-block;
+	background-color: #F8F8F8;
+	color: #181818;
 }
 
 #search_button {

@@ -34,7 +34,7 @@ section.game-library
 			ul.tags data-bind="foreach: tags"
 				li.tag data-bind="text: name"
 
-			button.add-tag-button data-bind="visible: !adding_tag(), click: start_adding_tag" Add New Category
+			button.add-tag-button data-bind="visible: !adding_tag(), click: start_adding_tag" + Category
 			form.add-tag data-bind="submit: add_tag, visible: adding_tag"
 				input.tag-name type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup'"
 				button.submit-tag type="submit"
@@ -45,7 +45,7 @@ section.game-library
 				.icon-play
 				| Play Game
 
-			ul.news data-bind="foreach: articles"
+			ul.news data-bind="foreach: articles, css: {'loading': is_loading_news, 'no-articles': articles().length === 0}"
 				li.article
 					h3 data-bind="text: title"
 					p data-bind="html: contents"

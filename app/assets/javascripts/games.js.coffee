@@ -32,7 +32,6 @@ class GamesViewModel
 				self.try_to_search()
 			else
 				return unless games_from_server
-				self.selected_game(null)
 				self.search_results(create_games_from_server(games_from_server))
 
 		can_search = () ->
@@ -54,6 +53,7 @@ class GamesViewModel
 			if self.isQueryingServer()
 				tryOneMoreTime = true
 			else
+				self.selected_game(null)
 				self.isQueryingServer(true)
 				$.getJSON "/games/search/game", { query: self.search_query() }, load_search_results
 				last_searched_query = self.search_query()

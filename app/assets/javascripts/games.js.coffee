@@ -31,6 +31,7 @@ class GamesViewModel
 				tryOneMoreTime = false
 				self.try_to_search()
 			else
+				return unless games_from_server
 				self.selected_game(null)
 				self.search_results(create_games_from_server(games_from_server))
 

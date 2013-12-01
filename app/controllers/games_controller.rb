@@ -103,10 +103,10 @@ class GamesController < ApplicationController
 				return
 			end
 
-			tag = SteamGameTag.where('lower(name) like ?', "%#{query.remove_leading_characters(4).downcase}%")
+			tag = SteamGameTag.where('lower(name) like ?', "#{query.remove_leading_characters(4).downcase}")
 
-			if tag.nil?
-				render :status => :ok
+			if tag.empty?
+				render :nothing => true
 				return
 			end
 

@@ -1,4 +1,26 @@
 class GamesController < ApplicationController
+	def index
+	end
+
+	def user_library
+		@steam_user = find_steam_user params[:steam_user_name]
+
+		respond_to do |format|
+			format.html {
+				@search_results = @steam_user.steam_games.slice(0,20)
+				@recent_games = recent_games(@steam_user)
+				@tags = top_tags
+			}
+			format.json {
+				render :json => @steam_user
+			}
+		end
+	end
+
+	def find_steam_user(name)
+		user = SteamUser.where('lower(steam_name) like ?', name)
+		user.present? ? user.first : nil
+	end
 
 	def recent_games(steam_user)
 		SteamGameRetriever.new.get_recently_played_games(steam_user).slice(0,5)
@@ -48,42 +70,6 @@ class GamesController < ApplicationController
 		end
 	end
 
-	def index
-		if params[:user].present?
-			@steam_user = SteamUser.find_by_steam_name params[:user]
-
-			if @steam_user.nil?
-				@steam_user = SteamUser.new :steam_name => params[:user]
-				@steam_user.steam_id = SteamGameRetriever.new.get_steam_id @steam_user
-				@steam_user.save!
-
-				SteamGameRetriever.new.load_games_for_user @steam_user
-			end
-		else
-			if user_signed_in?
-				@steam_user = SteamUser.find_by_user(current_user)
-
-				if @steam_user.nil?
-					redirect_to games_setup_url
-					return
-				end
-			else
-				redirect_to new_user_session_path
-				return
-			end
-		end
-
-		@is_viewing_own_profile = (user_signed_in? and current_user.id == @steam_user.user_id)
-
-		@search_results = @steam_user.steam_games.slice(0,20)
-		@recent_games = recent_games(@steam_user)
-		@tags = top_tags
-
-		respond_to do |format|
-			format.html
-		end
-	end
-
 	def tags_like
 		@tags = SteamGameTag.where('name like ?', "%#{params[:query]}%").order(&:name)
 
@@ -121,26 +107,24 @@ class GamesController < ApplicationController
 		end
 	end
 
-	def setup
-	end
 
 	def create_steam_user
-		if user_signed_in?
-			steam_game_retriever = SteamGameRetriever.new
+		steam_game_retriever = SteamGameRetriever.new
+		steam_name = params[:steam_user_name]
 
-			steam_user_params = {
-				:user_id => current_user.id,
-				:steam_name => params[:name],
-				:steam_id => steam_game_retriever.get_steam_id_by_name(params[:name])
-			}
+		existing_user = find_steam_user(steam_name)
 
-			existing_user = SteamUser.find_by_steam_id(steam_user_params[:steam_id])
-			steam_user = existing_user.present? ? existing_user : SteamUser.new(steam_user_params)
-			steam_user.save!
+		if existing_user.nil?
+			existing_user = SteamUser.new :steam_name => steam_name
+			existing_user.steam_id = steam_game_retriever.get_steam_id existing_user
+			existing_user.save!
+		end
 
-			redirect_to games_path
-		else
-			redirect_to new_user_session_path
+		steam_game_retriever.load_games_for_user existing_user
+
+		respond_to do |format|
+			format.html { render :json => existing_user }
+			format.json { render :json => existing_user }
 		end
 	end
 end

@@ -134,4 +134,36 @@ class TagViewModel
 
 		return self
 
+class SteamProfileRedirector
+	constructor: () ->
+		self = this
+		self.error = ko.observable()
+		self.steam_account_name = ko.observable()
+		self.is_loading = ko.observable(false)
+		self.is_creating = ko.observable(false)
+
+		go_to_profile = (profile_name) ->
+			window.location.pathname = "/games/#{profile_name}"
+
+		created_profile = () ->
+			go_to_profile(self.steam_account_name())
+
+		create_new_profile = (profile_name) ->
+			self.is_creating(true)
+			$.post "/games/#{profile_name}", { }, created_profile
+
+		handle_user_results = (user) ->
+			if user != null
+				go_to_profile(user.steam_name)
+			else
+				create_new_profile(self.steam_account_name())
+
+		self.check_for_user_and_go_to_profile = () ->
+			self.is_loading(true)
+			$.getJSON "/games/#{self.steam_account_name()}", { }, handle_user_results
+			return false
+
+		return self
+
+window.SteamProfileRedirector = SteamProfileRedirector
 window.GamesViewModel = GamesViewModel

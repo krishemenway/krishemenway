@@ -21,4 +21,11 @@ class ApplicationController < ActionController::Base
 			format.html { render 'supermarket/supermarket', :layout => false }
 		end
 	end
+
+	def reset
+		Rails.cache.clear
+		respond_to do |format|
+			format.html { render nothing: true, :status => :ok }
+		end
+	end
 end

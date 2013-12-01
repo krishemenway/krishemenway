@@ -1,77 +1,16 @@
-= content_for :title do 'games' end
-= content_for :page_name do 'games' end
+= content_for :title do 'games ' end
+= content_for :page_name do 'games ' end
 = content_for :scripts do
 	javascript:
-		window.games = new GamesViewModel();
-		window.games.init(#{@recent_games.to_json.html_safe}, #{@search_results.to_json.html_safe}, #{@tags.to_json.html_safe});
-		ko.applyBindings(window.games);
+		window.profileRedirector = new SteamProfileRedirector();
+		ko.applyBindings(window.profileRedirector);
 
-section.game-library
-	- if @is_viewing_own_profile
-		h1 Your Steam Library
-	- else
-		h1= "#{@steam_user.steam_name}'s Steam Library"
-	label id="search_label" for="search_games" Search
-	input type="text" id="search_games" value="" placeholder="i.e. Doom 3 or tag:first person shooter" data-bind="value: search_query, valueUpdate: 'keyup', event: {keyup: try_to_search}"
-	button type="button" id="search_button" value="Search"
-		i.icon-search
-	#tag_search_results
-		ul.example-tag-list data-bind="foreach: tag_search_results"
-			li.tag data-bind="click: $parent.search_for_tag"
-				.name data-bind="text: name"
-				ul.examples data-bind="foreach: examples"
-					li.example data-bind="text: name"
-	#search_results data-bind="with: search_results, css: {'is-loading': isQueryingServer}"
-		= render :partial => 'game_list'
-	.game-profile data-bind="with: selected_game"
-		.game-meta-data
-			img.game-cover data-bind="attr: { src: image_path }"
-
-			.os-support
-				.windows
-				.osx
-				.linux
-
-			.developer Developer: Someone Inc.
-			.publisher Publisher: Someone Else Inc.
-			.release-date Released: July 41st, 2052
-
-			h3 Categories
-			ul.tags data-bind="foreach: tags"
-				li.tag data-bind="text: name"
-
-			button.add-tag-button data-bind="visible: !adding_tag(), click: start_adding_tag" + Category
-			form.add-tag data-bind="submit: add_tag, visible: adding_tag"
-				input.tag-name type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup'"
-				button.submit-tag type="submit"
-					span +
-
-		.misc-game-info
-			a.play-button data-bind="attr: {href: run_url}"
-				.icon-play
-				| Play Game
-
-			ul.news data-bind="foreach: articles, css: {'loading': is_loading_news, 'no-articles': articles().length === 0}"
-				li.article
-					h3 data-bind="text: title"
-					p data-bind="html: contents"
-					a.read-more data-bind="attr: {href: url}" Read More...
-
-section.recently-played-games.game-container data-bind="with: recently_played"
-	h1 Recently Played
-	= render :partial => 'game_list'
-
-section.game-container
-	ul.example-tag-list
-		/! ko foreach: tags
-		li.tag data-bind="click: $parent.search_for_tag"
-			.name data-bind="text: name"
-			ul.examples data-bind="foreach: examples"
-				li.example data-bind="text: name"
-			hr.separator
-		/! /ko
-		li.all-categories data-bind="click: search_for_all_tags"
-			span.name All Categories
-
-
-link rel="prefetch" href="#{image_path('loading.gif')}"
+form.find-a-steam-user data-bind="submit: check_for_user_and_go_to_profile, css: {'is-creating': is_creating, 'is-loading': is_loading}" action="#" method="post"
+	label.search-instructions for="account-name-search" Enter the name of the steam profile you wish to see:
+	input.account-name#account-name-search type='text' placeholder=' i.e. linkstate' data-bind="value: steam_account_name, valueUpdate: 'keypress'"
+	button.account-search-button type="submit"
+		span.is-loading-text Searching ...
+		span.is-creating-text Could Not Find Profile, Creating ...
+		span.default-text Search
+	.error data-bind="text: error"
+	p.search-notice A steam profile must be marked as public in order for this to work

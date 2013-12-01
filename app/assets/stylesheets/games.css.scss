@@ -490,3 +490,72 @@ $margin-size: 12px;
 		}
 	}
 }
+
+.find-a-steam-user {
+	width: 40%;
+	padding: 100px 12px 230px 12px;
+	margin-left: 10%;
+	background-color: rgba(0,0,0,.1);
+
+	.search-notice {
+		font-size: 14px;
+		font-weight: 100;
+		display: block;
+		padding: 12px 0;
+	}
+
+	.search-instructions {
+		padding: 24px 0;
+		display: block;
+	}
+
+	.account-name {
+		display: block;
+		width: 100%;
+		height: 32px;
+		font-size: 24px;
+		border-bottom: 4px solid #F00;
+		background-color: rgba(100,100,100,.1);
+		padding-top: 20px;
+
+		@include placeholder() {
+			font-size: 18px;
+			padding-left: 4px;
+			line-height: 24px;
+		}
+	}
+
+	.account-search-button {
+		display: block;
+		width: 100%;
+		padding: 12px 0;
+		background: rgba(0,0,0,.1);
+		@include border-bottom-radius(5px);
+
+		&:hover,&:active {
+			background: rgba(0,0,0,.5);
+		}
+	}
+
+	.is-creating-text, .is-loading-text {
+		display: none;
+	}
+
+	&.is-creating, &.is-loading {
+		.default-text {
+			display: none;
+		}
+	}
+
+	&.is-creating .is-creating-text {
+		display: inline;
+	}
+
+	&.is-loading .is-loading-text {
+		display: inline;
+	}
+
+	.errors {
+
+	}
+}

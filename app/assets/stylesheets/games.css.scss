@@ -423,9 +423,9 @@ $margin-size: 12px;
 	margin-bottom: 12px;
 }
 
-.all-tags .tags {
+.example-tag-list {
 
-	.tag {
+	.tag, .all-categories {
 		display: block;
 		position: relative;
 		@include easeIn();

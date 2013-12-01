@@ -5,7 +5,7 @@ class GamesController < ApplicationController
 	end
 
 	def top_tags
-		SteamGameTag.limit 10
+		SteamGameTag.limit 5
 	end
 
 	def tags
@@ -95,28 +95,29 @@ class GamesController < ApplicationController
 	def search
 		query = params[:query].to_s
 
-		games = []
+		search_results = { :games => [], :tags => [] }
 
 		if query.present? and query.starts_with? 'tag:'
-			if query.remove_leading_characters(4).blank?
-				render :nothing => true
-				return
+			tag_search_param = query.remove_leading_characters(4)
+
+			if tag_search_param.present?
+				single_tag = SteamGameTag.find_by_name(tag_search_param)
+
+				if single_tag.present?
+					search_results[:games] = single_tag.steam_games
+				else
+					tags = SteamGameTag.where('lower(name) like ?', "%#{tag_search_param.downcase}%")
+					search_results[:tags] = tags
+				end
+			else
+				search_results[:tags] = SteamGameTag.all.sort_by(&:name)
 			end
-
-			tag = SteamGameTag.where('lower(name) like ?', "#{query.remove_leading_characters(4).downcase}")
-
-			if tag.empty?
-				render :nothing => true
-				return
-			end
-
-			games = tag.first.steam_games
 		elsif query.present?
-			games = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
+			search_results[:games] = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
 		end
 
 		respond_to do |format|
-			format.json { render :json => games }
+			format.json { render :json => search_results }
 		end
 	end
 

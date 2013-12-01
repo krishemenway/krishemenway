@@ -15,6 +15,12 @@ section.game-library
 	input type="text" id="search_games" value="" placeholder="i.e. Doom 3 or tag:first person shooter" data-bind="value: search_query, valueUpdate: 'keyup', event: {keyup: try_to_search}"
 	button type="button" id="search_button" value="Search"
 		i.icon-search
+	#tag_search_results
+		ul.example-tag-list data-bind="foreach: tag_search_results"
+			li.tag data-bind="click: $parent.search_for_tag"
+				.name data-bind="text: name"
+				ul.examples data-bind="foreach: examples"
+					li.example data-bind="text: name"
 	#search_results data-bind="with: search_results, css: {'is-loading': isQueryingServer}"
 		= render :partial => 'game_list'
 	.game-profile data-bind="with: selected_game"
@@ -55,12 +61,17 @@ section.recently-played-games.game-container data-bind="with: recently_played"
 	h1 Recently Played
 	= render :partial => 'game_list'
 
-section.all-tags.game-container
-	ul.tags data-bind="foreach: tags"
+section.game-container
+	ul.example-tag-list
+		/! ko foreach: tags
 		li.tag data-bind="click: $parent.search_for_tag"
 			.name data-bind="text: name"
 			ul.examples data-bind="foreach: examples"
 				li.example data-bind="text: name"
 			hr.separator
+		/! /ko
+		li.all-categories data-bind="click: search_for_all_tags"
+			span.name All Categories
+
 
 link rel="prefetch" href="#{image_path('loading.gif')}"

@@ -9,6 +9,7 @@ class GamesViewModel
 		self.recently_played = ko.observableArray()
 		self.tags = ko.observableArray()
 
+		self.tag_search_results = ko.observableArray()
 		self.search_results = ko.observableArray()
 		self.search_query = ko.observable()
 		self.selected_game = ko.observable()
@@ -24,15 +25,15 @@ class GamesViewModel
 		create_games_from_server = (games_json) ->
 			(new GameViewModel(game) for game in games_json)
 
-		load_search_results = (games_from_server) ->
+		load_search_results = (search_results) ->
 			self.isQueryingServer(false)
 
 			if tryOneMoreTime
 				tryOneMoreTime = false
 				self.try_to_search()
 			else
-				return unless games_from_server
-				self.search_results(create_games_from_server(games_from_server))
+				self.tag_search_results(create_tags_from_server(search_results.tags))
+				self.search_results(create_games_from_server(search_results.games))
 
 		can_search = () ->
 			self.search_query().length >= 2 and last_searched_query != self.search_query()
@@ -43,7 +44,13 @@ class GamesViewModel
 			clear_search()
 
 		self.search_for_tag = (tag) ->
-			self.search_query("tag:" + tag.name)
+			self.search_for_tag_with_name(tag.name)
+
+		self.search_for_all_tags = () ->
+			self.search_for_tag_with_name("")
+
+		self.search_for_tag_with_name = (name) ->
+			self.search_query("tag:#{name}")
 			self.try_to_search()
 
 		self.try_to_search = () ->

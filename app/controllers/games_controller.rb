@@ -80,6 +80,7 @@ class GamesController < ApplicationController
 
 	def search
 		query = params[:query].to_s
+		steam_user = SteamUser.find_by_steam_id(params[:steam_id])
 
 		search_results = { :games => [], :tags => [] }
 
@@ -90,7 +91,7 @@ class GamesController < ApplicationController
 				single_tag = SteamGameTag.find_by_name(tag_search_param)
 
 				if single_tag.present?
-					search_results[:games] = single_tag.steam_games
+					search_results[:games] = single_tag.steam_games & steam_user.steam_games
 				else
 					tags = SteamGameTag.where('lower(name) like ?', "%#{tag_search_param.downcase}%")
 					search_results[:tags] = tags
@@ -99,7 +100,8 @@ class GamesController < ApplicationController
 				search_results[:tags] = SteamGameTag.all.sort_by(&:name)
 			end
 		elsif query.present?
-			search_results[:games] = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
+			steam_games = SteamGame.where('lower(name) like ?', "%#{query.downcase}%")
+			search_results[:games] = steam_games & steam_user.steam_games
 		end
 
 		respond_to do |format|

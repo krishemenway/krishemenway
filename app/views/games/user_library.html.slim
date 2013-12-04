@@ -3,7 +3,7 @@
 = content_for :scripts do
 	javascript:
 		window.games = new GamesViewModel();
-		window.games.init(#{@recent_games.to_json.html_safe}, #{@search_results.to_json.html_safe}, #{@tags.to_json.html_safe});
+		window.games.init('#{@steam_user.steam_id}',#{@recent_games.to_json.html_safe}, #{@search_results.to_json.html_safe}, #{@tags.to_json.html_safe});
 		ko.applyBindings(window.games);
 
 section.game-library

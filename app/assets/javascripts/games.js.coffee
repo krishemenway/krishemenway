@@ -2,6 +2,7 @@
 class GamesViewModel
 	constructor: () ->
 		self = this
+		self.steam_id = 0
 		self.isQueryingServer = ko.observable(false)
 		tryOneMoreTime = false
 		last_searched_query = ""
@@ -62,10 +63,11 @@ class GamesViewModel
 			else
 				self.selected_game(null)
 				self.isQueryingServer(true)
-				$.getJSON "/games/search/game", { query: self.search_query() }, load_search_results
+				$.getJSON "/games/search/game", { query: self.search_query(), steam_id: self.steam_id }, load_search_results
 				last_searched_query = self.search_query()
 
-		self.init = (recently_played_games_from_server, initial_search_results_from_server, tags_from_server) ->
+		self.init = (steam_id, recently_played_games_from_server, initial_search_results_from_server, tags_from_server) ->
+			self.steam_id = steam_id
 			self.recently_played(create_games_from_server(recently_played_games_from_server))
 			self.search_results(create_games_from_server(initial_search_results_from_server))
 			self.tags(create_tags_from_server(tags_from_server))

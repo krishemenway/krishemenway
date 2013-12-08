@@ -109,11 +109,11 @@ class GameViewModel
 			self.is_loading_news(false)
 
 		fetch_and_load_tags = () ->
-			$.getJSON '/games/game/tags', {app_id: self.app_id}, load_tags
+			$.getJSON '/games/game/tags', {app_id: self.app_id}, load_tags if self.tags().length == 0
 
 		fetch_and_load_news = () ->
 			self.is_loading_news(true)
-			$.getJSON '/games/game/news', {app_id: self.app_id}, load_news
+			$.getJSON '/games/game/news', {app_id: self.app_id}, load_news if self.articles().length == 0
 
 		self.start_adding_tag = () ->
 			self.adding_tag(true)

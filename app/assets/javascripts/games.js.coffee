@@ -83,6 +83,11 @@ class GameViewModel
 		self.image_path = game_json.image_path
 		self.run_url = game_json.run_url
 
+		self.release_date = game_json.release_date
+		self.supports_windows = game_json.supports_windows
+		self.supports_osx = game_json.supports_osx
+		self.supports_linux = game_json.supports_linux
+
 		self.tags = ko.observableArray()
 		self.articles = ko.observableArray()
 

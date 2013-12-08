@@ -1,5 +1,7 @@
 class SteamGame < ActiveRecord::Base
-	attr_accessible :app_id, :name, :image_path
+	attr_accessible :app_id, :name, :image_path, :metacritic_score, :metacritic_url, :app_type, :detailed_description,
+	                :about_the_game_description, :supports_windows, :supports_osx, :supports_linux, :release_date,
+	                :last_refresh_date
 
 	has_many :steam_tagged_games, :primary_key => 'app_id', :foreign_key => 'steam_app_id'
 	has_many :steam_game_tags, :through => :steam_tagged_games
@@ -25,12 +27,20 @@ class SteamGame < ActiveRecord::Base
 		SteamGame.new game_options
 	end
 
+	def details_should_be_refreshed?
+		self.last_refresh_date.present? and self.last_refresh_date <= DateTime::now.months_ago(1)
+	end
+
 	def as_json(options)
 		{
 			:app_id => self.app_id,
 			:name => self.name,
 			:run_url => self.run_app_url,
-			:image_path => self.image_path
+			:image_path => self.image_path,
+			:release_date => self.release_date,
+			:supports_windows => self.supports_windows?,
+			:supports_osx => self.supports_osx?,
+			:supports_linux => self.supports_linux?
 		}
 	end
 end

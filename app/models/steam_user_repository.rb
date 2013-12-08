@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-class SteamGameRetriever
+class SteamUserRepository
 
 	def get_steam_id(steam_user)
 		get_steam_id_by_name steam_user.steam_name
@@ -13,7 +13,6 @@ class SteamGameRetriever
 	end
 
 	def load_games_for_user(steam_user)
-		puts "is loading games"
 		games_xml = Nokogiri::XML open("http://steamcommunity.com/id/#{steam_user.steam_name}/games?tab=all&xml=1")
 
 		games_xml.xpath('//gamesList/games/game').each do |game_xml|
@@ -25,9 +24,9 @@ class SteamGameRetriever
 				existing_steam_game = game_from_xml
 			else
 				existing_steam_game.update_attributes({
-					:name => game_from_xml.name,
-					:image_path => game_from_xml.image_path
-				})
+					                                      :name => game_from_xml.name,
+					                                      :image_path => game_from_xml.image_path
+				                                      })
 			end
 
 			existing_steam_game.save!

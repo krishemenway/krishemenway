@@ -23,7 +23,7 @@ class GamesController < ApplicationController
 	end
 
 	def recent_games(steam_user)
-		SteamGameRetriever.new.get_recently_played_games(steam_user).slice(0,5)
+		SteamUserRepository.new.get_recently_played_games(steam_user).slice(0,5)
 	end
 
 	def top_tags
@@ -111,18 +111,18 @@ class GamesController < ApplicationController
 
 
 	def create_steam_user
-		steam_game_retriever = SteamGameRetriever.new
+		steam_user_repository = SteamUserRepository.new
 		steam_name = params[:steam_user_name]
 
 		existing_user = find_steam_user(steam_name)
 
 		if existing_user.nil?
 			existing_user = SteamUser.new :steam_name => steam_name
-			existing_user.steam_id = steam_game_retriever.get_steam_id existing_user
+			existing_user.steam_id = steam_user_repository.get_steam_id existing_user
 			existing_user.save!
 		end
 
-		steam_game_retriever.load_games_for_user existing_user
+		steam_user_repository.load_games_for_user existing_user
 
 		respond_to do |format|
 			format.html { render :json => existing_user }

@@ -9,7 +9,7 @@
 section.game-library
 	h1= "#{@steam_user.steam_name}'s Steam Library"
 	label id="search_label" for="search_games" Search
-	input type="text" id="search_games" value="" placeholder="i.e. Doom 3 or tag:first person shooter" data-bind="value: search_query, valueUpdate: 'keyup', event: {keyup: try_to_search}"
+	input type="text" id="search_games" value="" placeholder="e.g. Doom 3 or tag:first person shooter" data-bind="value: search_query, valueUpdate: 'keyup', event: {keyup: try_to_search}"
 	button type="button" id="search_button" value="Search"
 		i.icon-search
 	#tag_search_results
@@ -24,7 +24,7 @@ section.game-library
 		.game-meta-data
 			img.game-cover data-bind="attr: { src: image_path }"
 
-			.os-support
+			.os-support data-bind="css: {'windows': supports_windows, 'osx': supports_osx, 'linux': supports_linux}"
 				.windows
 				.osx
 				.linux

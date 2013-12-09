@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131208203146) do
+ActiveRecord::Schema.define(:version => 20131208224501) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -143,15 +143,15 @@ ActiveRecord::Schema.define(:version => 20131208203146) do
   create_table "steam_games", :force => true do |t|
     t.string   "name"
     t.integer  "app_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "image_path"
     t.datetime "release_date"
     t.integer  "metacritic_score"
     t.string   "metacritic_url"
     t.string   "app_type"
-    t.string   "detailed_description"
-    t.string   "about_the_game_description"
+    t.text     "detailed_description",       :limit => 255
+    t.text     "about_the_game_description", :limit => 255
     t.boolean  "supports_windows"
     t.boolean  "supports_osx"
     t.boolean  "supports_linux"

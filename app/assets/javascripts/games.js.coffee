@@ -12,8 +12,8 @@ class GamesViewModel
 
 		self.tag_search_results = ko.observableArray()
 		self.search_results = ko.observableArray()
-		self.search_query = ko.observable()
-		self.selected_game = ko.observable()
+		self.search_query = ko.observable('')
+		self.selected_game = ko.observable(null)
 
 		clear_search = () ->
 			self.search_results([])

@@ -50,6 +50,13 @@ $margin-size: 12px;
 .game-meta-data {
 	text-align: left;
 
+	.categories-header {
+		padding: $margin-size 0 $margin-size 0;
+		border-bottom: 1px solid #383838;
+		text-transform: lowercase;
+		font-weight: 100;
+	}
+
 	.developers, .publishers, .release-date {
 		padding: $margin-size / 2 0;
 		font-size: 12px;
@@ -120,11 +127,6 @@ $margin-size: 12px;
 		border-top: 1px solid #383838;
 	}
 
-	h3 {
-		padding: $margin-size 0 $margin-size 0;
-		border-bottom: 1px solid #383838;
-		text-transform: lowercase;
-	}
 	.tags {
 		font-weight: 100;
 
@@ -298,7 +300,12 @@ $margin-size: 12px;
 	width: 100%;
 }
 
+.focused .game-library {
+	@include calc(width, "75% - 24px");
+}
+
 .game-library {
+	@include easeIn();
 	@include calc(width, "50% - 24px");
 	float: right;
 	margin: 0 $margin-size 0 0;
@@ -357,7 +364,12 @@ $margin-size: 12px;
 	}
 }
 
+.focused .game-container {
+	@include calc(width, "25% - 36px");
+}
+
 .game-container {
+	@include easeIn();
 	@include calc(width, "50% - 36px");
 
 	@include respond-to(mobile) {
@@ -453,6 +465,10 @@ $margin-size: 12px;
 	margin-top: 24px;
 }
 
+.focused .recently-played-games h1 {
+	font-size: 22px;
+}
+
 .recently-played-games {
 	h1 {
 		letter-spacing: 5px;
@@ -468,8 +484,30 @@ $margin-size: 12px;
 	}
 }
 
+.focused .recently-played-games {
+
+	.game:nth-child(2n+3) {
+		margin-left: 0;
+	}
+
+	.game {
+		width: 100%;
+	}
+}
+
 .all-tags {
 	margin-bottom: 12px;
+}
+
+.focused .example-tag-list {
+
+	.name {
+		font-size: 20px;
+	}
+
+	.examples {
+		font-size: 12px;
+	}
 }
 
 .example-tag-list {

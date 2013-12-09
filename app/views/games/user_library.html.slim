@@ -40,7 +40,9 @@ section.game-library
 
 			.categories-header categories:
 			ul.tags data-bind="foreach: tags"
-				li.tag data-bind="text: name"
+				li.tag
+					span data-bind="text: name"
+					button.remove-tag data-bind="click: $parent.remove_tag" X
 
 			button.add-tag-button data-bind="visible: !adding_tag(), click: start_adding_tag" + category
 			form.add-tag data-bind="submit: submit_tag, visible: adding_tag"
@@ -65,7 +67,7 @@ section.recently-played-games.game-container data-bind="with: recently_played"
 	h1 Recently Played
 	= render :partial => 'game_list'
 
-section.game-container
+section.game-container.top-tags
 	ul.example-tag-list
 		/! ko foreach: tags
 		li.tag data-bind="click: $parent.search_for_tag"

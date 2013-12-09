@@ -39,16 +39,25 @@ class GamesController < ApplicationController
 	end
 
 	def find_tag_by_name(name)
-		tag = SteamGameTag.where 'lower(name) like ?', "%#{name.downcase}%"
-		tag.present? ? tag.first : nil
+		tags = SteamGameTag.where 'lower(name) like ?', name.downcase
+		tags.present? ? tags.first : nil
 	end
 
 	def create_tag(name)
 		SteamGameTag.create :name => name
 	end
 
+	def remove_tag
+		tag = find_tag_by_name params[:tag_name]
+		SteamTaggedGame.destroy_all(:steam_app_id => params[:app_id], :steam_game_tag_id => tag.id)
+
+		respond_to do |format|
+			format.json { render :json => { :success => true } }
+		end
+	end
+
 	def tag
-		tag = find_tag_by_name(params[:tag_name])
+		tag = find_tag_by_name params[:tag_name]
 
 		if tag.nil?
 			tag = create_tag(params[:tag_name])

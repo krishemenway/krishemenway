@@ -123,7 +123,7 @@ $margin-size: 12px;
 		font-weight: 100;
 		text-align: left;
 		width: 100%;
-		padding: 12px 0;
+		padding: $margin-size 0;
 		border-top: 1px solid #383838;
 	}
 
@@ -138,17 +138,21 @@ $margin-size: 12px;
 		.tag:last-child {
 			border-bottom-style: none;
 		}
+
+		.remove-tag {
+			float: right;
+		}
 	}
 }
 
 .game-meta-data, .misc-game-info {
-	@include calc(width, "50% - 12px");
+	@include calc(width, "50% - #{$margin-size}");
 	float: left;
-	margin: 12px 0 0 0;
+	margin: $margin-size 0 0 0;
 }
 
 .misc-game-info {
-	margin-left: 24px;
+	margin-left: $margin-size * 2;
 
 	.news, .news p, .news .read-more, .news h3 {
 		margin-top: $margin-size;
@@ -157,7 +161,7 @@ $margin-size: 12px;
 
 	.news {
 		background-color: #181818;
-		padding: 12px;
+		padding: $margin-size;
 
 		.article:first-child h3 {
 			margin-top: 0;
@@ -221,6 +225,12 @@ $margin-size: 12px;
 	color:#F8F8F8;
 	position: relative;
 	left: 10px;
+
+	@include easeIn();
+}
+
+.focused .icon-search {
+	left: 27px;
 }
 
 .icon-search:hover,
@@ -336,7 +346,7 @@ $margin-size: 12px;
 #search_games {
 	@include calc(width, "75% - 8px");
 	vertical-align: top;
-	margin: 12px 12px 0 0;
+	margin: $margin-size $margin-size 0 0;
 	border: 1px solid #181818;
 	height: 16px;
 	padding: 4px;
@@ -353,7 +363,7 @@ $margin-size: 12px;
 	vertical-align: top;
 	height: 24px;
 	padding: 4px;
-	margin: 12px 0 0 0;
+	margin: $margin-size 0 0 0;
 	display: inline-block;
 	position: relative;
 	z-index: 1;
@@ -381,6 +391,10 @@ $margin-size: 12px;
 	margin: 12px 0 0 12px;
 	float: left;
 	clear: left;
+}
+
+.top-tags {
+	margin-bottom: $margin-size;
 }
 
 .game {

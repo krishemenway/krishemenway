@@ -26,6 +26,7 @@ Movies::Application.routes.draw do
 
 	get '/fallout' => 'application#fallout'
 
+	post '/games/game/remove_tag' => 'games#remove_tag'
 	post '/games/game/tag_game' => 'games#tag'
 	post '/games/create_steam_user' => 'games#create_steam_user'
 

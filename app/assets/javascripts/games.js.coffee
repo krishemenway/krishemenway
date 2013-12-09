@@ -146,6 +146,10 @@ class GameViewModel
 			self.adding_tag(false)
 			self.add_tag_search_results([])
 
+		self.remove_tag = (tag) ->
+			$.post '/games/game/remove_tag', {app_id: self.app_id, tag_name: tag.name}
+			self.tags.remove(tag)
+
 		return self
 
 class TagViewModel

@@ -18,7 +18,7 @@ class GamesController < ApplicationController
 	end
 
 	def find_steam_user(name)
-		user = SteamUser.where('lower(steam_name) like ?', name)
+		user = SteamUser.includes(:steam_games).where('lower(steam_name) like ?', name)
 		user.present? ? user.first : nil
 	end
 

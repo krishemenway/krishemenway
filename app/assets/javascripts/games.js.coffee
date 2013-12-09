@@ -88,6 +88,9 @@ class GameViewModel
 		self.supports_osx = game_json.supports_osx
 		self.supports_linux = game_json.supports_linux
 
+		self.developers = game_json.developers
+		self.publishers = game_json.publishers
+
 		self.tags = ko.observableArray()
 		self.articles = ko.observableArray()
 
@@ -109,11 +112,13 @@ class GameViewModel
 			self.is_loading_news(false)
 
 		fetch_and_load_tags = () ->
-			$.getJSON '/games/game/tags', {app_id: self.app_id}, load_tags if self.tags().length == 0
+			if self.tags().length == 0
+				$.getJSON '/games/game/tags', {app_id: self.app_id}, load_tags
 
 		fetch_and_load_news = () ->
-			self.is_loading_news(true)
-			$.getJSON '/games/game/news', {app_id: self.app_id}, load_news if self.articles().length == 0
+			if self.articles().length == 0
+				self.is_loading_news(true)
+				$.getJSON '/games/game/news', {app_id: self.app_id}, load_news
 
 		self.start_adding_tag = () ->
 			self.adding_tag(true)

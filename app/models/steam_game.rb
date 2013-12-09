@@ -6,6 +6,12 @@ class SteamGame < ActiveRecord::Base
 	has_many :steam_tagged_games, :primary_key => 'app_id', :foreign_key => 'steam_app_id'
 	has_many :steam_game_tags, :through => :steam_tagged_games
 
+	has_many :steam_game_publishers, :primary_key => 'app_id', :foreign_key => 'steam_app_id'
+	has_many :publishers, :through => :steam_game_publishers, :source => 'company'
+
+	has_many :steam_game_developers, :primary_key => 'app_id', :foreign_key => 'steam_app_id'
+	has_many :developers, :through => :steam_game_developers, :source => 'company'
+
 	def run_app_url
 		"steam://run/#{self.app_id}"
 	end
@@ -31,7 +37,7 @@ class SteamGame < ActiveRecord::Base
 		self.last_refresh_date.present? and self.last_refresh_date <= DateTime::now.months_ago(1)
 	end
 
-	def as_json(options)
+	def as_json(options = {})
 		{
 			:app_id => self.app_id,
 			:name => self.name,
@@ -40,7 +46,9 @@ class SteamGame < ActiveRecord::Base
 			:release_date => self.release_date,
 			:supports_windows => self.supports_windows?,
 			:supports_osx => self.supports_osx?,
-			:supports_linux => self.supports_linux?
+			:supports_linux => self.supports_linux?,
+			:developers => self.developers.as_json(options),
+			:publishers => self.publishers.as_json(options)
 		}
 	end
 end

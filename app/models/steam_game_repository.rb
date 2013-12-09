@@ -34,6 +34,30 @@ class SteamGameRepository
 					steam_game_attributes[:metacritic_url] = game_data['metacritic']['url']
 				end
 
+				if game_data['developers'].present? and game_data['developers'].is_a?(Array)
+					game_data['developers'].each do |dev|
+						existing_company = Company.find_by_name dev
+
+						if existing_company.nil?
+							existing_company = Company.create :name => dev
+						end
+
+						steam_game.developers << existing_company
+					end
+				end
+
+				if game_data['publishers'].present? and game_data['publishers'].is_a?(Array)
+					game_data['publishers'].each do |dev|
+						existing_company = Company.find_by_name dev
+
+						if existing_company.nil?
+							existing_company = Company.create :name => dev
+						end
+
+						steam_game.publishers << existing_company
+					end
+				end
+
 				steam_game_attributes[:release_date] = Date.parse(game_data['release_date']['date']) if game_data['release_date']['date'].present?
 
 				steam_game.update_attributes steam_game_attributes

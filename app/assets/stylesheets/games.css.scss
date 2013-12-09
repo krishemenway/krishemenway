@@ -50,11 +50,34 @@ $margin-size: 12px;
 .game-meta-data {
 	text-align: left;
 
-	.developer, .publisher, .release-date {
+	.developers, .publishers, .release-date {
 		padding: $margin-size / 2 0;
 		font-size: 12px;
 		font-weight: 100;
 		letter-spacing: 1px;
+		list-style-type: none;
+	}
+
+	.developers, .publishers {
+		li {
+			display: inline;
+
+			&:before {
+				content: ', ';
+			}
+
+			&:first-child:before {
+				content: '';
+			}
+		}
+	}
+
+	.developers:before {
+		content: 'Developer: ';
+	}
+
+	.publishers:before {
+		content: 'Publisher: ';
 	}
 
 	.add-tag {

@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131208224501) do
+ActiveRecord::Schema.define(:version => 20131209002528) do
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -131,6 +137,26 @@ ActiveRecord::Schema.define(:version => 20131208224501) do
     t.integer  "slide_image_right_file_size"
     t.datetime "slide_image_right_updated_at"
   end
+
+  create_table "steam_game_developers", :force => true do |t|
+    t.integer  "steam_app_id"
+    t.integer  "company_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "steam_game_developers", ["company_id"], :name => "index_steam_game_developers_on_company_id"
+  add_index "steam_game_developers", ["steam_app_id"], :name => "index_steam_game_developers_on_steam_app_id"
+
+  create_table "steam_game_publishers", :force => true do |t|
+    t.integer  "steam_app_id"
+    t.integer  "company_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "steam_game_publishers", ["company_id"], :name => "index_steam_game_publishers_on_company_id"
+  add_index "steam_game_publishers", ["steam_app_id"], :name => "index_steam_game_publishers_on_steam_app_id"
 
   create_table "steam_game_tags", :force => true do |t|
     t.string   "name"

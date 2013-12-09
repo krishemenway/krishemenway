@@ -29,8 +29,12 @@ section.game-library
 				.osx
 				.linux
 
-			.developer Developer: Someone Inc.
-			.publisher Publisher: Someone Else Inc.
+			ul.developers data-bind="foreach: developers"
+				li.developer data-bind="text: name"
+
+			ul.publishers data-bind="foreach: publishers"
+				li.publisher data-bind="text: name"
+
 			.release-date Released: July 41st, 2052
 
 			h3 Categories

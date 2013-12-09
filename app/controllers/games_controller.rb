@@ -71,10 +71,13 @@ class GamesController < ApplicationController
 	end
 
 	def tags_like
-		@tags = SteamGameTag.where('name like ?', "%#{params[:query]}%").order(&:name)
+		existing_game_tags = SteamGame.find_by_app_id(params[:app_id]).steam_game_tags.map do |tag| tag.id end
+		existing_game_tags.push(-1)
+
+		tags = SteamGameTag.where('name like ? and id not in (?)', "%#{params[:query]}%", existing_game_tags).order(&:name)
 
 		respond_to do |format|
-			format.html { render :partial => 'games/game_list', :locals => { :tags => @tags } }
+			format.json { render :json => tags }
 		end
 	end
 

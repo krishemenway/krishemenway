@@ -17,6 +17,7 @@ class GamesViewModel
 
 		clear_search = () ->
 			self.search_results([])
+			self.tag_search_results([])
 			self.search_query("")
 			last_searched_query = ""
 
@@ -96,6 +97,7 @@ class GameViewModel
 
 		self.new_tag_name = ko.observable()
 		self.adding_tag = ko.observable(false)
+		self.add_tag_search_results = ko.observableArray()
 
 		self.is_loading_news = ko.observable(false)
 
@@ -110,6 +112,13 @@ class GameViewModel
 		load_news = (response) ->
 			self.articles(response)
 			self.is_loading_news(false)
+
+		load_tag_search_results = (response) ->
+			self.add_tag_search_results(response)
+
+		self.search_tags_for_add = () ->
+			if self.new_tag_name().length > 0
+				$.getJSON '/games/search/tag', {query: self.new_tag_name(), app_id: self.app_id}, load_tag_search_results
 
 		fetch_and_load_tags = () ->
 			if self.tags().length == 0
@@ -127,10 +136,15 @@ class GameViewModel
 			fetch_and_load_tags()
 			fetch_and_load_news()
 
-		self.add_tag = () ->
+		self.add_tag = (model) ->
+			self.new_tag_name(model.name)
+			self.submit_tag()
+
+		self.submit_tag = () ->
 			$.post '/games/game/tag_game', {app_id: self.app_id, tag_name: self.new_tag_name()}, handle_successful_add
 			self.new_tag_name('')
 			self.adding_tag(false)
+			self.add_tag_search_results([])
 
 		return self
 

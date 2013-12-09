@@ -43,10 +43,12 @@ section.game-library
 				li.tag data-bind="text: name"
 
 			button.add-tag-button data-bind="visible: !adding_tag(), click: start_adding_tag" + category
-			form.add-tag data-bind="submit: add_tag, visible: adding_tag"
-				input.tag-name type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup'"
+			form.add-tag data-bind="submit: submit_tag, visible: adding_tag"
+				input.tag-name type="text" data-bind="value: new_tag_name, valueUpdate: 'keyup', event: {'keyup': search_tags_for_add}"
 				button.submit-tag type="submit"
 					span +
+				ul.tags-to-add data-bind="foreach: add_tag_search_results"
+					li.tag data-bind="text: '+ ' + name, click: $parent.add_tag"
 
 		.misc-game-info
 			a.play-button data-bind="attr: {href: run_url}"

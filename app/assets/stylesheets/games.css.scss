@@ -564,6 +564,7 @@ $margin-size: 12px;
 	.name {
 		font-weight: 100;
 		font-size: 28px;
+		@include easeIn();
 	}
 }
 
@@ -644,5 +645,17 @@ $margin-size: 12px;
 
 	.errors {
 
+	}
+}
+
+.tags-to-add {
+	.tag {
+		padding: $margin-size 0;
+		cursor: pointer;
+		background-color: rgba(0,0,0,.1);
+
+		&:hover {
+			background-color: rgba(0,0,0,.5);
+		}
 	}
 }

@@ -7,7 +7,7 @@
 
 form.find-a-steam-user data-bind="submit: check_for_user_and_go_to_profile, css: {'is-creating': is_creating, 'is-loading': is_loading}" action="#" method="post"
 	label.search-instructions for="account-name-search" Enter the name of the steam profile you wish to see:
-	input.account-name#account-name-search type='text' placeholder=' i.e. linkstate' data-bind="value: steam_account_name, valueUpdate: 'keypress'"
+	input.account-name#account-name-search type='text' placeholder=' e.g. linkstate' data-bind="value: steam_account_name, valueUpdate: 'keypress'"
 	button.account-search-button type="submit"
 		span.is-loading-text Searching ...
 		span.is-creating-text Could Not Find Profile, Creating ...

@@ -43,7 +43,7 @@ class SteamGame < ActiveRecord::Base
 			:name => self.name,
 			:run_url => self.run_app_url,
 			:image_path => self.image_path,
-			:release_date => self.release_date,
+			:release_date => self.release_date.present? ? self.release_date.strftime("%b %e, %Y") : '',
 			:supports_windows => self.supports_windows?,
 			:supports_osx => self.supports_osx?,
 			:supports_linux => self.supports_linux?,

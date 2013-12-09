@@ -80,6 +80,10 @@ $margin-size: 12px;
 		content: 'Publisher: ';
 	}
 
+	.release-date:before {
+		content: 'Released: ';
+	}
+
 	.add-tag {
 		> * {
 			vertical-align: top;

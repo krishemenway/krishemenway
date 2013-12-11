@@ -115,6 +115,7 @@ button {
 
 			@include respond-to(phone) {
 				padding: 8px;
+				font-size: 12px;
 			}
 		}
 

@@ -1,7 +1,7 @@
 require "open-uri"
 
 class Movie < ActiveRecord::Base
-	attr_accessible :description, :imdb_id, :length, :released, :title, :id, :set_poster_by_filename, :released
+	attr_accessible :description, :imdb_id, :length, :released, :title, :id, :set_poster_by_filename, :released, :video_path
 	has_attached_file :poster, :styles => {:medium => "300x450>", :thumb => "100x150>"}
 	before_save :correct_movie_titles, :ensure_first_letter_is_set
 
@@ -61,10 +61,14 @@ class Movie < ActiveRecord::Base
 
 	def short_description
 		short_description_length = 20
-		(self.description || "").split(/\s+/, short_description_length+1)[0...short_description_length].join(' ')
+		(self.description || '').split(/\s+/, short_description_length+1)[0...short_description_length].join(' ')
 	end
 
 	def as_json(options)
+		options = {
+			:include_path => false
+		}.merge(options)
+
 		{
 			:id => self.id,
 			:title => self.title,
@@ -75,7 +79,8 @@ class Movie < ActiveRecord::Base
 			:small_poster_path => self.poster.url(:thumb),
 			:large_poster_path => self.poster.url(:medium),
 			:movie_book_locations => self.movie_book_locations.to_json,
-		    :genres => self.genres.to_json
+			:genres => self.genres.to_json,
+			:stream_path => options[:include_path] ? self.video_path : nil
 		}
 	end
 

@@ -32,7 +32,7 @@ class MoviesController < ApplicationController
 				render
 			}
 			format.json {
-				render :json => has_filters(params) ? filtered_movies(params) : default_movies
+				render :json => has_filters(params) ? filtered_movies(params) : default_movies, :include_path => true
 			}
 		end
 	end

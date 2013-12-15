@@ -6,10 +6,6 @@
 
 $margin-size: 12px;
 
-.site.games {
-	max-width: 100%;
-}
-
 .os-support {
 	text-align: center;
 
@@ -41,6 +37,7 @@ $margin-size: 12px;
 
 .game-profile {
 	text-align: center;
+	overflow: hidden;
 
 	.game-cover {
 		width: 100%;
@@ -156,15 +153,24 @@ $margin-size: 12px;
 	@include calc(width, "50% - #{$margin-size}");
 	float: left;
 	margin: $margin-size 0 0 0;
+
+	@include respond-to(mobile) {
+		@include calc(width, "100% - #{$margin-size}");
+	}
 }
 
 .misc-game-info {
 	margin-left: $margin-size * 2;
 
+	@include respond-to(mobile) {
+		margin-left: 0;
+	}
+
 	.news, .news p, .news .read-more, .news h3 {
 		margin-top: $margin-size;
 		display: block;
 	}
+
 
 	.news {
 		background-color: #181818;
@@ -319,6 +325,10 @@ $margin-size: 12px;
 
 .focused .game-library {
 	@include calc(width, "75% - 24px");
+
+	@include respond-to(mobile) {
+		@include calc(width, "100% - 24px");
+	}
 }
 
 .game-library {
@@ -383,6 +393,10 @@ $margin-size: 12px;
 
 .focused .game-container {
 	@include calc(width, "25% - 36px");
+
+	@include respond-to(mobile) {
+		@include calc(width, "100% - 48px");
+	}
 }
 
 .game-container {
@@ -390,7 +404,7 @@ $margin-size: 12px;
 	@include calc(width, "50% - 36px");
 
 	@include respond-to(mobile) {
-		@include calc(width, "100% - 36px");
+		@include calc(width, "100% - 48px");
 	}
 
 	padding: 0 12px 12px 12px;

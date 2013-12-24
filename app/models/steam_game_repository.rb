@@ -34,6 +34,25 @@ class SteamGameRepository
 					steam_game_attributes[:metacritic_url] = game_data['metacritic']['url']
 				end
 
+				if game_data['genres'].present?
+					game_data['genres'].each do |genre|
+						existing_tag = SteamGameTag.find_by_name genre['description']
+
+						if existing_tag.nil?
+							existing_tag = SteamGameTag.create :name => genre['description']
+						end
+
+						unless steam_game.steam_game_tags.include? existing_tag
+							steam_game.steam_game_tags << existing_tag
+						end
+					end
+				end
+
+				if game_data['metacritic'].present?
+					steam_game_attributes[:metacritic_score] = game_data['metacritic']['score']
+					steam_game_attributes[:metacritic_url] = game_data['metacritic']['url']
+				end
+
 				if game_data['developers'].present? and game_data['developers'].is_a?(Array)
 					game_data['developers'].each do |dev|
 						existing_company = Company.find_by_name dev
@@ -42,7 +61,9 @@ class SteamGameRepository
 							existing_company = Company.create :name => dev
 						end
 
-						steam_game.developers << existing_company
+						unless steam_game.developers.include? existing_company
+							steam_game.developers << existing_company
+						end
 					end
 				end
 
@@ -54,7 +75,9 @@ class SteamGameRepository
 							existing_company = Company.create :name => dev
 						end
 
-						steam_game.publishers << existing_company
+						unless steam_game.publishers.include? existing_company
+							steam_game.publishers << existing_company
+						end
 					end
 				end
 

@@ -247,10 +247,6 @@ $margin-size: 12px;
 	@include easeIn();
 }
 
-.focused .icon-search {
-	left: 27px;
-}
-
 .icon-search:hover,
 .icon-search:focus,
 .icon-search:active {

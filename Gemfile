@@ -9,6 +9,7 @@ gem 'numbers_and_words'
 
 gem 'random_data'
 gem 'nokogiri'
+gem 'bb-ruby'
 
 gem 'paperclip'
 gem 'aws-sdk'

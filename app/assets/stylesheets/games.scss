@@ -2,25 +2,42 @@
 @import "mixins/transform";
 @import "mixins/visibility";
 @import "mixins/misc";
+@import "mixins/media_queries";
 
 $margin-size: 12px;
 
 .os-support {
 	text-align: center;
 
+	background: url(image_path('operating-systems-bg.png')) no-repeat 50% 0;
+
 	.osx, .windows, .linux {
 		width: 40px;
 		height: 40px;
 		display: inline-block;
+		position: relative;
 	}
 
-	.osx { background-image: url(image_path('osx.png'))}
-	.windows { background-image: url(image_path('win.png'))}
-	.linux { background-image: url(image_path('linx.png'))}
+	&.osx .osx {
+		background-image: url(image_path('osx.png'));
+	}
+
+	&.windows .windows {
+		background-image: url(image_path('win.png'));
+		top: 3px;
+		left: 3px;
+	}
+
+	&.linux .linux {
+		background-image: url(image_path('linx.png'));
+		top: 1px;
+		left: -3px;
+	}
 }
 
 .game-profile {
 	text-align: center;
+	overflow: hidden;
 
 	.game-cover {
 		width: 100%;
@@ -30,32 +47,134 @@ $margin-size: 12px;
 		margin: 0;
 	}
 
-	input[type=text] {
-		background-color: #F8F8F8;
-		color: #181818;
+	#search_games {
+	}
+}
 
-		height: 16px;
-		padding: 4px;
+.game-meta-data {
+	text-align: left;
+
+	.categories-header {
+		padding: $margin-size 0 $margin-size 0;
+		border-bottom: 1px solid #383838;
+		text-transform: lowercase;
+		font-weight: 100;
+	}
+
+	.developers, .publishers, .release-date {
+		padding: $margin-size / 2 0;
+		font-size: 12px;
+		font-weight: 100;
+		letter-spacing: 1px;
+		list-style-type: none;
+	}
+
+	.developers, .publishers {
+		li {
+			display: inline;
+
+			&:before {
+				content: ', ';
+			}
+
+			&:first-child:before {
+				content: '';
+			}
+		}
+	}
+
+	.developers:before {
+		content: 'Developer: ';
+	}
+
+	.publishers:before {
+		content: 'Publisher: ';
+	}
+
+	.release-date:before {
+		content: 'Released: ';
+	}
+
+	.add-tag {
+		> * {
+			vertical-align: top;
+			height: 32px;
+			padding: 4px 0;
+			font-weight: 100;
+			color: #e8e8e8;
+		}
+
+		.tag-name {
+			background-color: rgba(0,0,0,.1);
+			font-size: 16px;
+			width: 80%;
+		}
+
+		.submit-tag {
+			background-color: rgba(0,0,0,.2);
+			width: 20%;
+			height: 40px;
+			font-size:
+
+			span {
+				font-size: 24px;
+			}
+		}
+	}
+
+	.add-tag-button {
+		font-size: 16px;
+		font-weight: 100;
+		text-align: left;
+		width: 100%;
+		padding: $margin-size 0;
+		border-top: 1px solid #383838;
+	}
+
+	.tags {
+		font-weight: 100;
+
+		.tag {
+			padding: $margin-size 0;
+			border-bottom: 1px solid #383838;
+		}
+
+		.tag:last-child {
+			border-bottom-style: none;
+		}
+
+		.remove-tag {
+			float: right;
+		}
 	}
 }
 
 .game-meta-data, .misc-game-info {
-	@include calc(width, "50% - 12px");
+	@include calc(width, "50% - #{$margin-size}");
 	float: left;
-	margin: 12px 0 0 0;
+	margin: $margin-size 0 0 0;
+
+	@include respond-to(mobile) {
+		width: 100%;
+	}
 }
 
 .misc-game-info {
-	margin-left: 24px;
+	margin-left: $margin-size * 2;
+
+	@include respond-to(mobile) {
+		margin-left: 0;
+	}
 
 	.news, .news p, .news .read-more, .news h3 {
 		margin-top: $margin-size;
 		display: block;
 	}
 
+
 	.news {
 		background-color: #181818;
-		padding: 12px;
+		padding: $margin-size;
 
 		.article:first-child h3 {
 			margin-top: 0;
@@ -77,6 +196,16 @@ $margin-size: 12px;
 			text-align: right;
 			color: #8787ff;
 		}
+
+		&.no-articles {
+			display: none;
+		}
+
+		&.loading {
+			display: block;
+			min-height: 150px;
+			background: url("/assets/loading.gif") no-repeat 50% 50% #181818;
+		}
 	}
 
 	.play-button {
@@ -94,6 +223,10 @@ $margin-size: 12px;
 				border-left-color: #686868;
 			}
 		}
+
+		@include respond-to(mobile) {
+			display: none;
+		}
 	}
 
 	.icon-play {
@@ -108,7 +241,10 @@ $margin-size: 12px;
 	padding-left:28px;
 	color:#F8F8F8;
 	position: relative;
-	left: 10px;
+	margin-left: -7px;
+	left: 50%;
+
+	@include easeIn();
 }
 
 .icon-search:hover,
@@ -188,13 +324,30 @@ $margin-size: 12px;
 	width: 100%;
 }
 
+.focused .game-library {
+	@include calc(width, "75% - 24px");
+
+	@include respond-to(mobile) {
+		@include calc(width, "100% - 24px");
+	}
+}
+
 .game-library {
+	@include easeIn();
 	@include calc(width, "50% - 24px");
 	float: right;
 	margin: 0 $margin-size 0 0;
 
+	@include respond-to(mobile) {
+		@include calc(width, "100% - 24px");
+	}
+
 	h1 {
 		text-transform: lowercase;
+
+		@include respond-to(mobile) {
+			font-size: 24px;
+		}
 	}
 
 	.games .game:nth-child(2n+2) {
@@ -210,19 +363,24 @@ $margin-size: 12px;
 	height: 16px;
 	padding: 4px 0;
 	font-weight: 100;
+
+	@include respond-to(mobile) {
+		font-size: 12px;
+		line-height: 25px;
+	}
 }
 
 #search_games {
 	@include calc(width, "75% - 8px");
 	vertical-align: top;
-	margin: 12px 12px 0 0;
-	background-color: #e8e8e8;
+	margin: $margin-size $margin-size 0 0;
 	border: 1px solid #181818;
 	height: 16px;
 	padding: 4px;
 	border: 0;
-	color: #181818;
 	display: inline-block;
+	background-color: #F8F8F8;
+	color: #181818;
 }
 
 #search_button {
@@ -232,7 +390,7 @@ $margin-size: 12px;
 	vertical-align: top;
 	height: 24px;
 	padding: 4px;
-	margin: 12px 0 0 0;
+	margin: $margin-size 0 0 0;
 	display: inline-block;
 	position: relative;
 	z-index: 1;
@@ -243,13 +401,32 @@ $margin-size: 12px;
 	}
 }
 
+.focused .game-container {
+	@include calc(width, "25% - 36px");
+
+	@include respond-to(mobile) {
+		@include calc(width, "100% - 48px");
+	}
+}
+
 .game-container {
+	@include easeIn();
 	@include calc(width, "50% - 36px");
+
+	@include respond-to(mobile) {
+		@include calc(width, "100% - 48px");
+	}
+
 	padding: 0 12px 12px 12px;
 	box-shadow: 1px 3px 6px 3px rgba(0, 0, 0,.3);
 	margin: 12px 0 0 12px;
 	float: left;
 	clear: left;
+	overflow: hidden;
+}
+
+.top-tags {
+	margin-bottom: $margin-size;
 }
 
 .game {
@@ -317,6 +494,10 @@ $margin-size: 12px;
 			top: -25px;
 			left: 20px;
 		}
+
+		@include respond-to(mobile) {
+			display: none;
+		}
 	}
 }
 
@@ -334,6 +515,10 @@ $margin-size: 12px;
 	margin-top: 24px;
 }
 
+.focused .recently-played-games h1 {
+	font-size: 20px;
+}
+
 .recently-played-games {
 	h1 {
 		letter-spacing: 5px;
@@ -349,13 +534,35 @@ $margin-size: 12px;
 	}
 }
 
+.focused .recently-played-games {
+
+	.game:nth-child(2n+3) {
+		margin-left: 0;
+	}
+
+	.game {
+		width: 100%;
+	}
+}
+
 .all-tags {
 	margin-bottom: 12px;
 }
 
-.tags {
+.focused .example-tag-list {
 
-	.tag {
+	.name {
+		font-size: 20px;
+	}
+
+	.examples {
+		font-size: 12px;
+	}
+}
+
+.example-tag-list {
+
+	.tag, .all-categories {
 		display: block;
 		position: relative;
 		@include easeIn();
@@ -394,6 +601,7 @@ $margin-size: 12px;
 	.example {
 		display: inline;
 		color: #888;
+		font-size: 12px;
 	}
 
 	.example:nth-child(n+2) {
@@ -407,5 +615,102 @@ $margin-size: 12px;
 	.name {
 		font-weight: 100;
 		font-size: 28px;
+		@include easeIn();
+
+		@include respond-to(mobile) {
+			font-size: 20px;
+		}
+	}
+}
+
+#search_results {
+	&.is-loading {
+		background: url("/assets/loading.gif") no-repeat 50% 50%;
+		min-height: 200px;
+
+		.games {
+			display: none;
+		}
+	}
+}
+
+.find-a-steam-user {
+	width: 40%;
+	padding: 100px 12px 230px 12px;
+	margin-left: 10%;
+	background-color: rgba(0,0,0,.1);
+
+	.search-notice {
+		font-size: 14px;
+		font-weight: 100;
+		display: block;
+		padding: 12px 0;
+	}
+
+	.search-instructions {
+		padding: 24px 0;
+		display: block;
+	}
+
+	.account-name {
+		display: block;
+		width: 100%;
+		height: 32px;
+		font-size: 24px;
+		border-bottom: 4px solid #F00;
+		background-color: rgba(100,100,100,.1);
+		padding-top: 20px;
+
+		@include placeholder() {
+			font-size: 18px;
+			padding-left: 4px;
+			line-height: 24px;
+		}
+	}
+
+	.account-search-button {
+		display: block;
+		width: 100%;
+		padding: 12px 0;
+		background: rgba(0,0,0,.1);
+		@include border-bottom-radius(5px);
+
+		&:hover,&:active {
+			background: rgba(0,0,0,.5);
+		}
+	}
+
+	.is-creating-text, .is-loading-text {
+		display: none;
+	}
+
+	&.is-creating, &.is-loading {
+		.default-text {
+			display: none;
+		}
+	}
+
+	&.is-creating .is-creating-text {
+		display: inline;
+	}
+
+	&.is-loading .is-loading-text {
+		display: inline;
+	}
+
+	.errors {
+
+	}
+}
+
+.tags-to-add {
+	.tag {
+		padding: $margin-size 0;
+		cursor: pointer;
+		background-color: rgba(0,0,0,.1);
+
+		&:hover {
+			background-color: rgba(0,0,0,.5);
+		}
 	}
 }

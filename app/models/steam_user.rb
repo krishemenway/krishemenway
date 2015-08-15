@@ -7,4 +7,11 @@ class SteamUser < ActiveRecord::Base
 	def self.find_by_user(user)
 		self.find_by_user_id(user.id)
 	end
+
+	def as_json(options)
+		{
+			:steam_id => self.steam_id,
+			:steam_name => self.steam_name
+		}
+	end
 end

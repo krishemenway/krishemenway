@@ -2,6 +2,8 @@ Movies::Application.routes.draw do
 
 	devise_for :users
 
+	get '/reset' => 'application#reset'
+
 	get '/projects' => 'projects#index'
 
 	get '/movies' => 'movies#index'
@@ -24,13 +26,18 @@ Movies::Application.routes.draw do
 
 	get '/fallout' => 'application#fallout'
 
+	post '/games/game/remove_tag' => 'games#remove_tag'
+	post '/games/game/tag_game' => 'games#tag'
+	post '/games/create_steam_user' => 'games#create_steam_user'
+
 	get '/games/search/game' => 'games#search'
 	get '/games/search/tag' => 'games#tags_like'
+	get '/games/game/news' => 'games#news'
 	get '/games/game/tags' => 'games#tags'
-	post '/games/game/tag_game' => 'games#tag'
+
+	post '/games/:steam_user_name' => 'games#create_steam_user'
+	get '/games/:steam_user_name' => 'games#user_library'
 	get '/games' => 'games#index'
-	get '/games/setup' => 'games#setup'
-	post '/games/create_steam_user' => 'games#create_steam_user'
 
 	root :to => 'application#frontpage'
 end

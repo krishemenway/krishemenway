@@ -17,6 +17,7 @@ $sideNavigationHeight: 40px;
 
 html, body {
 	background-color: #010101;
+	background: image_url('bgtexture.png');
 	padding-bottom: 20px;
 }
 
@@ -114,6 +115,7 @@ button {
 
 			@include respond-to(phone) {
 				padding: 8px;
+				font-size: 12px;
 			}
 		}
 

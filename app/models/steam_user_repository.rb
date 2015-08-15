@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-class SteamGameRetriever
+class SteamUserRepository
 
 	def get_steam_id(steam_user)
 		get_steam_id_by_name steam_user.steam_name
@@ -18,15 +18,15 @@ class SteamGameRetriever
 		games_xml.xpath('//gamesList/games/game').each do |game_xml|
 			game_from_xml = SteamGame::from_xml game_xml.to_s
 
-			existing_steam_game = SteamGame.where(:app_id => game_from_xml.app_id).first
+			existing_steam_game = SteamGame.find_by_app_id(game_from_xml.app_id)
 
 			if existing_steam_game.nil?
 				existing_steam_game = game_from_xml
 			else
 				existing_steam_game.update_attributes({
-					:name => game_from_xml.name,
-					:image_path => game_from_xml.image_path
-				})
+					                                      :name => game_from_xml.name,
+					                                      :image_path => game_from_xml.image_path
+				                                      })
 			end
 
 			existing_steam_game.save!
@@ -41,12 +41,30 @@ class SteamGameRetriever
 		Rails.cache.fetch [steam_user, 'recent_games'], expires_in: 5.hours do
 			api_key = ENV['STEAM_API_KEY']
 
-			games_xml = Nokogiri::XML open("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=#{api_key}&steamid=#{steam_user.steam_id}&format=xml")
+			url_options = {
+				:key => api_key,
+				:steamid => steam_user.steam_id,
+				:format => 'xml'
+			}
+
+			recently_played_url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/'
+			url = "#{recently_played_url}?#{URI.encode_www_form(url_options)}"
+
+			games_xml = Nokogiri::XML open(url)
 			retrieved_games = []
 
 			games_xml.xpath('//response/games/message').each do |message|
 				message_hash = Hash.from_xml message.to_s
-				retrieved_games.push SteamGame.find_by_app_id(message_hash['message']['appid'])
+				app_id = message_hash['message']['appid']
+
+				game = SteamGame.find_by_app_id(app_id)
+
+				if game.nil?
+					load_games_for_user(steam_user)
+					game = SteamGame.find_by_app_id(app_id)
+				end
+
+				retrieved_games.push game
 			end
 
 			retrieved_games

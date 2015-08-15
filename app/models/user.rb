@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 	devise  :database_authenticatable, :registerable,
 			:recoverable, :rememberable, :trackable, :validatable
 
-	attr_accessible :email, :password, :password_confirmation, :remember_me, :can_edit, :id
+	attr_accessible :email, :password, :password_confirmation, :remember_me, :can_edit, :id, :can_stream
 
 	has_many :user_series
 	has_many :series, :through => :user_series

@@ -2,15 +2,15 @@
  *= require_self
 */
 
-@import "reset";
-@import "bourbon";
-@import "mixins/transitions";
-@import "mixins/transform";
-@import "mixins/media_queries";
-@import "mixins/visibility";
-@import "mixins/misc";
+@import 'reset';
+@import 'bourbon';
+@import 'mixins/transitions';
+@import 'mixins/transform';
+@import 'mixins/media_queries';
+@import 'mixins/visibility';
+@import 'mixins/misc';
 
-@import "side_panel";
+@import 'side_panel';
 
 $siteWidth: $desktopWidth;
 $sideNavigationHeight: 40px;

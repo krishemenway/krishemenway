@@ -5,8 +5,11 @@ task :'backfill-modify-dates' => :environment do |t|
 
 	Series.all.each do |series|
 		series.episodes.each do |episode|
-			episode.created_at = episode.airdate || DEFAULT_DATE
-			episode.updated_at = episode.airdate || DEFAULT_DATE
+			new_record_date = episode.airdate || DEFAULT_DATE
+			new_record_date = if new_record_date <= DateTime.now then new_record_date else DateTime.now end
+
+			episode.created_at = new_record_date
+			episode.updated_at = new_record_date
 			episode.save!
 		end
 	end

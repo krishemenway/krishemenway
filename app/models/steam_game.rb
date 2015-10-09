@@ -34,7 +34,7 @@ class SteamGame < ActiveRecord::Base
 	end
 
 	def details_should_be_refreshed?
-		self.last_refresh_date.present? and self.last_refresh_date <= DateTime::now.months_ago(1)
+		self.last_refresh_date.nil? or self.last_refresh_date <= DateTime::now.months_ago(1)
 	end
 
 	def as_json(options = {})
@@ -48,7 +48,9 @@ class SteamGame < ActiveRecord::Base
 			:supports_osx => self.supports_osx?,
 			:supports_linux => self.supports_linux?,
 			:developers => self.developers.as_json(options),
-			:publishers => self.publishers.as_json(options)
+			:publishers => self.publishers.as_json(options),
+			:needs_refresh => details_should_be_refreshed?,
+			:last_refresh_date => self.last_refresh_date
 		}
 	end
 end

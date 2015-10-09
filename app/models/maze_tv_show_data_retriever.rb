@@ -1,20 +1,19 @@
 require 'open-uri'
 require 'csv'
 
-class RageTVShowDataRetriever
+class MazeTVShowDataRetriever
 
 	def retrieve_csv(series)
-		series_data_result = open "http://epguides.com/common/exportToCSV.asp?rage=#{series.rage_id}" do |io| data = io.read end
-		return /<pre>([^<]+)<\/pre>/.match(series_data_result)[1].strip
+		return open "http://epguides.com/common/exportToCSV.asp?rage=#{series.maze_id}" do |io| io.read end
 	end
 
-	def load_all_series_from_rage(options = {})
+	def refresh_all(options = {})
 		Series.all.each do |series|
-			load_series_from_rage series, options
+			refresh_series(series, options)
 		end
 	end
 
-	def load_series_from_rage(series, options = {})
+	def refresh_series(series, options = {})
 		options = {
 			:initial_load => false
 		}.merge(options)
@@ -22,18 +21,17 @@ class RageTVShowDataRetriever
 		episodes = series.episodes
 
 		CSV.parse(retrieve_csv(series), :headers => :first_row) do |row|
-			airdate = row[4].count("/") == 2 ? Date.parse(row[4].to_s) : nil rescue nil
+			airdate = row[3].count(" ") == 2 ? Date.parse(row[3].to_s) : nil rescue nil
 
 			mappedEpisodeData = {
 				:series_id => series.id,
+				:is_special => row[0].to_s.to_i == 0,
 				:episode_number => row[0].to_s.to_i,
 				:season => row[1].to_s.to_i,
 				:episode_in_season => row[2].to_s.to_i,
-				:production_number => row[3].to_s,
 				:airdate => airdate,
-				:title => row[5].to_s.encode("utf-8", :invalid => :replace, :undef => :replace, :replace => ''),
-				:is_special => row[6].to_s.to_bool,
-				:rage_url => row[7].to_s
+				:title => row[4].to_s.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => ''),
+				:rage_url => row[5].to_s
 			}
 
 			unless mappedEpisodeData.delete :is_special
@@ -58,5 +56,4 @@ class RageTVShowDataRetriever
 			end
 		end
 	end
-
 end

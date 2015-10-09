@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131209002528) do
+ActiveRecord::Schema.define(:version => 20150927195840) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20131209002528) do
     t.string   "slide_image_right_content_type"
     t.integer  "slide_image_right_file_size"
     t.datetime "slide_image_right_updated_at"
+    t.integer  "maze_id"
   end
 
   create_table "steam_game_developers", :force => true do |t|

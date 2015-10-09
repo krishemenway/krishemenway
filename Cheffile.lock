@@ -11,6 +11,7 @@ SITE
     chef_handler (1.2.0)
     homebrew (1.13.0)
       build-essential (>= 2.1.2)
+    imagemagick (0.2.3)
     ipaddr_extensions (0.3.1)
     nodejs (2.4.0)
       apt (>= 0.0.0)
@@ -47,6 +48,7 @@ GIT
 DEPENDENCIES
   apt (>= 0)
   build-essential (>= 0)
+  imagemagick (>= 0)
   nodejs (>= 0)
   postgres (~> 2.11.0)
   rbenv (>= 0)

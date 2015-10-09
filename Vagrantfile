@@ -10,6 +10,10 @@ Vagrant.configure(2) do |config|
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
+  if Vagrant.has_plugin?("vagrant-timezone")
+    config.timezone.value = "US/Pacific"
+  end
+
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
@@ -45,10 +49,10 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
-    # vb.gui = true
+    #vb.gui = true
 
     # Customize the amount of memory on the VM:
-    vb.memory = "2048"
+    vb.memory = "1024"
   end
   #
   # View the documentation for the provider you are using for more
@@ -60,6 +64,9 @@ Vagrant.configure(2) do |config|
   # config.push.define "atlas" do |push|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
+
+  config.vm.provision :shell, path: "ensure-environment-vars.sh", run: "always", privileged: false
+  config.vm.provision :shell, path: "start-rails.sh", run: "always", privileged: false
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -79,6 +86,7 @@ Vagrant.configure(2) do |config|
     chef.add_recipe "rbenv::user"
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "vim"
+    chef.add_recipe "imagemagick"
 
     # Install Ruby 2.2.1 and Bundler
     chef.json = {

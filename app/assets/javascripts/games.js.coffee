@@ -76,21 +76,23 @@ class GamesViewModel
 		return self
 
 class GameViewModel
-	constructor: (game_json) ->
+	constructor: (initial_game_json) ->
 		self = this
 
-		self.name = game_json.name
-		self.app_id = game_json.app_id
-		self.image_path = game_json.image_path
-		self.run_url = game_json.run_url
+		self.name = ""
+		self.app_id = -1
+		self.image_path = ko.observable()
+		self.run_url = ko.observable()
 
-		self.release_date = game_json.release_date
-		self.supports_windows = game_json.supports_windows
-		self.supports_osx = game_json.supports_osx
-		self.supports_linux = game_json.supports_linux
+		self.release_date = ko.observable()
+		self.supports_windows = ko.observable()
+		self.supports_osx = ko.observable()
+		self.supports_linux = ko.observable()
 
-		self.developers = game_json.developers
-		self.publishers = game_json.publishers
+		self.developers = ko.observableArray()
+		self.publishers = ko.observableArray()
+
+		self.needs_refresh = ko.observable()
 
 		self.tags = ko.observableArray()
 		self.articles = ko.observableArray()
@@ -129,12 +131,31 @@ class GameViewModel
 				self.is_loading_news(true)
 				$.getJSON '/games/game/news', {app_id: self.app_id}, load_news
 
-		self.start_adding_tag = () ->
-			self.adding_tag(true)
+		fetch_and_load_game_details = () ->
+			#if self.needs_refresh()
+				# $.getJSON 'games/game', {app_id: self.app_id}, initialize
+
+		initialize = (game_json) ->
+			self.app_id = game_json.app_id
+			self.name = game_json.name
+
+			self.image_path(game_json.image_path)
+			self.run_url(game_json.run_url)
+			self.release_date(game_json.release_date)
+			self.supports_windows(game_json.supports_windows)
+			self.supports_osx(game_json.supports_osx)
+			self.supports_linux(game_json.supports_linux)
+			self.developers(game_json.developers)
+			self.publishers(game_json.publishers)
+			self.needs_refresh(game_json.needs_refresh)
 
 		self.initialize_extras = () ->
 			fetch_and_load_tags()
 			fetch_and_load_news()
+			fetch_and_load_game_details()
+
+		self.start_adding_tag = () ->
+			self.adding_tag(true)
 
 		self.add_tag = (model) ->
 			self.new_tag_name(model.name)
@@ -149,6 +170,8 @@ class GameViewModel
 		self.remove_tag = (tag) ->
 			$.post '/games/game/remove_tag', {app_id: self.app_id, tag_name: tag.name}
 			self.tags.remove(tag)
+
+		initialize(initial_game_json)
 
 		return self
 

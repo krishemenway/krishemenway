@@ -5,135 +5,103 @@
 	.months {
 		margin-top: 4px;
 		@include clearfix();
+	}
 
-		li:first-child { text-align: right; }
-		li:last-child { text-align: left; }
+	.selectMonth {
+		height: 70px;
+		text-shadow: -2px 2px 0 #000;
 
-		li {
-			float: left;
-			width: 33.333333333333333332%;
-			text-align: center;
+		@include respond-to(mobile) {
+			font-size: 22px;
+			padding: 0;
+		}
 
-			button {
-				font-size: 28px;
-				line-height: 28px;
-				height: 70px;
-				font-weight: bold;
-				text-shadow: -2px 2px 0 #000;
-				padding: 0 30px;
-
-				@include respond-to(mobile) {
-					font-size: 22px;
-					padding: 0;
-				}
-
-				&:hover {
-					background-color: #303030;
-				}
-			}
-
-			&.currentMonth {
-
-				button {
-					font-size: 34px;
-					line-height: 34px;
-					cursor: default;
-
-					@include respond-to(phone) {
-						font-size: 24px;
-					}
-
-					&:hover {
-						background-color: transparent;
-					}
-				}
-			}
-
-			span {
-				display: inline;
-				margin: 0 4px;
-
-				@include respond-to(mobile) {
-					display: block;
-					margin: 0;
-				}
-			}
-
+		&:hover {
+			background-color: #303030;
 		}
 	}
 
+	.month-item:first-child { text-align: right; }
+	.month-item:last-child { text-align: left; }
+
+	.month-item {
+		float: left;
+		width: 33.333333333333333332%;
+		text-align: center;
+	}
+
+	.currentMonth {
+		cursor: default;
+
+		@include respond-to(phone) {
+			font-size: 24px;
+		}
+
+		&:hover {
+			background-color: transparent;
+		}
+	 }
+
 	.days {
 		@include clearfix();
+	}
 
-		.day {
-			padding: 10px 0px;
-			position: relative;
-			border: 1px solid #383838;
-			border-width: 1px 0 0 0;
+	.date {
+		float: left;
+		width: 75px;
+		cursor: default;
+	}
 
-			@include clearfix();
+	.monthAcronym {
+		color: #696969;
 
-			&:hover {
-				background-color: rgba(0,0,0,.2);
-				border-color: #191919;
-			}
-
-			.date {
-				float: left;
-				width: 75px;
-				text-align: center;
-				cursor: default;
-			}
-
-			.month {
-				font-size: 20px;
-				color: #696969;
-
-				@include respond-to(phone) {
-					display: none;
-				}
-			}
-
-			.day-of-month {
-				font-size: 26px;
-			}
+		@include respond-to(phone) {
+			display: none;
 		}
+	}
 
-		.events {
-			margin-left: 85px;
+	.day {
+		position: relative;
+		border: 1px solid #383838;
+		border-width: 1px 0 0 0;
+
+		@include clearfix();
+
+		&:hover {
+			background-color: rgba(0,0,0,.2);
+			border-color: #191919;
 		}
+	}
 
-		.event {
-			margin: 0 0 8px 0;
+	.events {
+		margin-left: 85px;
+	}
+
+	.event {
+		margin: 0 0 8px 0;
+	}
+
+	.seriesName {
+		color: #696969;
+
+		&:after {
+			content: '-';
+			margin: 0 4px;
 		}
+	}
 
-		.series-name {
-			color: #696969;
+	.dayOfWeek {
+		color: rgba(0,0,0,.5);
+		position: absolute;
+		bottom: 3px;
+		right: 3px;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 2px;
+		cursor: default;
 
-			&:after {
-				content: '-';
-				margin: 0 4px;
-			}
-		}
-
-		.title {
-
-		}
-
-		.day-of-week {
-			color: rgba(0,0,0,.5);
-			font-size: 24px;
-			position: absolute;
-			bottom: 3px;
-			right: 3px;
-			text-transform: uppercase;
-			font-weight: bold;
-			letter-spacing: 2px;
-			cursor: default;
-
-			@include respond-to(phone) {
-				color: rgba(0,0,0,.1);
-			}
+		@include respond-to(phone) {
+			color: rgba(0,0,0,.1);
 		}
 	}
 }

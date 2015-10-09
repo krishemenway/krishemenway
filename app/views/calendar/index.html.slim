@@ -5,29 +5,32 @@
 		window.calendar = new CalendarViewModel(#{@events.to_json(:include_series_name => true).html_safe});
 		ko.applyBindings(window.calendar);
 
-ul.months
-	li
-		button.previousMonth type="button" data-bind="click: gotoLastMonth"
-			span data-bind="text: lastMonthName()"
-			span data-bind="text: lastYearName()"
-	li.currentMonth
-		button type="button"
-			span data-bind="text: currentMonthName()"
-			span data-bind="text: currentYearName()"
-	li
-		button.nextMonth type="button" data-bind="click: gotoNextMonth"
-			span data-bind="text: nextMonthName()"
-			span data-bind="text: nextYearName()"
+#calendar data-bind="template: {name: 'calendarTemplate'}"
 
-ul.days data-bind="foreach: days"
-	li.day
-		.date
-			span.day-of-month data-bind="text: getDate('%d')"
-			span.month data-bind="text: getDate('%b')"
+script#calendarTemplate type="text/template"
+	ul.months
+		li.month-item
+			button.selectMonth.previousMonth.full-width type="button" data-bind="click: gotoLastMonth"
+				.text-center.bold.font-28 data-bind="text: lastMonthName"
+				.text-center.bold.font-28 data-bind="text: lastYearName"
+		li.month-item.currentMonth
+			.selectMonth.full-width
+				.text-center.bold.font-34 data-bind="text: currentMonthName"
+				.text-center.bold.font-34 data-bind="text: currentYearName"
+		li.month-item
+			button.selectMonth.nextMonth.full-width type="button" data-bind="click: gotoNextMonth"
+				.text-center.bold.font-28 data-bind="text: nextMonthName"
+				.text-center.bold.font-28 data-bind="text: nextYearName"
 
-		ul.events data-bind="foreach: events"
-			li.event
-				span.series-name data-bind="text: series_name"
-				span.title data-bind="text: title"
+	ul.days data-bind="foreach: days"
+		li.day.padding-vert
+			.date.text-center
+				span.dayOfMonth.font-26 data-bind="text: getDate('%d')"
+				span.monthAcronym.font-20 data-bind="text: getDate('%b')"
 
-		span.day-of-week data-bind="text: getDate('%A')"
+			ul.events data-bind="foreach: events"
+				li.event
+					span.seriesName data-bind="text: series_name"
+					span.title data-bind="text: title"
+
+			span.dayOfWeek.font-24 data-bind="text: getDate('%A')"

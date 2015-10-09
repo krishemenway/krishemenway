@@ -4,6 +4,9 @@ class Series < ActiveRecord::Base
 	has_attached_file :slide_image_left, :styles => {:full => "1024x150>", :half => "443x65>"}
 	has_attached_file :slide_image_right, :styles => {:full => "1024x150>", :half => "443x65>"}
 
+	validates_attachment_content_type :slide_image_left, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+	validates_attachment_content_type :slide_image_right, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
 	validates :name, :uniqueness => true
 
 	has_many :episodes

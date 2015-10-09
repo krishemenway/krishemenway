@@ -4,8 +4,8 @@ class BrowseTVShowsViewModel
 		self = this
 
 		seriesViewModels = (
-			for series in serieses
-				side = if _i % 2 == 0 then "right" else "left"
+			for series, series_number in serieses
+				side = if series_number % 2 == 0 then "right" else "left"
 				new SeriesViewModel(series,side)
 		)
 

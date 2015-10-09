@@ -74,7 +74,7 @@ class BrowseMoviesViewModel
 				self.secondMovie(undefined)
 
 		self.clearMovieOnEsc = (event) ->
-			key = event.which if event.which else event.keyCode
+			key = event.which if event.which then event.which else event.keyCode
 			self.clearMovie if key == 13
 
 		self.clearMovie = () ->

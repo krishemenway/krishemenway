@@ -6,14 +6,13 @@ namespace :db do
 		This task will load all seed data from csv
 	EOS
 
-	task :seed => :environment do |t|
-		puts t
+	task :seed, :files, :ignore, :start do |t, args|
+		Rails.logger.info "Started Loading Seeds"
+		args.with_defaults(:files => 'movies genres movie_genres series people movie_roles movie_performances movie_characters', :ignore => '', :start => 0)
 
-		ignore_field = ENV['ignore'] || ''
-		start_at = ENV['start'].to_s.to_i || 0
-
-		files = (ENV['files'] || '').split ','
-		files = %w(movies genres movie_genres series people movie_roles movie_performances movie_characters) if files.empty?
+		ignore_field = args[:ignore]
+		start_at = args[:start].to_s.to_i
+		files = (args[:files] || '').split ','
 
 		files.each do |file|
 			csv_file  = File.join( File.dirname(__FILE__), '..', '..', 'db', 'fixtures', "#{file}.csv" )
@@ -27,7 +26,7 @@ namespace :db do
 					hashed_row.delete ignore_field
 
 					if hashed_row.keys.include?('id')
-						model_result = activerecord_model.find_all_by_id(hashed_row['id'])
+						model_result = activerecord_model.find_by_id(hashed_row['id'])
 					else
 						key_0 = hashed_row.keys[0].to_sym
 						key_1 = hashed_row.keys[1].to_sym
@@ -44,8 +43,6 @@ namespace :db do
 					else
 						if model_result.is_a?(Array)
 							model_result = model_result.first
-						else
-							puts "I didn't expect this"
 						end
 
 						model_result.update_attributes!(hashed_row)
@@ -58,5 +55,6 @@ namespace :db do
 
 		end
 
+		Rails.logger.info "Finished Loading Seeds"
 	end
 end

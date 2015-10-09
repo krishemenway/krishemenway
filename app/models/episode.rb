@@ -28,7 +28,7 @@ class Episode < ActiveRecord::Base
 	end
 
 	def self.in_dates(start_date, end_date)
-		where(:airdate => start_date..end_date).order(&:airdate)
+		where(:airdate => start_date..end_date).order(:airdate)
 	end
 
 	def as_ical

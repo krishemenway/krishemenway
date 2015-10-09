@@ -1,0 +1,57 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    7-zip (1.0.2)
+      windows (>= 1.2.2)
+    apt (2.7.0)
+    ark (0.9.0)
+      7-zip (>= 0.0.0)
+      windows (>= 0.0.0)
+    build-essential (2.2.3)
+    chef_handler (1.2.0)
+    homebrew (1.13.0)
+      build-essential (>= 2.1.2)
+    imagemagick (0.2.3)
+    ipaddr_extensions (0.3.1)
+    nodejs (2.4.0)
+      apt (>= 0.0.0)
+      ark (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      homebrew (>= 0.0.0)
+      yum-epel (>= 0.0.0)
+    paths (0.3.0)
+    postgres (2.11.0)
+      ipaddr_extensions (>= 0.0.0)
+      paths (>= 0.0.0)
+      rbac (>= 0.0.0)
+      resource-control (>= 0.0.0)
+      smf (>= 2.0.1)
+    rbac (1.0.3)
+    resource-control (0.1.2)
+    ruby_build (0.8.0)
+    smf (2.2.7)
+      rbac (>= 1.0.1)
+    vim (1.1.2)
+    windows (1.38.1)
+      chef_handler (>= 0.0.0)
+    yum (3.6.3)
+    yum-epel (0.6.2)
+      yum (~> 3.2)
+
+GIT
+  remote: https://github.com/aminin/chef-rbenv
+  ref: master
+  sha: 9c8688dbffb79269385581b6aa518c5ba456f154
+  specs:
+    rbenv (0.7.3)
+
+DEPENDENCIES
+  apt (>= 0)
+  build-essential (>= 0)
+  imagemagick (>= 0)
+  nodejs (>= 0)
+  postgres (~> 2.11.0)
+  rbenv (>= 0)
+  ruby_build (>= 0)
+  vim (>= 0)
+

@@ -4,9 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
+# Damn Macs
+.DS_Store
+
 # Ignore bundler config
 /.bundle
 /vendor/bundle
+/public/assets/*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -14,6 +18,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+.idea/*
+
+# Ignore Local Vagrant Files
+.vagrant/*
+cookbooks/*
 
 *.rbc
 *.sassc
@@ -26,3 +35,4 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+ensure-environment-vars.sh

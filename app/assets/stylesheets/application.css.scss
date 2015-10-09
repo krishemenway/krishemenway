@@ -44,7 +44,20 @@ h1 {
 
 button {
 	cursor: pointer;
+	&:focus { outline:0; }
 }
+
+.bold { font-weight: bold; }
+.text-center { text-align: center; }
+.full-width { width: 100%; display: block; }
+.padding-vert { padding: 10px 0; }
+.padding-horz { padding: 0 10px; }
+
+.font-22 { font-size: 22px; }
+.font-24 { font-size: 24px; }
+.font-26 { font-size: 26px; }
+.font-28 { font-size: 28px; }
+.font-34 { font-size: 34px; }
 
 .site {
 	max-width: $siteWidth;

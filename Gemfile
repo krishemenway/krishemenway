@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2.3'
+gem 'therubyracer'
 gem 'slim'
 gem 'icalendar'
+gem 'thin'
+
+gem 'pg'
 
 gem 'protected_attributes'
 gem 'numbers_and_words'
